@@ -1,0 +1,1076 @@
+{
+  "metadata": {
+    "company": "OHS Training GT",
+    "extraction_date": "2026-04-08",
+    "currency": "Quetzales (Q)",
+    "contact": {
+      "email": "info@ohstraining.com",
+      "phone": "(502) 56223829",
+      "website": "gtohstraining.com"
+    },
+    "files_processed": [
+      "CUADRO DE PRODUCTOS PARA PAGINA WEB.xlsx",
+      "medicamentos_ohs_con_precios.xlsx",
+      "medicamentos_ohs.xlsx",
+      "solicitud_insumos_clinica.xlsx",
+      "Inventario_Botiquín.xlsx"
+    ]
+  },
+  "products": {
+    "camas": {
+      "BED_001": {
+        "sku": "250505",
+        "name": "CAMA SEALY EVOLUTION MATRIMONIAL",
+        "brand": "Sin marca",
+        "size": "Matrimonial",
+        "price_q": 6597.0,
+        "currency": "Q"
+      },
+      "BED_002": {
+        "sku": "250506",
+        "name": "CAMA SEALY EVOLUTION QUEEN",
+        "brand": "Sin marca",
+        "size": "Queen",
+        "price_q": 7597.0,
+        "currency": "Q"
+      },
+      "BED_003": {
+        "sku": "250507",
+        "name": "CAMA SEALY EVOLUTION KING",
+        "brand": "Sin marca",
+        "size": "King",
+        "price_q": 9597.0,
+        "currency": "Q"
+      },
+      "BED_004": {
+        "sku": "250363",
+        "name": "CAMA FACENCO ESTRELLA DOBLE EURO MATRIMONIAL",
+        "brand": "FACENCO",
+        "size": "Matrimonial",
+        "price_q": 1997.0,
+        "currency": "Q"
+      },
+      "BED_005": {
+        "sku": "250364",
+        "name": "CAMA FACENCO ESTRELLA DOBLE EURO QUEEN",
+        "brand": "FACENCO",
+        "size": "Queen",
+        "price_q": 2397.0,
+        "currency": "Q"
+      },
+      "BED_006": {
+        "sku": "250365",
+        "name": "CAMA FACENCO ESTRELLA DOBLE EURO KING",
+        "brand": "FACENCO",
+        "size": "King",
+        "price_q": 2797.0,
+        "currency": "Q"
+      },
+      "BED_007": {
+        "sku": "250223",
+        "name": "CAMA FACENCO BOX TOP 3 EN 1 IMPERIAL",
+        "brand": "FACENCO",
+        "size": "Otro",
+        "price_q": 1497.0,
+        "currency": "Q"
+      },
+      "BED_008": {
+        "sku": "250367",
+        "name": "CAMA FACENCO ESTRELLA 3 EN 1 MATRIMONIAL",
+        "brand": "FACENCO",
+        "size": "Matrimonial",
+        "price_q": 1797.0,
+        "currency": "Q"
+      },
+      "BED_009": {
+        "sku": "250368",
+        "name": "CAMA FACENCO ESTRELLA 3 EN 1 QUEEN",
+        "brand": "FACENCO",
+        "size": "Queen",
+        "price_q": 2197.0,
+        "currency": "Q"
+      },
+      "BED_010": {
+        "sku": "250369",
+        "name": "CAMA FACENCO ESTRELLA 3 EN 1 KING",
+        "brand": "FACENCO",
+        "size": "King",
+        "price_q": 2697.0,
+        "currency": "Q"
+      },
+      "BED_011": {
+        "sku": "240577",
+        "name": "CAMA FACENCO EDICION CIELO MATRIMONIAL",
+        "brand": "FACENCO",
+        "size": "Matrimonial",
+        "price_q": 1597.0,
+        "currency": "Q"
+      },
+      "BED_012": {
+        "sku": "240385",
+        "name": "CAMA FACENCO COMFORT LIFE SPECIAL EDITION MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "size": "Matrimonial",
+        "price_q": 4397.0,
+        "currency": "Q"
+      },
+      "BED_013": {
+        "sku": "240386",
+        "name": "CAMA FACENCO COMFORT LIFE SPECIAL EDITION QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 4997.0,
+        "currency": "Q"
+      },
+      "BED_014": {
+        "sku": "240387",
+        "name": "CAMA FACENCO COMFORT LIFE SPECIAL EDITION  KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 6497.0,
+        "currency": "Q"
+      },
+      "BED_015": {
+        "sku": "150198",
+        "name": "CAMA FACENCO COMFORT LIFE BLACK MIDNIGHT QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 5697.0,
+        "currency": "Q"
+      },
+      "BED_016": {
+        "sku": "150152",
+        "name": "CAMA FACENCO COMFORT LIFE BLACK MIDNIGHT KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 7697.0,
+        "currency": "Q"
+      },
+      "BED_017": {
+        "sku": "250018",
+        "name": "CAMA FACENCO COMFORT LIFE POCKET QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 6997.0,
+        "currency": "Q"
+      },
+      "BED_018": {
+        "sku": "250026",
+        "name": "CAMA FACENCO COMFORT LIFE POCKET KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 9197.0,
+        "currency": "Q"
+      },
+      "BED_019": {
+        "sku": "220549",
+        "name": "CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "size": "Matrimonial",
+        "price_q": 2097.0,
+        "currency": "Q"
+      },
+      "BED_020": {
+        "sku": "220550",
+        "name": "CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 2397.0,
+        "currency": "Q"
+      },
+      "BED_021": {
+        "sku": "220551",
+        "name": "CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 2997.0,
+        "currency": "Q"
+      },
+      "BED_022": {
+        "sku": "230875",
+        "name": "CAMA OLYMPIA SERTA EDICION BLACK QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 5697.0,
+        "currency": "Q"
+      },
+      "BED_023": {
+        "sku": "230876",
+        "name": "CAMA OLYMPIA SERTA EDICION BLACK KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 7297.0,
+        "currency": "Q"
+      },
+      "BED_024": {
+        "sku": "250549",
+        "name": "CAMA ULTRA STAR PLUS MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "size": "Matrimonial",
+        "price_q": 1597.0,
+        "currency": "Q"
+      },
+      "BED_025": {
+        "sku": "240514",
+        "name": "CAMA ULTRA JAPI IMPERIAL",
+        "brand": "COMFORT LIFE",
+        "size": "Otro",
+        "price_q": 1397.0,
+        "currency": "Q"
+      },
+      "BED_026": {
+        "sku": "240513",
+        "name": "CAMA ULTRA JAPI MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "size": "Matrimonial",
+        "price_q": 1797.0,
+        "currency": "Q"
+      },
+      "BED_027": {
+        "sku": "240512",
+        "name": "CAMA ULTRA JAPI QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 1997.0,
+        "currency": "Q"
+      },
+      "BED_028": {
+        "sku": "240511",
+        "name": "CAMA ULTRA JAPI KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 2697.0,
+        "currency": "Q"
+      },
+      "BED_029": {
+        "sku": "250097",
+        "name": "CAMA ULTRA EUROPILLOW MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "size": "Matrimonial",
+        "price_q": 3197.0,
+        "currency": "Q"
+      },
+      "BED_030": {
+        "sku": "250098",
+        "name": "CAMA ULTRA EUROPILLOW QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 3597.0,
+        "currency": "Q"
+      },
+      "BED_031": {
+        "sku": "250099",
+        "name": "CAMA ULTRA EUROPILLOW KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 4597.0,
+        "currency": "Q"
+      },
+      "BED_032": {
+        "sku": "250100",
+        "name": "CAMA ULTRA GOLDEN NIGHT A2000 QUEEN",
+        "brand": "COMFORT LIFE",
+        "size": "Queen",
+        "price_q": 5597.0,
+        "currency": "Q"
+      },
+      "BED_033": {
+        "sku": "250101",
+        "name": "CAMA ULTRA GOLDEN NIGHT A2000 KING",
+        "brand": "COMFORT LIFE",
+        "size": "King",
+        "price_q": 7497.0,
+        "currency": "Q"
+      }
+    },
+    "medicamentos": {
+      "MED_001": {
+        "name": "Ibuprofeno",
+        "presentation": "Cápsulas de gel",
+        "price_unit_q": 2.5,
+        "currency": "Q"
+      },
+      "MED_002": {
+        "name": "Dexketoprofeno",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.5,
+        "currency": "Q"
+      },
+      "MED_003": {
+        "name": "Viro-Grip Día",
+        "presentation": "Sobres",
+        "price_unit_q": 4.0,
+        "currency": "Q"
+      },
+      "MED_004": {
+        "name": "Ondansetron",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "currency": "Q"
+      },
+      "MED_005": {
+        "name": "Suero de Rehidratación Oral",
+        "presentation": "Sobres granulados",
+        "price_unit_q": 25.0,
+        "currency": "Q"
+      },
+      "MED_006": {
+        "name": "Metamizol sódico",
+        "presentation": "Ampolla",
+        "price_unit_q": 5.0,
+        "currency": "Q"
+      },
+      "MED_007": {
+        "name": "Acetaminofén",
+        "presentation": "Tabletas",
+        "price_unit_q": 1.5,
+        "currency": "Q"
+      },
+      "MED_008": {
+        "name": "Clorfeniramina",
+        "presentation": "Tabletas",
+        "price_unit_q": 1.5,
+        "currency": "Q"
+      },
+      "MED_009": {
+        "name": "Broncurol",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "currency": "Q"
+      },
+      "MED_010": {
+        "name": "Vitamina K",
+        "presentation": "Ampolla",
+        "price_unit_q": 8.0,
+        "currency": "Q"
+      },
+      "MED_011": {
+        "name": "Dexametasona",
+        "presentation": "Ampolla",
+        "price_unit_q": 6.0,
+        "currency": "Q"
+      },
+      "MED_012": {
+        "name": "Complejo B",
+        "presentation": "Frasco",
+        "price_unit_q": 12.0,
+        "currency": "Q"
+      },
+      "MED_013": {
+        "name": "Sedalgina compuesta",
+        "presentation": "Caja",
+        "price_unit_q": 15.0,
+        "currency": "Q"
+      },
+      "MED_014": {
+        "name": "Furosemida",
+        "presentation": "Ampolla",
+        "price_unit_q": 4.0,
+        "currency": "Q"
+      },
+      "MED_015": {
+        "name": "Agua oxigenada",
+        "presentation": "Frasco 500 ml",
+        "price_unit_q": 8.0,
+        "currency": "Q"
+      },
+      "MED_016": {
+        "name": "Sobres de suero oral",
+        "presentation": "Polvo",
+        "price_unit_q": 1.0,
+        "currency": "Q"
+      },
+      "MED_017": {
+        "name": "Algodón",
+        "presentation": "Bolsa",
+        "price_unit_q": 10.0,
+        "currency": "Q"
+      },
+      "MED_018": {
+        "name": "Gasa simple",
+        "presentation": "Rollo",
+        "price_unit_q": 5.0,
+        "currency": "Q"
+      },
+      "MED_019": {
+        "name": "Venda elástica",
+        "presentation": "4 pulgadas",
+        "price_unit_q": 12.0,
+        "currency": "Q"
+      },
+      "MED_020": {
+        "name": "Baja lenguas",
+        "presentation": "Caja",
+        "price_unit_q": 8.0,
+        "currency": "Q"
+      },
+      "MED_021": {
+        "name": "Hisopos",
+        "presentation": "Caja",
+        "price_unit_q": 5.0,
+        "currency": "Q"
+      },
+      "MED_022": {
+        "name": "Lágrimas humectantes",
+        "presentation": "Frasco",
+        "price_unit_q": 25.0,
+        "currency": "Q"
+      },
+      "MED_023": {
+        "name": "Lidocaína clorhidrato",
+        "presentation": "Frasco",
+        "price_unit_q": 10.0,
+        "currency": "Q"
+      },
+      "MED_024": {
+        "name": "Solución HARTMANN",
+        "presentation": "Frasco",
+        "price_unit_q": 18.0,
+        "currency": "Q"
+      },
+      "MED_025": {
+        "name": "Solución Salina",
+        "presentation": "Frasco",
+        "price_unit_q": 15.0,
+        "currency": "Q"
+      },
+      "MED_026": {
+        "name": "Hibitane",
+        "presentation": "Frasco",
+        "price_unit_q": 20.0,
+        "currency": "Q"
+      },
+      "MED_027": {
+        "name": "Frío Rub",
+        "presentation": "Aerosol",
+        "price_unit_q": 18.0,
+        "currency": "Q"
+      },
+      "MED_028": {
+        "name": "Septidex",
+        "presentation": "Spray",
+        "price_unit_q": 12.0,
+        "currency": "Q"
+      },
+      "MED_029": {
+        "name": "Curitas",
+        "presentation": "Caja",
+        "price_unit_q": 6.0,
+        "currency": "Q"
+      },
+      "MED_030": {
+        "name": "Naproxeno",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "currency": "Q"
+      },
+      "MED_031": {
+        "name": "Metocarbamol",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "currency": "Q"
+      },
+      "MED_032": {
+        "name": "Loperamida",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "currency": "Q"
+      },
+      "MED_033": {
+        "name": "Nauseol",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "currency": "Q"
+      },
+      "MED_034": {
+        "name": "Espasmo Dolofor",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "currency": "Q"
+      },
+      "MED_035": {
+        "name": "Bromuro de otilonio",
+        "presentation": "Tabletas",
+        "price_unit_q": 4.0,
+        "currency": "Q"
+      },
+      "MED_036": {
+        "name": "Angiocat 22",
+        "presentation": "No especificada",
+        "price_unit_q": 4.0,
+        "currency": "Q"
+      },
+      "MED_037": {
+        "name": "Venoset",
+        "presentation": "No especificada",
+        "price_unit_q": 5.0,
+        "currency": "Q"
+      },
+      "MED_038": {
+        "name": "Pepto Bismol",
+        "presentation": "Tabletas",
+        "price_unit_q": 10.0,
+        "currency": "Q"
+      },
+      "MED_039": {
+        "name": "Jeringas 5 ml",
+        "presentation": "No especificada",
+        "price_unit_q": 2.0,
+        "currency": "Q"
+      },
+      "MED_040": {
+        "name": "Jeringas 10 ml",
+        "presentation": "No especificada",
+        "price_unit_q": 3.0,
+        "currency": "Q"
+      },
+      "MED_041": {
+        "name": "Jeringas 3 ml",
+        "presentation": "No especificada",
+        "price_unit_q": 4.0,
+        "currency": "Q"
+      },
+      "MED_042": {
+        "name": "Menaxol forte",
+        "presentation": "Tabletas",
+        "price_unit_q": 15.0,
+        "currency": "Q"
+      },
+      "MED_043": {
+        "name": "Aci tip",
+        "presentation": "Jarabe",
+        "price_unit_q": 12.0,
+        "currency": "Q"
+      },
+      "MED_044": {
+        "name": "Filinar G",
+        "presentation": "Jarabe",
+        "price_unit_q": 12.0,
+        "currency": "Q"
+      }
+    },
+    "insumos_botiquin": {
+      "SUPP_001": {
+        "name": "Agua Oxigenada Galón",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": null,
+        "currency": "Q"
+      },
+      "SUPP_002": {
+        "name": "Gluconato de Clorhexidina",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": null,
+        "currency": "Q"
+      },
+      "SUPP_003": {
+        "name": "Botella de agua oxigenada 120 ml",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 52.25,
+        "currency": "Q"
+      },
+      "SUPP_004": {
+        "name": "Botella de alcohol 120 ml",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 0.48,
+        "currency": "Q"
+      },
+      "SUPP_005": {
+        "name": "Paquete de algodón 25 g",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.4,
+        "currency": "Q"
+      },
+      "SUPP_006": {
+        "name": "Sobres de gasas estériles 20x20 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 64.43,
+        "currency": "Q"
+      },
+      "SUPP_007": {
+        "name": "Vendas de gasa de 2 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 178.6,
+        "currency": "Q"
+      },
+      "SUPP_008": {
+        "name": "Vendas de gasa de 4 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 24.64,
+        "currency": "Q"
+      },
+      "SUPP_009": {
+        "name": "Vendas elásticas de 2 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 28.0,
+        "currency": "Q"
+      },
+      "SUPP_010": {
+        "name": "Vendas elásticas de 4 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 380.0,
+        "currency": "Q"
+      },
+      "SUPP_011": {
+        "name": "Tablillas para inmovilizar miembros superiores e inferiores",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 250.0,
+        "currency": "Q"
+      },
+      "SUPP_012": {
+        "name": "Gasas impregnadas de petrolato (vaselina) Paquete x 10",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 4472.6,
+        "currency": "Q"
+      },
+      "SUPP_013": {
+        "name": "Caja de curitas x100",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 7.8,
+        "currency": "Q"
+      },
+      "SUPP_014": {
+        "name": "Esparadrapo hipoalergénico (micropore) 2.5 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 156.75,
+        "currency": "Q"
+      },
+      "SUPP_015": {
+        "name": "Esparadrapo hipoalergénico (micropore) 1.5 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.2,
+        "currency": "Q"
+      },
+      "SUPP_016": {
+        "name": "Tijera de botón",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 151.14,
+        "currency": "Q"
+      },
+      "SUPP_017": {
+        "name": "Pinza plástica de 11 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 376.2,
+        "currency": "Q"
+      },
+      "SUPP_018": {
+        "name": "Suero fisiológico 100 ml (si no existen lavaojos)",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 138.7,
+        "currency": "Q"
+      },
+      "SUPP_019": {
+        "name": "Parches oculares",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 66.5,
+        "currency": "Q"
+      },
+      "SUPP_020": {
+        "name": "Triángulos de vendaje provisional",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1587.0,
+        "currency": "Q"
+      },
+      "SUPP_021": {
+        "name": "Mascarilla de reanimación cardiopulmonar",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 600.4,
+        "currency": "Q"
+      },
+      "SUPP_022": {
+        "name": "Sueros orales (sobres)",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 21.25,
+        "currency": "Q"
+      },
+      "SUPP_023": {
+        "name": "Manta termoaislante",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1244.5,
+        "currency": "Q"
+      },
+      "SUPP_024": {
+        "name": "Bolsas de hielo sintético",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1007.95,
+        "currency": "Q"
+      },
+      "SUPP_025": {
+        "name": "Bolsas de plástico color rojo",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 285.0,
+        "currency": "Q"
+      },
+      "SUPP_026": {
+        "name": "Termómetro",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 45.0,
+        "currency": "Q"
+      },
+      "SUPP_027": {
+        "name": "Botella de agua oxigenada 120 ml",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 52.25,
+        "currency": "Q"
+      },
+      "SUPP_028": {
+        "name": "Botella de alcohol 120 ml",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 0.48,
+        "currency": "Q"
+      },
+      "SUPP_029": {
+        "name": "Paquete de algodón 25 g",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.4,
+        "currency": "Q"
+      },
+      "SUPP_030": {
+        "name": "Sobres de gasas estériles 20x20 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 64.43,
+        "currency": "Q"
+      },
+      "SUPP_031": {
+        "name": "Vendas de gasa de 2 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 178.6,
+        "currency": "Q"
+      },
+      "SUPP_032": {
+        "name": "Vendas de gasa de 4 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 24.64,
+        "currency": "Q"
+      },
+      "SUPP_033": {
+        "name": "Vendas elásticas de 2 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 28.0,
+        "currency": "Q"
+      },
+      "SUPP_034": {
+        "name": "Vendas elásticas de 4 pulgadas",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 380.0,
+        "currency": "Q"
+      },
+      "SUPP_035": {
+        "name": "Tablillas para inmovilizar miembros superiores e inferiores",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 250.0,
+        "currency": "Q"
+      },
+      "SUPP_036": {
+        "name": "Gasas impregnadas de petrolato (vaselina) Paquete x 10",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 4472.6,
+        "currency": "Q"
+      },
+      "SUPP_037": {
+        "name": "Caja de curitas x100",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 7.8,
+        "currency": "Q"
+      },
+      "SUPP_038": {
+        "name": "Esparadrapo hipoalergénico (micropore) 2.5 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 156.75,
+        "currency": "Q"
+      },
+      "SUPP_039": {
+        "name": "Esparadrapo hipoalergénico (micropore) 1.5 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.2,
+        "currency": "Q"
+      },
+      "SUPP_040": {
+        "name": "Tijera de botón",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 151.14,
+        "currency": "Q"
+      },
+      "SUPP_041": {
+        "name": "Pinza plástica de 11 cm",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 376.2,
+        "currency": "Q"
+      },
+      "SUPP_042": {
+        "name": "Suero fisiológico 100 ml (si no existen lavaojos)",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 138.7,
+        "currency": "Q"
+      },
+      "SUPP_043": {
+        "name": "Parches oculares",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 66.5,
+        "currency": "Q"
+      },
+      "SUPP_044": {
+        "name": "Triángulos de vendaje provisional",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1587.0,
+        "currency": "Q"
+      },
+      "SUPP_045": {
+        "name": "Mascarilla de reanimación cardiopulmonar",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 600.4,
+        "currency": "Q"
+      },
+      "SUPP_046": {
+        "name": "Sueros orales (sobres)",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 21.25,
+        "currency": "Q"
+      },
+      "SUPP_047": {
+        "name": "Manta termoaislante",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1244.5,
+        "currency": "Q"
+      },
+      "SUPP_048": {
+        "name": "Bolsas de hielo sintético",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1007.95,
+        "currency": "Q"
+      },
+      "SUPP_049": {
+        "name": "Bolsas de plástico color rojo",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 285.0,
+        "currency": "Q"
+      },
+      "SUPP_050": {
+        "name": "Termómetro",
+        "category": "Insumos de Botiquín de Primeros Auxilios",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 45.0,
+        "currency": "Q"
+      }
+    },
+    "compras_recientes": {
+      "PUR_001": {
+        "item": "Alcohol Fardo",
+        "quantity": 1.0,
+        "cost": 130,
+        "date": "2026-02-21"
+      },
+      "PUR_002": {
+        "item": "Agua Oxigenada Fardo",
+        "quantity": 2.0,
+        "cost": 89,
+        "date": "2026-02-21"
+      },
+      "PUR_003": {
+        "item": "Algodón",
+        "quantity": 20.0,
+        "cost": 6.12,
+        "date": "2026-02-21"
+      },
+      "PUR_004": {
+        "item": "Gasa Esteril ",
+        "quantity": 4.0,
+        "cost": 104,
+        "date": "2026-02-21"
+      },
+      "PUR_005": {
+        "item": "Fisiológico 100 ml",
+        "quantity": 115.0,
+        "cost": 10,
+        "date": "2026-02-21"
+      },
+      "PUR_006": {
+        "item": "Suero Oral Dispensador",
+        "quantity": 18.0,
+        "cost": 31.2,
+        "date": "2026-02-21"
+      },
+      "PUR_007": {
+        "item": "Curita caja x 100",
+        "quantity": 8.0,
+        "cost": 10.64,
+        "date": "2026-02-21"
+      },
+      "PUR_008": {
+        "item": "Micropore 1/2'",
+        "quantity": 24.0,
+        "cost": null,
+        "date": "2026-02-21"
+      },
+      "PUR_009": {
+        "item": "Micropore 1'",
+        "quantity": 94.0,
+        "cost": 12.54,
+        "date": "2026-02-21"
+      },
+      "PUR_010": {
+        "item": "Venda Elástica 4'",
+        "quantity": 187.0,
+        "cost": 19,
+        "date": "2026-02-21"
+      },
+      "PUR_011": {
+        "item": "Venda Elástica 2'",
+        "quantity": 56.0,
+        "cost": 10,
+        "date": "2026-02-21"
+      },
+      "PUR_012": {
+        "item": "Prolipopileno",
+        "quantity": 50.0,
+        "cost": 6,
+        "date": "2026-02-21"
+      },
+      "PUR_013": {
+        "item": "Bolsa Roja x100",
+        "quantity": 75.0,
+        "cost": 2,
+        "date": "2026-02-21"
+      },
+      "PUR_014": {
+        "item": "Sellador Bolsas ",
+        "quantity": 250.0,
+        "cost": 1,
+        "date": "2026-02-21"
+      },
+      "PUR_015": {
+        "item": "Plancha de PVC",
+        "quantity": 125.0,
+        "cost": 1,
+        "date": "2026-02-21"
+      },
+      "PUR_016": {
+        "item": "Foammy ",
+        "quantity": 8.0,
+        "cost": 5,
+        "date": "2026-02-21"
+      },
+      "PUR_017": {
+        "item": "Báscula ",
+        "quantity": 100.0,
+        "cost": 1,
+        "date": "2026-02-21"
+      }
+    }
+  },
+  "summary": {
+    "total_products": 127,
+    "total_products_by_category": {
+      "camas": 33,
+      "medicamentos": 44,
+      "insumos_botiquin": 50,
+      "compras_recientes": 17
+    },
+    "bed_price_range_q": {
+      "min": 1397.0,
+      "max": 9597.0
+    },
+    "medication_price_range_q": {
+      "min": 1.0,
+      "max": 25.0
+    }
+  }
+}

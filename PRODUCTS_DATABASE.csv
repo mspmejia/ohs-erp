@@ -1,0 +1,160 @@
+SKU,Product Name,Brand,Category,Price (Q),Unit,Description,Stock,Source
+250505,CAMA SEALY EVOLUTION MATRIMONIAL,,Camas,6597.0,unidad,,,CUADRO DE PRODUCTOS
+250506,CAMA SEALY EVOLUTION QUEEN,,Camas,7597.0,unidad,,,CUADRO DE PRODUCTOS
+250507,CAMA SEALY EVOLUTION KING,,Camas,9597.0,unidad,,,CUADRO DE PRODUCTOS
+250363,CAMA FACENCO ESTRELLA DOBLE EURO MATRIMONIAL,FACENCO,Camas,1997.0,unidad,,,CUADRO DE PRODUCTOS
+250364,CAMA FACENCO ESTRELLA DOBLE EURO QUEEN,FACENCO,Camas,2397.0,unidad,,,CUADRO DE PRODUCTOS
+250365,CAMA FACENCO ESTRELLA DOBLE EURO KING,FACENCO,Camas,2797.0,unidad,,,CUADRO DE PRODUCTOS
+250223,CAMA FACENCO BOX TOP 3 EN 1 IMPERIAL,FACENCO,Camas,1497.0,unidad,,,CUADRO DE PRODUCTOS
+250367,CAMA FACENCO ESTRELLA 3 EN 1 MATRIMONIAL,FACENCO,Camas,1797.0,unidad,,,CUADRO DE PRODUCTOS
+250368,CAMA FACENCO ESTRELLA 3 EN 1 QUEEN,FACENCO,Camas,2197.0,unidad,,,CUADRO DE PRODUCTOS
+250369,CAMA FACENCO ESTRELLA 3 EN 1 KING,FACENCO,Camas,2697.0,unidad,,,CUADRO DE PRODUCTOS
+240577,CAMA FACENCO EDICION CIELO MATRIMONIAL,FACENCO,Camas,1597.0,unidad,,,CUADRO DE PRODUCTOS
+240385,CAMA FACENCO COMFORT LIFE SPECIAL EDITION MATRIMONIAL,COMFORT LIFE,Camas,4397.0,unidad,,,CUADRO DE PRODUCTOS
+240386,CAMA FACENCO COMFORT LIFE SPECIAL EDITION QUEEN,COMFORT LIFE,Camas,4997.0,unidad,,,CUADRO DE PRODUCTOS
+240387,CAMA FACENCO COMFORT LIFE SPECIAL EDITION  KING,COMFORT LIFE,Camas,6497.0,unidad,,,CUADRO DE PRODUCTOS
+150198,CAMA FACENCO COMFORT LIFE BLACK MIDNIGHT QUEEN,COMFORT LIFE,Camas,5697.0,unidad,,,CUADRO DE PRODUCTOS
+150152,CAMA FACENCO COMFORT LIFE BLACK MIDNIGHT KING,COMFORT LIFE,Camas,7697.0,unidad,,,CUADRO DE PRODUCTOS
+250018,CAMA FACENCO COMFORT LIFE POCKET QUEEN,COMFORT LIFE,Camas,6997.0,unidad,,,CUADRO DE PRODUCTOS
+250026,CAMA FACENCO COMFORT LIFE POCKET KING,COMFORT LIFE,Camas,9197.0,unidad,,,CUADRO DE PRODUCTOS
+220549,CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW MATRIMONIAL,COMFORT LIFE,Camas,2097.0,unidad,,,CUADRO DE PRODUCTOS
+220550,CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW QUEEN,COMFORT LIFE,Camas,2397.0,unidad,,,CUADRO DE PRODUCTOS
+220551,CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW KING,COMFORT LIFE,Camas,2997.0,unidad,,,CUADRO DE PRODUCTOS
+230875,CAMA OLYMPIA SERTA EDICION BLACK QUEEN,COMFORT LIFE,Camas,5697.0,unidad,,,CUADRO DE PRODUCTOS
+230876,CAMA OLYMPIA SERTA EDICION BLACK KING,COMFORT LIFE,Camas,7297.0,unidad,,,CUADRO DE PRODUCTOS
+250549,CAMA ULTRA STAR PLUS MATRIMONIAL,COMFORT LIFE,Camas,1597.0,unidad,,,CUADRO DE PRODUCTOS
+240514,CAMA ULTRA JAPI IMPERIAL,COMFORT LIFE,Camas,1397.0,unidad,,,CUADRO DE PRODUCTOS
+240513,CAMA ULTRA JAPI MATRIMONIAL,COMFORT LIFE,Camas,1797.0,unidad,,,CUADRO DE PRODUCTOS
+240512,CAMA ULTRA JAPI QUEEN,COMFORT LIFE,Camas,1997.0,unidad,,,CUADRO DE PRODUCTOS
+240511,CAMA ULTRA JAPI KING,COMFORT LIFE,Camas,2697.0,unidad,,,CUADRO DE PRODUCTOS
+250097,CAMA ULTRA EUROPILLOW MATRIMONIAL,COMFORT LIFE,Camas,3197.0,unidad,,,CUADRO DE PRODUCTOS
+250098,CAMA ULTRA EUROPILLOW QUEEN,COMFORT LIFE,Camas,3597.0,unidad,,,CUADRO DE PRODUCTOS
+250099,CAMA ULTRA EUROPILLOW KING,COMFORT LIFE,Camas,4597.0,unidad,,,CUADRO DE PRODUCTOS
+250100,CAMA ULTRA GOLDEN NIGHT A2000 QUEEN,COMFORT LIFE,Camas,5597.0,unidad,,,CUADRO DE PRODUCTOS
+250101,CAMA ULTRA GOLDEN NIGHT A2000 KING,COMFORT LIFE,Camas,7497.0,unidad,,,CUADRO DE PRODUCTOS
+MED_0,Ibuprofeno,,Medicamentos,2.5,unidad,Cápsulas de gel,,medicamentos_ohs_con_precios
+MED_1,Dexketoprofeno,,Medicamentos,3.5,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_2,Viro-Grip Día,,Medicamentos,4.0,unidad,Sobres,,medicamentos_ohs_con_precios
+MED_3,Ondansetron,,Medicamentos,2.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_4,Suero de Rehidratación Oral,,Medicamentos,25.0,unidad,Sobres granulados,,medicamentos_ohs_con_precios
+MED_0,Metamizol sódico,,Medicamentos,5.0,unidad,Ampolla,,medicamentos_ohs_con_precios
+MED_1,Acetaminofén,,Medicamentos,1.5,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_2,Clorfeniramina,,Medicamentos,1.5,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_5,Broncurol,,Medicamentos,2.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_6,Vitamina K,,Medicamentos,8.0,unidad,Ampolla,,medicamentos_ohs_con_precios
+MED_7,Dexametasona,,Medicamentos,6.0,unidad,Ampolla,,medicamentos_ohs_con_precios
+MED_8,Complejo B,,Medicamentos,12.0,unidad,Frasco,,medicamentos_ohs_con_precios
+MED_9,Sedalgina compuesta,,Medicamentos,15.0,unidad,Caja,,medicamentos_ohs_con_precios
+MED_12,Furosemida,,Medicamentos,4.0,unidad,Ampolla,,medicamentos_ohs_con_precios
+MED_13,Agua oxigenada,,Medicamentos,8.0,unidad,Frasco 500 ml,,medicamentos_ohs_con_precios
+MED_14,Sobres de suero oral,,Medicamentos,1.0,unidad,Polvo,,medicamentos_ohs_con_precios
+MED_15,Algodón,,Medicamentos,10.0,unidad,Bolsa,,medicamentos_ohs_con_precios
+MED_16,Gasa simple,,Medicamentos,5.0,unidad,Rollo,,medicamentos_ohs_con_precios
+MED_17,Venda elástica,,Medicamentos,12.0,unidad,4 pulgadas,,medicamentos_ohs_con_precios
+MED_18,Baja lenguas,,Medicamentos,8.0,unidad,Caja,,medicamentos_ohs_con_precios
+MED_19,Hisopos,,Medicamentos,5.0,unidad,Caja,,medicamentos_ohs_con_precios
+MED_20,Lágrimas humectantes,,Medicamentos,25.0,unidad,Frasco,,medicamentos_ohs_con_precios
+MED_21,Lidocaína clorhidrato,,Medicamentos,10.0,unidad,Frasco,,medicamentos_ohs_con_precios
+MED_22,Solución HARTMANN,,Medicamentos,18.0,unidad,Frasco,,medicamentos_ohs_con_precios
+MED_23,Solución Salina,,Medicamentos,15.0,unidad,Frasco,,medicamentos_ohs_con_precios
+MED_24,Hibitane,,Medicamentos,20.0,unidad,Frasco,,medicamentos_ohs_con_precios
+MED_25,Frío Rub,,Medicamentos,18.0,unidad,Aerosol,,medicamentos_ohs_con_precios
+MED_26,Septidex,,Medicamentos,12.0,unidad,Spray,,medicamentos_ohs_con_precios
+MED_27,Curitas,,Medicamentos,6.0,unidad,Caja,,medicamentos_ohs_con_precios
+MED_28,Naproxeno,,Medicamentos,2.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_29,Metocarbamol,,Medicamentos,3.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_30,Loperamida,,Medicamentos,2.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_31,Nauseol,,Medicamentos,3.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_32,Espasmo Dolofor,,Medicamentos,3.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_33,Bromuro de otilonio,,Medicamentos,4.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_34,Angiocat 22,,Medicamentos,4.0,unidad,,,medicamentos_ohs_con_precios
+MED_35,Venoset,,Medicamentos,5.0,unidad,,,medicamentos_ohs_con_precios
+MED_36,Pepto Bismol,,Medicamentos,10.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_37,Jeringas 5 ml,,Medicamentos,2.0,unidad,,,medicamentos_ohs_con_precios
+MED_38,Jeringas 10 ml,,Medicamentos,3.0,unidad,,,medicamentos_ohs_con_precios
+MED_39,Jeringas 3 ml,,Medicamentos,4.0,unidad,,,medicamentos_ohs_con_precios
+MED_40,Menaxol forte,,Medicamentos,15.0,unidad,Tabletas,,medicamentos_ohs_con_precios
+MED_41,Aci tip,,Medicamentos,12.0,unidad,Jarabe,,medicamentos_ohs_con_precios
+MED_42,Filinar G,,Medicamentos,12.0,unidad,Jarabe,,medicamentos_ohs_con_precios
+INS_0,Agua Oxigenada Galón,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Qnan",,Insumos Botiquines individual
+INS_1,Gluconato de Clorhexidina,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Qnan",,Insumos Botiquines individual
+INS_2,Botella de agua oxigenada 120 ml,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q52.25",,Insumos Botiquines individual
+INS_3,Botella de alcohol 120 ml,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q0.48",,Insumos Botiquines individual
+INS_4,Paquete de algodón 25 g,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q9.4",,Insumos Botiquines individual
+INS_5,Sobres de gasas estériles 20x20 cm,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q64.43",,Insumos Botiquines individual
+INS_6,Vendas de gasa de 2 pulgadas,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q178.6",,Insumos Botiquines individual
+INS_7,Vendas de gasa de 4 pulgadas,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q24.64",,Insumos Botiquines individual
+INS_8,Vendas elásticas de 2 pulgadas,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q28.0",,Insumos Botiquines individual
+INS_9,Vendas elásticas de 4 pulgadas,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q380.0",,Insumos Botiquines individual
+INS_10,Tablillas para inmovilizar miembros superiores e inferiores,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q250.0",,Insumos Botiquines individual
+INS_11,Gasas impregnadas de petrolato (vaselina) Paquete x 10,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q4472.6",,Insumos Botiquines individual
+INS_12,Caja de curitas x100,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q7.8",,Insumos Botiquines individual
+INS_13,Esparadrapo hipoalergénico (micropore) 2.5 cm,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q156.75",,Insumos Botiquines individual
+INS_14,Esparadrapo hipoalergénico (micropore) 1.5 cm,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q9.2",,Insumos Botiquines individual
+INS_15,Tijera de botón,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q151.14",,Insumos Botiquines individual
+INS_16,Pinza plástica de 11 cm,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q376.2",,Insumos Botiquines individual
+INS_17,Suero fisiológico 100 ml (si no existen lavaojos),,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q138.7",,Insumos Botiquines individual
+INS_18,Parches oculares,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q66.5",,Insumos Botiquines individual
+INS_19,Triángulos de vendaje provisional,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q1587.0",,Insumos Botiquines individual
+INS_20,Mascarilla de reanimación cardiopulmonar,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q600.4",,Insumos Botiquines individual
+INS_21,Sueros orales (sobres),,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q21.25",,Insumos Botiquines individual
+INS_22,Manta termoaislante,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q1244.5",,Insumos Botiquines individual
+INS_23,Bolsas de hielo sintético,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q1007.95",,Insumos Botiquines individual
+INS_24,Bolsas de plástico color rojo,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q285.0",,Insumos Botiquines individual
+INS_25,Termómetro,,Insumos Botiquín,,unidad,"Cost: QNone, Sale: QNone, Profit: Q45.0",,Insumos Botiquines individual
+INV_DB _0,"Gasa, 4"" x 4"", estéril",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _1,"Rollo venda de gasa. 2"" x 4.1 yd, estéril",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _2,"Rollo venda de gasa. 4"" x 4.1 yd, estéril",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _3,"Venda elástica. 2"" x 4.5 yd",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _4,"Venda elástica. 4"" x 4.5 yd",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _5,"Férula 24"" x 4.25""",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _6,"Férula 36"" x 4.25""",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _7,"Gasa impregnada de vaselina. 3"" x 9"", estéril",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _8,"Curita. 1"" x 3"", estéril",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _9,"Esparadrapo impermeable. 1/2"" x 2.5 yd",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _10,"Esparadrapo impermeable. 1"" x 2.5 yd",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _12,"Pinza de disección, plástica",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _13,Termómetro Oral de Mercurio,,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _14,"Parche ocular. 2 5/8"" x 1 5/8"", estéril",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _15,"Venda triangular. 40"" x 40"" x 56""",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _16,Máscara para RCP,,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _17,"Sábana termoaislante (aluminizada). 84"" x 52""",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _18,"Compresa fría, no tóxica",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _19,Agua oxigenada,,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _20,"Alcohol etílico, medicinal, 70%",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _21,"Algodón, plisado",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _22,Lavar ojos (cloruro de sodio al 0.9%) o Solución Salina en bote / o suero salino,,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _23,"Suero oral, sobre",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_DB _24,"Bolsa para desechos médicos, color rojo",,Insumos Botiquín,,unidad,From inventory sheet: DB Inicial,,Inventario_Botiquín
+INV_Cal_5,"Férula 30"" x 4.25""",,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_13,Guantes,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_19,Agua oxigenada 120 ml,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_20,"Alcohol etílico, medicinal, 70% 120",,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_22,Lava ojos (cloruro de sodio al 0.9%) o Solución Salina en bote / o suero salina 250ml,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_23,"Suero oral, sobre 7.5 g",,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_25,Botiquín 5 a 10,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_26,TOTAL,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_27,ISR 5%,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Cal_28,TOTAL FINAL,,Insumos Botiquín,,unidad,From inventory sheet: Calculadora Botiquines,,Inventario_Botiquín
+INV_Inv_0,"Gasa 4”x4”, estéril",,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_1,"Rollo venda de gasa 2” x 4.1 yd, estéril",,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_2,"Rollo venda de gasa 4” x 4.1 yd, estéril",,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_3,Venda elástica 2” x 4.5 yd,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_4,Venda elástica 4” x 4.5 yd,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_5,Férula moldeable,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_6,"Gasa impregnada de vaselina 3” x 9”, estéril",,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_7,"Curita 1” x 3”, estéril",,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_8,Esparadrapo impermeable 1/2” x 2.5 yd,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_9,Esparadrapo impermeable 1” x 2.5 yd,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_11,Pinza de disección plástica,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_12,Par de guantes talla M,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_13,Parche ocular estéril,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_14,Venda triangular 40” x 40” x 56”,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_16,Sábana termoaislante aluminizada 84” x 52”,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_17,Compresa fría 5” x 5”,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_18,Agua oxigenada (120 ml),,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_19,Alcohol etílico medicinal (120 ml),,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_20,Algodón plisado (50 g),,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_21,"Lavadojos (Cloruro de sodio 0.9%, 250 ml)",,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_22,Suero oral sobre (7.1 g),,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín
+INV_Inv_23,Bolsa para desechos médicos color rojo,,Insumos Botiquín,,unidad,From inventory sheet: Inventario,,Inventario_Botiquín

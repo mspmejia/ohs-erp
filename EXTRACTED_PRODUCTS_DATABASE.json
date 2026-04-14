@@ -1,0 +1,1946 @@
+{
+  "extraction_date": "2026-04-08T19:56:28.014051",
+  "company": "OHS Training GT",
+  "categories": {
+    "camas": [
+      {
+        "id": "BED_250505",
+        "code": "250505",
+        "name": "CAMA SEALY EVOLUTION MATRIMONIAL",
+        "brand": null,
+        "category": "Camas",
+        "price_q": 6597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250506",
+        "code": "250506",
+        "name": "CAMA SEALY EVOLUTION QUEEN",
+        "brand": null,
+        "category": "Camas",
+        "price_q": 7597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250507",
+        "code": "250507",
+        "name": "CAMA SEALY EVOLUTION KING",
+        "brand": null,
+        "category": "Camas",
+        "price_q": 9597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250363",
+        "code": "250363",
+        "name": "CAMA FACENCO ESTRELLA DOBLE EURO MATRIMONIAL",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 1997.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250364",
+        "code": "250364",
+        "name": "CAMA FACENCO ESTRELLA DOBLE EURO QUEEN",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 2397.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250365",
+        "code": "250365",
+        "name": "CAMA FACENCO ESTRELLA DOBLE EURO KING",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 2797.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250223",
+        "code": "250223",
+        "name": "CAMA FACENCO BOX TOP 3 EN 1 IMPERIAL",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 1497.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250367",
+        "code": "250367",
+        "name": "CAMA FACENCO ESTRELLA 3 EN 1 MATRIMONIAL",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 1797.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250368",
+        "code": "250368",
+        "name": "CAMA FACENCO ESTRELLA 3 EN 1 QUEEN",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 2197.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250369",
+        "code": "250369",
+        "name": "CAMA FACENCO ESTRELLA 3 EN 1 KING",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 2697.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240577",
+        "code": "240577",
+        "name": "CAMA FACENCO EDICION CIELO MATRIMONIAL",
+        "brand": "FACENCO",
+        "category": "Camas",
+        "price_q": 1597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240385",
+        "code": "240385",
+        "name": "CAMA FACENCO COMFORT LIFE SPECIAL EDITION MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 4397.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240386",
+        "code": "240386",
+        "name": "CAMA FACENCO COMFORT LIFE SPECIAL EDITION QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 4997.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240387",
+        "code": "240387",
+        "name": "CAMA FACENCO COMFORT LIFE SPECIAL EDITION  KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 6497.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_150198",
+        "code": "150198",
+        "name": "CAMA FACENCO COMFORT LIFE BLACK MIDNIGHT QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 5697.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_150152",
+        "code": "150152",
+        "name": "CAMA FACENCO COMFORT LIFE BLACK MIDNIGHT KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 7697.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250018",
+        "code": "250018",
+        "name": "CAMA FACENCO COMFORT LIFE POCKET QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 6997.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250026",
+        "code": "250026",
+        "name": "CAMA FACENCO COMFORT LIFE POCKET KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 9197.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_220549",
+        "code": "220549",
+        "name": "CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 2097.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_220550",
+        "code": "220550",
+        "name": "CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 2397.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_220551",
+        "code": "220551",
+        "name": "CAMA OLYMPIA EDICION CHAPINA DOBLE PILLOW KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 2997.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_230875",
+        "code": "230875",
+        "name": "CAMA OLYMPIA SERTA EDICION BLACK QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 5697.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_230876",
+        "code": "230876",
+        "name": "CAMA OLYMPIA SERTA EDICION BLACK KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 7297.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250549",
+        "code": "250549",
+        "name": "CAMA ULTRA STAR PLUS MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 1597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240514",
+        "code": "240514",
+        "name": "CAMA ULTRA JAPI IMPERIAL",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 1397.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240513",
+        "code": "240513",
+        "name": "CAMA ULTRA JAPI MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 1797.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240512",
+        "code": "240512",
+        "name": "CAMA ULTRA JAPI QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 1997.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_240511",
+        "code": "240511",
+        "name": "CAMA ULTRA JAPI KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 2697.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250097",
+        "code": "250097",
+        "name": "CAMA ULTRA EUROPILLOW MATRIMONIAL",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 3197.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250098",
+        "code": "250098",
+        "name": "CAMA ULTRA EUROPILLOW QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 3597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250099",
+        "code": "250099",
+        "name": "CAMA ULTRA EUROPILLOW KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 4597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250100",
+        "code": "250100",
+        "name": "CAMA ULTRA GOLDEN NIGHT A2000 QUEEN",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 5597.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      },
+      {
+        "id": "BED_250101",
+        "code": "250101",
+        "name": "CAMA ULTRA GOLDEN NIGHT A2000 KING",
+        "brand": "COMFORT LIFE",
+        "category": "Camas",
+        "price_q": 7497.0,
+        "unit": "unidad",
+        "source": "CUADRO DE PRODUCTOS PARA PAGINA WEB"
+      }
+    ],
+    "medicamentos": [
+      {
+        "id": "MED_0_Med",
+        "name": "Ibuprofeno",
+        "category": "Medicamentos",
+        "presentation": "Cápsulas de gel",
+        "price_unit_q": 2.5,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_1_Med",
+        "name": "Dexketoprofeno",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.5,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_2_Med",
+        "name": "Viro-Grip Día",
+        "category": "Medicamentos",
+        "presentation": "Sobres",
+        "price_unit_q": 4.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_3_Med",
+        "name": "Ondansetron",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_4_Med",
+        "name": "Suero de Rehidratación Oral",
+        "category": "Medicamentos",
+        "presentation": "Sobres granulados",
+        "price_unit_q": 25.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_0_Lis",
+        "name": "Metamizol sódico",
+        "category": "Medicamentos",
+        "presentation": "Ampolla",
+        "price_unit_q": 5.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_1_Lis",
+        "name": "Acetaminofén",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 1.5,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_2_Lis",
+        "name": "Clorfeniramina",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 1.5,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_3_Lis",
+        "name": "Clorfeniramina",
+        "category": "Medicamentos",
+        "presentation": "Ampolla",
+        "price_unit_q": 6.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_4_Lis",
+        "name": "Ibuprofeno",
+        "category": "Medicamentos",
+        "presentation": "Comprimidos",
+        "price_unit_q": 1.5,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_5_Lis",
+        "name": "Broncurol",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_6_Lis",
+        "name": "Vitamina K",
+        "category": "Medicamentos",
+        "presentation": "Ampolla",
+        "price_unit_q": 8.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_7_Lis",
+        "name": "Dexametasona",
+        "category": "Medicamentos",
+        "presentation": "Ampolla",
+        "price_unit_q": 6.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_8_Lis",
+        "name": "Complejo B",
+        "category": "Medicamentos",
+        "presentation": "Frasco",
+        "price_unit_q": 12.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_9_Lis",
+        "name": "Sedalgina compuesta",
+        "category": "Medicamentos",
+        "presentation": "Caja",
+        "price_unit_q": 15.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_10_Lis",
+        "name": "Dexketoprofeno",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_11_Lis",
+        "name": "Dexketoprofeno",
+        "category": "Medicamentos",
+        "presentation": "Ampolla",
+        "price_unit_q": 6.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_12_Lis",
+        "name": "Furosemida",
+        "category": "Medicamentos",
+        "presentation": "Ampolla",
+        "price_unit_q": 4.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_13_Lis",
+        "name": "Agua oxigenada",
+        "category": "Medicamentos",
+        "presentation": "Frasco 500 ml",
+        "price_unit_q": 8.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_14_Lis",
+        "name": "Sobres de suero oral",
+        "category": "Medicamentos",
+        "presentation": "Polvo",
+        "price_unit_q": 1.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_15_Lis",
+        "name": "Algodón",
+        "category": "Medicamentos",
+        "presentation": "Bolsa",
+        "price_unit_q": 10.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_16_Lis",
+        "name": "Gasa simple",
+        "category": "Medicamentos",
+        "presentation": "Rollo",
+        "price_unit_q": 5.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_17_Lis",
+        "name": "Venda elástica",
+        "category": "Medicamentos",
+        "presentation": "4 pulgadas",
+        "price_unit_q": 12.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_18_Lis",
+        "name": "Baja lenguas",
+        "category": "Medicamentos",
+        "presentation": "Caja",
+        "price_unit_q": 8.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_19_Lis",
+        "name": "Hisopos",
+        "category": "Medicamentos",
+        "presentation": "Caja",
+        "price_unit_q": 5.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_20_Lis",
+        "name": "Lágrimas humectantes",
+        "category": "Medicamentos",
+        "presentation": "Frasco",
+        "price_unit_q": 25.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_21_Lis",
+        "name": "Lidocaína clorhidrato",
+        "category": "Medicamentos",
+        "presentation": "Frasco",
+        "price_unit_q": 10.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_22_Lis",
+        "name": "Solución HARTMANN",
+        "category": "Medicamentos",
+        "presentation": "Frasco",
+        "price_unit_q": 18.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_23_Lis",
+        "name": "Solución Salina",
+        "category": "Medicamentos",
+        "presentation": "Frasco",
+        "price_unit_q": 15.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_24_Lis",
+        "name": "Hibitane",
+        "category": "Medicamentos",
+        "presentation": "Frasco",
+        "price_unit_q": 20.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_25_Lis",
+        "name": "Frío Rub",
+        "category": "Medicamentos",
+        "presentation": "Aerosol",
+        "price_unit_q": 18.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_26_Lis",
+        "name": "Septidex",
+        "category": "Medicamentos",
+        "presentation": "Spray",
+        "price_unit_q": 12.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_27_Lis",
+        "name": "Curitas",
+        "category": "Medicamentos",
+        "presentation": "Caja",
+        "price_unit_q": 6.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_28_Lis",
+        "name": "Naproxeno",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_29_Lis",
+        "name": "Metocarbamol",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_30_Lis",
+        "name": "Loperamida",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 2.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_31_Lis",
+        "name": "Nauseol",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_32_Lis",
+        "name": "Espasmo Dolofor",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 3.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_33_Lis",
+        "name": "Bromuro de otilonio",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 4.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_34_Lis",
+        "name": "Angiocat 22",
+        "category": "Medicamentos",
+        "presentation": null,
+        "price_unit_q": 4.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_35_Lis",
+        "name": "Venoset",
+        "category": "Medicamentos",
+        "presentation": null,
+        "price_unit_q": 5.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_36_Lis",
+        "name": "Pepto Bismol",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 10.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_37_Lis",
+        "name": "Jeringas 5 ml",
+        "category": "Medicamentos",
+        "presentation": null,
+        "price_unit_q": 2.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_38_Lis",
+        "name": "Jeringas 10 ml",
+        "category": "Medicamentos",
+        "presentation": null,
+        "price_unit_q": 3.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_39_Lis",
+        "name": "Jeringas 3 ml",
+        "category": "Medicamentos",
+        "presentation": null,
+        "price_unit_q": 4.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_40_Lis",
+        "name": "Menaxol forte",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": 15.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_41_Lis",
+        "name": "Aci tip",
+        "category": "Medicamentos",
+        "presentation": "Jarabe",
+        "price_unit_q": 12.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_42_Lis",
+        "name": "Filinar G",
+        "category": "Medicamentos",
+        "presentation": "Jarabe",
+        "price_unit_q": 12.0,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_43_Lis",
+        "name": "Ibuprofeno",
+        "category": "Medicamentos",
+        "presentation": "Cápsulas de gel",
+        "price_unit_q": null,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_44_Lis",
+        "name": "Dexketoprofeno",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": null,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_45_Lis",
+        "name": "Viro-Grip Día",
+        "category": "Medicamentos",
+        "presentation": "Sobres",
+        "price_unit_q": null,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_46_Lis",
+        "name": "Ondansetron",
+        "category": "Medicamentos",
+        "presentation": "Tabletas",
+        "price_unit_q": null,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      },
+      {
+        "id": "MED_47_Lis",
+        "name": "Suero de Rehidratación Oral",
+        "category": "Medicamentos",
+        "presentation": "Sobres granulados",
+        "price_unit_q": null,
+        "unit": "unidad",
+        "source": "medicamentos_ohs_con_precios"
+      }
+    ],
+    "insumos_botiquin": [
+      {
+        "id": "SUPPLY_DB _0",
+        "name": "Gasa, 4\" x 4\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _1",
+        "name": "Rollo venda de gasa. 2\" x 4.1 yd, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _2",
+        "name": "Rollo venda de gasa. 4\" x 4.1 yd, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _3",
+        "name": "Venda elástica. 2\" x 4.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _4",
+        "name": "Venda elástica. 4\" x 4.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _5",
+        "name": "Férula 24\" x 4.25\"",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _6",
+        "name": "Férula 36\" x 4.25\"",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _7",
+        "name": "Gasa impregnada de vaselina. 3\" x 9\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _8",
+        "name": "Curita. 1\" x 3\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _9",
+        "name": "Esparadrapo impermeable. 1/2\" x 2.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _10",
+        "name": "Esparadrapo impermeable. 1\" x 2.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _11",
+        "name": "Tijera de botón",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _12",
+        "name": "Pinza de disección, plástica",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _13",
+        "name": "Termómetro Oral de Mercurio",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _14",
+        "name": "Parche ocular. 2 5/8\" x 1 5/8\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _15",
+        "name": "Venda triangular. 40\" x 40\" x 56\"",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _16",
+        "name": "Máscara para RCP",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _17",
+        "name": "Sábana termoaislante (aluminizada). 84\" x 52\"",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _18",
+        "name": "Compresa fría, no tóxica",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _19",
+        "name": "Agua oxigenada",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _20",
+        "name": "Alcohol etílico, medicinal, 70%",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _21",
+        "name": "Algodón, plisado",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _22",
+        "name": "Lavar ojos (cloruro de sodio al 0.9%) o Solución Salina en bote / o suero salino",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _23",
+        "name": "Suero oral, sobre",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_DB _24",
+        "name": "Bolsa para desechos médicos, color rojo",
+        "category": "Insumos Botiquín",
+        "sheet": "DB Inicial",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_0",
+        "name": "Gasa, 4\" x 4\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_1",
+        "name": "Rollo venda de gasa. 2\" x 4.1 yd, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_2",
+        "name": "Rollo venda de gasa. 4\" x 4.1 yd, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_3",
+        "name": "Venda elástica. 2\" x 4.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_4",
+        "name": "Venda elástica. 4\" x 4.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_5",
+        "name": "Férula 30\" x 4.25\"",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_6",
+        "name": "Gasa impregnada de vaselina. 3\" x 9\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_7",
+        "name": "Curita. 1\" x 3\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_9",
+        "name": "Esparadrapo impermeable. 1/2\" x 2.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_10",
+        "name": "Esparadrapo impermeable. 1\" x 2.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_11",
+        "name": "Tijera de botón",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_12",
+        "name": "Pinza de disección, plástica",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_13",
+        "name": "Guantes",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_14",
+        "name": "Parche ocular. 2 5/8\" x 1 5/8\", estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_15",
+        "name": "Venda triangular. 40\" x 40\" x 56\"",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_16",
+        "name": "Máscara para RCP",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_17",
+        "name": "Sábana termoaislante (aluminizada). 84\" x 52\"",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_18",
+        "name": "Compresa fría, no tóxica",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_19",
+        "name": "Agua oxigenada 120 ml",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_20",
+        "name": "Alcohol etílico, medicinal, 70% 120",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_21",
+        "name": "Algodón, plisado",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_22",
+        "name": "Lava ojos (cloruro de sodio al 0.9%) o Solución Salina en bote / o suero salina 250ml",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_23",
+        "name": "Suero oral, sobre 7.5 g",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_24",
+        "name": "Bolsa para desechos médicos, color rojo",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_25",
+        "name": "Botiquín 5 a 10",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_26",
+        "name": "TOTAL",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_27",
+        "name": "ISR 5%",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Cal_28",
+        "name": "TOTAL FINAL",
+        "category": "Insumos Botiquín",
+        "sheet": "Calculadora Botiquines",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_0",
+        "name": "Gasa 4”x4”, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_1",
+        "name": "Rollo venda de gasa 2” x 4.1 yd, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_2",
+        "name": "Rollo venda de gasa 4” x 4.1 yd, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_3",
+        "name": "Venda elástica 2” x 4.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_4",
+        "name": "Venda elástica 4” x 4.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_5",
+        "name": "Férula moldeable",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_6",
+        "name": "Gasa impregnada de vaselina 3” x 9”, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_7",
+        "name": "Curita 1” x 3”, estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_8",
+        "name": "Esparadrapo impermeable 1/2” x 2.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_9",
+        "name": "Esparadrapo impermeable 1” x 2.5 yd",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_10",
+        "name": "Tijera de botón",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_11",
+        "name": "Pinza de disección plástica",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_12",
+        "name": "Par de guantes talla M",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_13",
+        "name": "Parche ocular estéril",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_14",
+        "name": "Venda triangular 40” x 40” x 56”",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_15",
+        "name": "Máscara para RCP",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_16",
+        "name": "Sábana termoaislante aluminizada 84” x 52”",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_17",
+        "name": "Compresa fría 5” x 5”",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_18",
+        "name": "Agua oxigenada (120 ml)",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_19",
+        "name": "Alcohol etílico medicinal (120 ml)",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_20",
+        "name": "Algodón plisado (50 g)",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_21",
+        "name": "Lavadojos (Cloruro de sodio 0.9%, 250 ml)",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_22",
+        "name": "Suero oral sobre (7.1 g)",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "SUPPLY_Inv_23",
+        "name": "Bolsa para desechos médicos color rojo",
+        "category": "Insumos Botiquín",
+        "sheet": "Inventario",
+        "unit": "unidad",
+        "source": "Inventario_Botiquín"
+      },
+      {
+        "id": "INS_Insumo_0",
+        "name": "Agua Oxigenada Galón",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": null,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_1",
+        "name": "Gluconato de Clorhexidina",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": null,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_2",
+        "name": "Botella de agua oxigenada 120 ml",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 52.25,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_3",
+        "name": "Botella de alcohol 120 ml",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 0.48,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_4",
+        "name": "Paquete de algodón 25 g",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.4,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_5",
+        "name": "Sobres de gasas estériles 20x20 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 64.43,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_6",
+        "name": "Vendas de gasa de 2 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 178.6,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_7",
+        "name": "Vendas de gasa de 4 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 24.64,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_8",
+        "name": "Vendas elásticas de 2 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 28.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_9",
+        "name": "Vendas elásticas de 4 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 380.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_10",
+        "name": "Tablillas para inmovilizar miembros superiores e inferiores",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 250.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_11",
+        "name": "Gasas impregnadas de petrolato (vaselina) Paquete x 10",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 4472.6,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_12",
+        "name": "Caja de curitas x100",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 7.8,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_13",
+        "name": "Esparadrapo hipoalergénico (micropore) 2.5 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 156.75,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_14",
+        "name": "Esparadrapo hipoalergénico (micropore) 1.5 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.2,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_15",
+        "name": "Tijera de botón",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 151.14,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_16",
+        "name": "Pinza plástica de 11 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 376.2,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_17",
+        "name": "Suero fisiológico 100 ml (si no existen lavaojos)",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 138.7,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_18",
+        "name": "Parches oculares",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 66.5,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_19",
+        "name": "Triángulos de vendaje provisional",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1587.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_20",
+        "name": "Mascarilla de reanimación cardiopulmonar",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 600.4,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_21",
+        "name": "Sueros orales (sobres)",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 21.25,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_22",
+        "name": "Manta termoaislante",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1244.5,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_23",
+        "name": "Bolsas de hielo sintético",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1007.95,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_24",
+        "name": "Bolsas de plástico color rojo",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 285.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_25",
+        "name": "Termómetro",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 45.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_0",
+        "name": "Botella de agua oxigenada 120 ml",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 52.25,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_1",
+        "name": "Botella de alcohol 120 ml",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 0.48,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_2",
+        "name": "Paquete de algodón 25 g",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.4,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_3",
+        "name": "Sobres de gasas estériles 20x20 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 64.43,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_4",
+        "name": "Vendas de gasa de 2 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 178.6,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_5",
+        "name": "Vendas de gasa de 4 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 24.64,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_6",
+        "name": "Vendas elásticas de 2 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 28.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_7",
+        "name": "Vendas elásticas de 4 pulgadas",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 380.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_8",
+        "name": "Tablillas para inmovilizar miembros superiores e inferiores",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 250.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_9",
+        "name": "Gasas impregnadas de petrolato (vaselina) Paquete x 10",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 4472.6,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_10",
+        "name": "Caja de curitas x100",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 7.8,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_11",
+        "name": "Esparadrapo hipoalergénico (micropore) 2.5 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 156.75,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_12",
+        "name": "Esparadrapo hipoalergénico (micropore) 1.5 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 9.2,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_13",
+        "name": "Tijera de botón",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 151.14,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_14",
+        "name": "Pinza plástica de 11 cm",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 376.2,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_15",
+        "name": "Suero fisiológico 100 ml (si no existen lavaojos)",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 138.7,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_16",
+        "name": "Parches oculares",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 66.5,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_17",
+        "name": "Triángulos de vendaje provisional",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1587.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_18",
+        "name": "Mascarilla de reanimación cardiopulmonar",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 600.4,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_19",
+        "name": "Sueros orales (sobres)",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 21.25,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_20",
+        "name": "Manta termoaislante",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1244.5,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_21",
+        "name": "Bolsas de hielo sintético",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 1007.95,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_22",
+        "name": "Bolsas de plástico color rojo",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 285.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      },
+      {
+        "id": "INS_Insumo_23",
+        "name": "Termómetro",
+        "category": "Insumos Botiquín",
+        "cost_unit_q": null,
+        "sale_price_q": null,
+        "profit_q": 45.0,
+        "unit": "unidad",
+        "source": "solicitud_insumos_clinica"
+      }
+    ],
+    "otros": []
+  },
+  "summary": {
+    "total_products": 213,
+    "by_category": {
+      "camas": 33,
+      "medicamentos": 53,
+      "insumos_botiquin": 127
+    },
+    "currency": "Quetzales (Q)",
+    "extraction_timestamp": "2026-04-08T19:56:28.962899"
+  }
+}

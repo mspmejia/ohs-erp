@@ -1,0 +1,22 @@
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*~
+
+# Node (si se usa en el futuro)
+node_modules/
+npm-debug.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Variables de entorno
+.env
+.env.local

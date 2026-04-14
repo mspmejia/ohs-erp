@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Restaurar Cotización — OHS Training GT</title>
+  <style>
+    body{font-family:'Segoe UI',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:linear-gradient(135deg,#1a1a2e,#16213e);}
+    .card{background:#fff;border-radius:18px;padding:40px;max-width:520px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.4);text-align:center;}
+    h2{color:#FF8C00;font-size:20px;margin:0 0 6px;}
+    p{color:#666;font-size:13px;line-height:1.6;margin:10px 0 24px;}
+    .badge{background:#fff3cd;color:#FF8C00;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:20px;}
+    .items{background:#f8f9fa;border-radius:10px;padding:14px 16px;text-align:left;font-size:12px;max-height:220px;overflow-y:auto;margin:16px 0;}
+    .item-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f0f0f0;}
+    .item-row:last-child{border:none;}
+    .total-box{background:#FF8C00;color:#fff;border-radius:10px;padding:14px;margin:16px 0;font-size:18px;font-weight:800;}
+    button{background:linear-gradient(135deg,#FF8C00,#e67e00);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;width:100%;margin-top:8px;transition:.2s;}
+    button:hover{transform:translateY(-2px);}
+    .success{display:none;color:#008000;font-size:15px;font-weight:700;padding:16px;background:#d1fae5;border-radius:10px;margin-top:16px;}
+  </style>
+</head>
+<body>
+<div class="card">
+  <div style="font-size:48px;margin-bottom:12px">📄</div>
+  <div class="badge">Restauración de Datos</div>
+  <h2>Cotización N° 20260410428</h2>
+  <p>Esta página restaurará la cotización perdida directamente en el sistema ERP. Solo debes tener <strong>OHS_ERP.html</strong> abierto en otra pestaña del mismo navegador.</p>
+  <div class="items" id="itemList"></div>
+  <div class="total-box">TOTAL: Q4,443.50 &nbsp;·&nbsp; 47 ítems &nbsp;·&nbsp; DISAR, S.A.</div>
+  <button onclick="restaurar()">✅ Restaurar Cotización en el Sistema</button>
+  <div class="success" id="ok">✅ ¡Cotización restaurada! Recarga el archivo OHS_ERP.html y aparecerá en Cotizaciones.</div>
+</div>
+
+<script>
+const ITEMS = [
+  {nombre:'Metamizol sódico 2gr/2ml ampolla',unidad:'unidad',cantidad:40,precio:4.50},
+  {nombre:'Acetaminofén 500mg tabletas',unidad:'blister',cantidad:9,precio:5.00},
+  {nombre:'Clorfeniramina 4mg tabletas',unidad:'blister',cantidad:12,precio:10.00},
+  {nombre:'Clorfeniramina 5mg/0.5ml Ampolla',unidad:'unidad',cantidad:20,precio:6.00},
+  {nombre:'Ibuprofeno 600 Gel Caps Blister x 10',unidad:'unidad',cantidad:2,precio:40.00},
+  {nombre:'Ibuprofeno 800mg Tabletas',unidad:'blister',cantidad:12,precio:12.00},
+  {nombre:'Broncurol Tabletas',unidad:'blister',cantidad:20,precio:15.00},
+  {nombre:'Vitamina K 10mg/ml Ampolla',unidad:'unidad',cantidad:5,precio:9.00},
+  {nombre:'Dexametasona 8mg/2ml ampolla',unidad:'unidad',cantidad:20,precio:6.00},
+  {nombre:'Complejo B 10ml frasco',unidad:'frasco',cantidad:4,precio:12.00},
+  {nombre:'Sedalgina Compuesta — Caja 3 ampollas',unidad:'caja',cantidad:2,precio:95.00},
+  {nombre:'Dexketoprofeno 25mg tabletas',unidad:'blister',cantidad:14,precio:14.00},
+  {nombre:'Dexketoprofeno 25mg/ml Ampolla',unidad:'unidad',cantidad:20,precio:6.00},
+  {nombre:'Furosemida 20mg/2ml Ampolla',unidad:'unidad',cantidad:4,precio:5.00},
+  {nombre:'Agua Oxigenada 3% 500ml',unidad:'frasco',cantidad:1,precio:9.00},
+  {nombre:'Suero Oral en Sobres Electrolit',unidad:'sobre',cantidad:50,precio:1.40},
+  {nombre:'Algodón Bolsa x 150 torundas',unidad:'unidad',cantidad:3,precio:20.00},
+  {nombre:'Gasa Simple Rollo 1x5 yardas',unidad:'unidad',cantidad:2,precio:50.00},
+  {nombre:'Venda Elástica 4"',unidad:'unidad',cantidad:6,precio:16.50},
+  {nombre:'Baja Lenguas — Caja',unidad:'caja',cantidad:4,precio:20.00},
+  {nombre:'Hisopos — Caja x100',unidad:'caja',cantidad:3,precio:6.00},
+  {nombre:'Lágrimas Oculares (Carboximetilcelulosa) 15ml',unidad:'unidad',cantidad:1,precio:45.00},
+  {nombre:'Lidocaína Clorhidrato Ampolla Inyectable 3.5ml',unidad:'frasco',cantidad:1,precio:6.00},
+  {nombre:'Solución HARTMANN 500ml',unidad:'frasco',cantidad:4,precio:14.00},
+  {nombre:'Solución Salina 0.90% Frasco 500ml',unidad:'frasco',cantidad:4,precio:14.00},
+  {nombre:'Hibitane 5% frasco',unidad:'frasco',cantidad:1,precio:38.00},
+  {nombre:'Frio Rub',unidad:'unidad',cantidad:1,precio:45.00},
+  {nombre:'Septidex',unidad:'unidad',cantidad:1,precio:114.00},
+  {nombre:'Curitas 1"x3" — Caja x100',unidad:'caja',cantidad:1,precio:15.00},
+  {nombre:'Naproxeno 500mg tabletas',unidad:'blister',cantidad:6,precio:18.00},
+  {nombre:'Metocarbamol 500mg tabletas Blister x 10',unidad:'blister',cantidad:6,precio:15.00},
+  {nombre:'Loperamida 2mg Tabletas',unidad:'blister',cantidad:6,precio:12.00},
+  {nombre:'Nauseol 50mg Tabletas',unidad:'blister',cantidad:6,precio:10.50},
+  {nombre:'Sedaline (Clonixinato de lisina 125mg + propinox clorhidrato 10mg)',unidad:'unidad',cantidad:3,precio:30.00},
+  {nombre:'Bromuro de Otilonio 40mg Tabletas',unidad:'blister',cantidad:2,precio:45.00},
+  {nombre:'Angiocat N° 22',unidad:'unidad',cantidad:8,precio:5.00},
+  {nombre:'Venoset — Equipo de venoclisis',unidad:'unidad',cantidad:8,precio:6.00},
+  {nombre:'Pepto Bismol Tabletas Masticables',unidad:'caja',cantidad:3,precio:45.00},
+  {nombre:'Jeringas 10ml',unidad:'unidad',cantidad:15,precio:1.50},
+  {nombre:'Jeringas 5ml',unidad:'unidad',cantidad:30,precio:2.00},
+  {nombre:'Jeringas 3ml Aguja 23',unidad:'unidad',cantidad:10,precio:2.00},
+  {nombre:'Menaxol Forte 600mg Efervescentes',unidad:'frasco',cantidad:2,precio:150.00},
+  {nombre:'Aci Tip Jarabe',unidad:'frasco',cantidad:1,precio:150.00},
+  {nombre:'Filinar G Jarabe',unidad:'frasco',cantidad:1,precio:175.00},
+  {nombre:'Viro-Grip Día sobres x 2 GelCaps',unidad:'sobre',cantidad:20,precio:3.50},
+  {nombre:'ONDANSETRON 4 MG blister x 10',unidad:'unidad',cantidad:1,precio:286.00},
+  {nombre:'Suero de Rehidratación Oral Ancalmo — Caja x54',unidad:'caja',cantidad:1,precio:85.00},
+];
+
+// Render preview
+const list = document.getElementById('itemList');
+ITEMS.forEach((it,i) => {
+  const sub = it.cantidad * it.precio;
+  list.innerHTML += `<div class="item-row"><span>${i+1}. ${it.nombre}</span><span style="font-weight:700;white-space:nowrap;margin-left:8px">Q${sub.toFixed(2)}</span></div>`;
+});
+
+function genId(){ return 'r'+Date.now().toString(36)+Math.random().toString(36).substr(2,5); }
+
+function restaurar(){
+  const cotizacion = {
+    id: 'cot-restored-20260410428-' + Date.now(),
+    numero: '20260410428',
+    fecha: '2026-04-09',
+    validez: '30 días',
+    estado: 'enviada',
+    cliente: {
+      nombre: 'Gerbert Reynoso',
+      empresa: 'DISAR, S.A.',
+      nit: '4920457',
+      email: 'gerbert.reynoso@heladosarita.com',
+      telefono: '',
+      direccion: '30 AVENIDA 9-90 zona 12 Guatemala'
+    },
+    items: ITEMS.map(it => ({
+      id: genId(),
+      productoId: '',
+      nombre: it.nombre,
+      cantidad: it.cantidad,
+      precio: it.precio,
+      unidad: it.unidad,
+      costo: 0
+    })),
+    notas: 'Términos y Condiciones: Precios expresados en Quetzales (Q) incluyen IVA. Pago contra entrega en efectivo o transferencia. Entrega de lunes a sábado. Medicamentos e insumos sujetos a disponibilidad.',
+    iva: false,
+    ivaAmt: 0,
+    total: 4443.50
+  };
+
+  try {
+    const existing = JSON.parse(localStorage.getItem('ohs_cotizaciones') || '[]');
+    // Evitar duplicados
+    const sinDuplicado = existing.filter(c => c.numero !== '20260410428');
+    sinDuplicado.unshift(cotizacion);
+    localStorage.setItem('ohs_cotizaciones', JSON.stringify(sinDuplicado));
+    document.getElementById('ok').style.display = 'block';
+    document.querySelector('button').textContent = '✅ ¡Restaurada exitosamente!';
+    document.querySelector('button').style.background = '#008000';
+    document.querySelector('button').disabled = true;
+  } catch(e) {
+    alert('Error: ' + e.message + '\n\nAsegúrate de abrir este archivo desde el mismo navegador donde usas el ERP.');
+  }
+}
+</script>
+</body>
+</html>
