@@ -839,9 +839,12 @@ const Cotizaciones = ({state,dispatch}) => {
   const [stFilter,setStFilter] = useState('');
   const [confirmDel,setConfirmDel] = useState(null);
   const {canEdit} = React.useContext(AuthContext);
+  const searchCot = search.trim().toLowerCase();
   const cots = state.cotizaciones.filter(c=>
     (stFilter===''||c.estado===stFilter)&&
-    (search===''||(c.numero||'').includes(search)||c.cliente?.empresa?.toLowerCase().includes(search.toLowerCase())||c.cliente?.nombre?.toLowerCase().includes(search.toLowerCase()))
+    (searchCot===''||(c.numero||'').toLowerCase().includes(searchCot)||
+      (c.cliente?.empresa||'').toLowerCase().includes(searchCot)||
+      (c.cliente?.nombre||'').toLowerCase().includes(searchCot))
   );
   const saveCot=(q)=>{
     dispatch({type: editing?'UPDATE_COT':'ADD_COT', payload:q});
@@ -920,19 +923,22 @@ const ProductForm = ({prod, productos, onSave, onClose}) => {
   const [unidades, setUnidades] = useState(loadUnidades());
   const [nuevaUnidad, setNuevaUnidad] = useState('');
   const [mostrarNuevaUnidad, setMostrarNuevaUnidad] = useState(false);
+  const [guardando, setGuardando] = useState(false);
+  const listaProd = React.useMemo(()=>productos||[], []);
   const [p, setP] = useState(() => {
     if (prod) return prod;
     const cat = 'Medicamentos';
-    return {codigo: getNextCode(cat, productos||[]), nombre:'', descripcion:'', categoria: cat, tipoProducto:'venta', unidad:'unidad', presentacion:'', precio:0, costo:0, stock:0, stockMin:0, proveedor:'', activo:true};
+    return {codigo: getNextCode(cat, listaProd), nombre:'', descripcion:'', categoria: cat, tipoProducto:'venta', unidad:'unidad', presentacion:'', precio:0, costo:0, stock:0, stockMin:0, proveedor:'', activo:true};
   });
   const set = (k,v) => setP(x=>({...x,[k]:v}));
 
   // Auto-generar código al cambiar categoría (solo en nuevo producto)
   const handleCategoriaChange = (cat) => {
-    set('categoria', cat);
-    if (!prod) { // solo en creación
-      const nextCode = getNextCode(cat, productos || []);
+    if (!prod) {
+      const nextCode = getNextCode(cat, listaProd);
       setP(x=>({...x, categoria:cat, codigo:nextCode}));
+    } else {
+      set('categoria', cat);
     }
   };
 
@@ -951,7 +957,7 @@ const ProductForm = ({prod, productos, onSave, onClose}) => {
   return (
     <Modal title={prod ? 'Editar Producto' : 'Nuevo Producto'} onClose={onClose}
       footer={<><button className="btn btn-secondary" onClick={onClose}>Cancelar</button>
-        <button className="btn btn-primary" onClick={()=>{if(!p.nombre){alert('Nombre requerido');return;} onSave({...p,id:p.id||genId()});}}><Icon name="check"/>Guardar</button></>}>
+        <button className="btn btn-primary" disabled={guardando} onClick={()=>{if(!p.nombre){alert('Nombre requerido');return;} if(guardando)return; setGuardando(true); onSave({...p,id:p.id||genId()});}}><Icon name="check"/>{guardando?'Guardando...':'Guardar'}</button></>}>
       {/* Fila 1: Categoría (primero) → auto-genera código */}
       <div className="form-row form-row-3">
         <div className="form-group">
@@ -1210,7 +1216,8 @@ const Clientes = ({state,dispatch}) => {
   const [selected,setSelected] = useState(null);
   const [confirmDel,setConfirmDel] = useState(null);
   const {canEdit} = React.useContext(AuthContext);
-  const clientes = state.clientes.filter(c=>search===''||(c.nombre||'').toLowerCase().includes(search.toLowerCase())||c.empresa?.toLowerCase().includes(search.toLowerCase())||c.email?.toLowerCase().includes(search.toLowerCase()));
+  const searchCli = search.trim().toLowerCase();
+  const clientes = state.clientes.filter(c=>searchCli===''||(c.nombre||'').toLowerCase().includes(searchCli)||(c.empresa||'').toLowerCase().includes(searchCli)||(c.email||'').toLowerCase().includes(searchCli));
   const getClientCots = (cid) => state.cotizaciones.filter(c=>c.clienteId===cid);
   return (
     <div style={{display:'grid',gridTemplateColumns:selected?'1fr 340px':'1fr',gap:16}}>
@@ -1514,9 +1521,10 @@ const Compras = ({state,dispatch}) => {
   const [searchF,setSearchF] = useState('');
   const {canEdit} = React.useContext(AuthContext);
   const facturas = state.ordenes.filter(o=>o.tipo==='compra');
-  const filtFacturas = facturas.filter(f=>searchF===''||
-    f.proveedorNombre?.toLowerCase().includes(searchF.toLowerCase())||
-    f.numeroFactura?.toLowerCase().includes(searchF.toLowerCase()));
+  const searchFT = searchF.trim().toLowerCase();
+  const filtFacturas = facturas.filter(f=>searchFT===''||
+    (f.proveedorNombre||'').toLowerCase().includes(searchFT)||
+    (f.numeroFactura||'').toLowerCase().includes(searchFT));
   const totalFacturado = facturas.reduce((s,f)=>s+f.total,0);
   const pendientes = facturas.filter(f=>f.estado==='pendiente').length;
   return (
@@ -1785,9 +1793,10 @@ const Ventas = ({state,dispatch}) => {
   const [confirmDel,setConfirmDel] = useState(null);
   const [searchF,setSearchF] = useState('');
   const facturasVenta = state.ordenes.filter(o=>o.tipo==='venta');
-  const filtFacturas = facturasVenta.filter(f=>searchF===''||
-    f.clienteNombre?.toLowerCase().includes(searchF.toLowerCase())||
-    f.numeroFactura?.toLowerCase().includes(searchF.toLowerCase()));
+  const searchFV = searchF.trim().toLowerCase();
+  const filtFacturas = facturasVenta.filter(f=>searchFV===''||
+    (f.clienteNombre||'').toLowerCase().includes(searchFV)||
+    (f.numeroFactura||'').toLowerCase().includes(searchFV));
   const totalFacturado = facturasVenta.reduce((s,f)=>s+f.total,0);
   const cotAprobadas = state.cotizaciones.filter(c=>c.estado==='aprobada'||c.estado==='pagada');
   return (
@@ -3335,7 +3344,9 @@ const reducer = (state,action) => {
     case 'ADD_COT':    next={...state,cotizaciones:[action.payload,...state.cotizaciones]}; break;
     case 'UPDATE_COT': next={...state,cotizaciones:state.cotizaciones.map(c=>c.id===action.payload.id?action.payload:c)}; break;
     case 'DEL_COT':    next={...state,cotizaciones:state.cotizaciones.filter(c=>c.id!==action.payload)}; break;
-    case 'ADD_PROD':    next={...state,productos:[...state.productos,action.payload]}; break;
+    case 'ADD_PROD':
+      if(state.productos.some(p=>p.id===action.payload.id)) { next=state; break; }
+      next={...state,productos:[...state.productos,action.payload]}; break;
     case 'UPDATE_PROD': next={...state,productos:state.productos.map(p=>p.id===action.payload.id?action.payload:p)}; break;
     case 'DEL_PROD':    next={...state,productos:state.productos.filter(p=>p.id!==action.payload)}; break;
     case 'ADD_CLIENTE':    next={...state,clientes:[...state.clientes,action.payload]}; break;
