@@ -920,7 +920,11 @@ const ProductForm = ({prod, productos, onSave, onClose}) => {
   const [unidades, setUnidades] = useState(loadUnidades());
   const [nuevaUnidad, setNuevaUnidad] = useState('');
   const [mostrarNuevaUnidad, setMostrarNuevaUnidad] = useState(false);
-  const [p, setP] = useState(prod || {codigo:'',nombre:'',descripcion:'',categoria:'Medicamentos',tipoProducto:'venta',unidad:'unidad',presentacion:'',precio:0,costo:0,stock:0,stockMin:0,proveedor:'',activo:true});
+  const [p, setP] = useState(() => {
+    if (prod) return prod;
+    const cat = 'Medicamentos';
+    return {codigo: getNextCode(cat, productos||[]), nombre:'', descripcion:'', categoria: cat, tipoProducto:'venta', unidad:'unidad', presentacion:'', precio:0, costo:0, stock:0, stockMin:0, proveedor:'', activo:true};
+  });
   const set = (k,v) => setP(x=>({...x,[k]:v}));
 
   // Auto-generar código al cambiar categoría (solo en nuevo producto)
@@ -1056,13 +1060,31 @@ const Inventario = ({state,dispatch}) => {
     return <span style={{color:'var(--orange)',marginLeft:3}}>{sortDir==='asc'?'↑':'↓'}</span>;
   };
 
+  const searchTerm = search.trim().toLowerCase();
   const prods = state.productos
     .filter(p=>
       (catF===''||p.categoria===catF)&&
       (tipoF===''||(p.tipoProducto||'venta')===tipoF)&&
-      (search===''||(p.nombre||'').toLowerCase().includes(search.toLowerCase())||(p.codigo||'').toLowerCase().includes(search.toLowerCase()))
+      (searchTerm===''||(p.nombre||'').toLowerCase().includes(searchTerm))
     )
     .sort((a,b)=>{
+      // Si hay búsqueda activa, mostrar los que coincidan exacto al inicio
+      if(searchTerm){
+        const aNombre=(a.nombre||'').toLowerCase();
+        const bNombre=(b.nombre||'').toLowerCase();
+        const aStarts=aNombre.startsWith(searchTerm);
+        const bStarts=bNombre.startsWith(searchTerm);
+        if(aStarts&&!bStarts) return -1;
+        if(!aStarts&&bStarts) return 1;
+        return aNombre.localeCompare(bNombre);
+      }
+      // Sin búsqueda: ordenar por campo seleccionado
+      const numFields=['precio','costo','stock','stockMin'];
+      if(numFields.includes(sortField)){
+        const va=Number(a[sortField]||0);
+        const vb=Number(b[sortField]||0);
+        return sortDir==='asc'?va-vb:vb-va;
+      }
       const va=(a[sortField]||'').toString().toLowerCase();
       const vb=(b[sortField]||'').toString().toLowerCase();
       return sortDir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
@@ -3415,6 +3437,11 @@ const reducer = (state,action) => {
   save('asientos',next.asientos);
   save('recetas',next.recetas);
   save('ordenes_produccion',next.ordenes_produccion);
+  save('presupuestos',next.presupuestos);
+  save('proyectos',next.proyectos);
+  save('pagosClientes',next.pagosClientes);
+  save('pagosProveedores',next.pagosProveedores);
+  if(next.config_empresa!==undefined) save('config_empresa',next.config_empresa);
   return next;
 };
 
@@ -4196,20 +4223,13 @@ const AdminConfig = ({state, dispatch}) => {
 };
 
 const App = () => {
-  // Merge: agrega productos nuevos y parchea costo faltante sin sobreescribir ediciones del usuario
+  // Merge: respeta 100% los datos guardados, solo agrega productos nuevos del catálogo base
   const mergeProductos = () => {
     const saved = load('productos', null);
-    if (!saved) return INITIAL_PRODUCTOS;
-    const defaultMap = new Map(INITIAL_PRODUCTOS.map(p=>[p.id,p]));
-    // Parchea costo faltante (undefined/null/0) desde el catálogo original
-    const patched = saved.map(p=>{
-      const def = defaultMap.get(p.id);
-      return (def && (p.costo===undefined||p.costo===null||p.costo===0) && def.costo>0)
-        ? {...p, costo: def.costo} : p;
-    });
+    if (!saved || saved.length === 0) return INITIAL_PRODUCTOS;
     const savedIds = new Set(saved.map(p=>p.id));
     const nuevos = INITIAL_PRODUCTOS.filter(p=>!savedIds.has(p.id));
-    return nuevos.length > 0 ? [...patched, ...nuevos] : patched;
+    return nuevos.length > 0 ? [...saved, ...nuevos] : saved;
   };
   const initialState = {
     productos: mergeProductos(),

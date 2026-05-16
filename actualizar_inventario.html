@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Actualizar Inventario — OHS Training GT</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:800px;margin:40px auto;padding:20px;background:#f5f5f5;}
+  h1{color:#FF8C00;}
+  .card{background:#fff;border-radius:10px;padding:24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.1);}
+  .btn{padding:14px 28px;background:#FF8C00;color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;}
+  .btn:hover{background:#e67e00;}
+  .log{background:#1a1a2e;color:#00ff88;border-radius:8px;padding:16px;font-family:monospace;font-size:12px;max-height:400px;overflow-y:auto;margin-top:16px;white-space:pre-wrap;}
+  .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-right:6px;}
+  .ok{background:#d1fae5;color:#059669;}
+  .new{background:#dbeafe;color:#1d4ed8;}
+  .warn{background:#fef3c7;color:#d97706;}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔄 Actualizar Inventario OHS ERP</h1>
+  <p>Este script actualiza <strong>precios de venta</strong> (desde la cotización N°20260410428) y <strong>costos</strong> (desde facturas de proveedores), y crea los productos nuevos que no existen en el sistema.</p>
+  <p>⚠️ Abre este archivo en el <strong>mismo navegador</strong> donde usas el ERP.</p>
+  <button class="btn" onclick="ejecutar()">▶ Ejecutar Actualización</button>
+  <div id="log" class="log" style="display:none"></div>
+</div>
+<script>
+const log = (msg) => {
+  const el = document.getElementById('log');
+  el.style.display='block';
+  el.textContent += msg + '\n';
+  el.scrollTop = el.scrollHeight;
+};
+
+// ── PRECIOS DE VENTA (desde Cotización 20260410428) ───────────────────────────
+const PRECIOS_COT = {
+  'm007': 4.50,   // Metamizol sódico 2gr/2ml ampolla
+  'm006': 5.00,   // Acetaminofén 500mg tabletas
+  'm010': 10.00,  // Clorfeniramina 4mg tabletas
+  'm025': 6.00,   // Clorfeniramina 5mg/0.5ml Ampolla
+  'm001': 40.00,  // Ibuprofeno 600mg Gel Caps Blister x10
+  'm003': 12.00,  // Ibuprofeno 800mg comprimidos
+  'm026': 15.00,  // Broncurol Tabletas
+  'm027': 9.00,   // Vitamina K 10mg/ml Ampolla
+  'm013': 6.00,   // Dexametasona 8mg/2ml ampolla
+  'm019': 12.00,  // Complejo B 10ml frasco
+  'm028': 95.00,  // Sedalgina Compuesta — Caja 3 ampollas
+  'm002': 14.00,  // Dexketoprofeno 25mg tabletas
+  'm029': 6.00,   // Dexketoprofeno 25mg/ml Ampolla
+  'm030': 5.00,   // Furosemida 20mg/2ml Ampolla
+  'm016': 9.00,   // Agua Oxigenada 3% 500ml
+  'm017': 1.40,   // Suero Oral en Sobres Electrolit
+  'i017': 20.00,  // Algodón Plisado 25g
+  'i025': 50.00,  // Gasa Simple Rollo 1" × 6 yardas
+  'i005': 16.50,  // Venda Elástica 4"
+  'm024': 45.00,  // Lágrimas Humectantes
+  'm031': 6.00,   // Lidocaína Clorhidrato
+  'm015': 14.00,  // Solución HARTMANN 500ml
+  'm032': 14.00,  // Solución Salina 0.90% Frasco 500ml
+  'm020': 38.00,  // Hibitane 5% frasco
+  'm021': 45.00,  // Frío Rub Aerosol
+  'm022': 114.00, // Septidex Spray
+  'i006': 15.00,  // Curitas 1"x3" — Caja x100
+  'm005': 18.00,  // Naproxeno 500mg tabletas
+  'm012': 15.00,  // Metocarbamol 500mg tabletas
+  'm033': 12.00,  // Loperamida 2mg Tabletas
+  'm034': 10.50,  // Nauseol 50mg Tabletas
+  'm035': 30.00,  // Espasmo Dolofor / Sedaline
+  'm036': 45.00,  // Bromuro de Otilonio 40mg Tabletas
+  'i028': 6.00,   // Venoset — Equipo de venoclisis
+  'm037': 45.00,  // Pepto Bismol Tabletas Masticables
+  'm038': 150.00, // Menaxol Forte 600mg Efervescentes
+  'm039': 150.00, // Aci Tip Jarabe
+  'm040': 175.00, // Filinar G Jarabe
+  'm023': 3.50,   // Viro-Grip Día sobres
+  'm011': 286.00, // Ondansetron 4mg blister x10
+  'm041': 85.00,  // Suero de Rehidratación Oral Ancalmo — Caja x54
+};
+
+// ── COSTOS DE COMPRA (desde facturas de proveedores) ─────────────────────────
+const COSTOS_PROV = {
+  'm001': 34.65,  // Ibuprofeno 600mg Blister x10 (Select/MK)
+  'm002': 19.50,  // Dexketoprofeno 25mg blister x10 (Lukahm)
+  'm005': 11.55,  // Naproxeno 550mg blister x10
+  'm006': 1.95,   // Acetaminofén 500mg blister x10
+  'm007': 2.35,   // Metamizol sódico ampolla (Q11.75/5 ampollas)
+  'm009': 46.00,  // Lansoprazol 30mg blister x10
+  'm010': 4.25,   // Clorfeniramina 4mg blister x20 Select
+  'm012': 5.30,   // Metocarbamol 500mg blister x10
+  'm019': 10.70,  // Complejo B 10ml (Bonin)
+  'm021': 32.95,  // Frío Rub Aerosol 425ml
+  'm025': 2.80,   // Clorfeniramina 5mg Ampolla (Q14.00/5)
+  'm026': 11.30,  // Broncurol tabletas (Q113.00/10 trax)
+  'm030': 1.95,   // Furosemida 20mg/2ml Ampolla (Balaxi)
+  'm033': 1.70,   // Loperamida 2mg (Q17.00/100 tabs = Q1.70/10)
+  'm034': 8.85,   // Nauseol tableta disp x10
+  'm041': 77.00,  // Suero Ancalmo dispensador (ref costo por caja)
+  'i006': 11.20,  // Curitas 1"x3" Caja x100 (Q22.40/2)
+  'i008': 4.40,   // Esparadrapo/Micropore 1/2"
+  'i017': 5.40,   // Algodón 25g (Q75.60/14)
+  'i028': 2.63,   // Venoset equipo IV (Q31.56/12)
+};
+
+// ── PRODUCTOS NUEVOS ──────────────────────────────────────────────────────────
+const genId = () => 'new_'+Date.now().toString(36)+Math.random().toString(36).slice(2);
+
+const NUEVOS_PRODUCTOS = [
+  // Desde cotización
+  {id:genId(),codigo:'INS-030',nombre:'Baja Lenguas — Caja',descripcion:'Baja lenguas de madera para uso clínico. Caja estándar.',categoria:'Insumos Botiquín',unidad:'caja',precio:20.00,costo:0,stock:0,stockMin:2,proveedor:'OHS Supply',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-031',nombre:'Hisopos — Caja x100',descripcion:'Hisopos de algodón estériles. Caja con 100 unidades.',categoria:'Insumos Botiquín',unidad:'caja',precio:6.00,costo:0,stock:0,stockMin:2,proveedor:'OHS Supply',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-032',nombre:'Angiocat / Catheter N° 22 IV',descripcion:'Catéter intravenoso periférico N° 22. Uso hospitalario.',categoria:'Insumos Botiquín',unidad:'unidad',precio:5.00,costo:4.95,stock:0,stockMin:5,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-033',nombre:'Jeringa 10ml',descripcion:'Jeringa desechable 10ml con aguja.',categoria:'Insumos Botiquín',unidad:'unidad',precio:1.50,costo:0,stock:0,stockMin:10,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-034',nombre:'Jeringa 5ml',descripcion:'Jeringa desechable 5ml con aguja.',categoria:'Insumos Botiquín',unidad:'unidad',precio:2.00,costo:0,stock:0,stockMin:10,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-035',nombre:'Jeringa 3ml Aguja 23G',descripcion:'Jeringa desechable 3ml con aguja calibre 23.',categoria:'Insumos Botiquín',unidad:'unidad',precio:2.00,costo:0,stock:0,stockMin:10,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  // Desde proveedores
+  {id:genId(),codigo:'MED-043',nombre:'Cloruro de Sodio 100ml (Bolsa IV)',descripcion:'Solución de cloruro de sodio 0.9% 100ml para uso intravenoso.',categoria:'Medicamentos',unidad:'bolsa',precio:0,costo:6.70,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Intravenosa'},
+  {id:genId(),codigo:'MED-044',nombre:'Panadol Multisíntomas x48 tabletas',descripcion:'Analgésico/antigripal combinado. Caja x48 tabletas.',categoria:'Medicamentos',unidad:'caja',precio:0,costo:64.00,stock:0,stockMin:1,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'INS-036',nombre:'Catheter / Angiocat N° 18 IV',descripcion:'Catéter intravenoso periférico N° 18.',categoria:'Insumos Botiquín',unidad:'unidad',precio:0,costo:4.95,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-037',nombre:'Catheter / Angiocat N° 20 IV',descripcion:'Catéter intravenoso periférico N° 20.',categoria:'Insumos Botiquín',unidad:'unidad',precio:0,costo:4.95,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'INS-038',nombre:'Catheter / Angiocat N° 24 IV',descripcion:'Catéter intravenoso periférico N° 24.',categoria:'Insumos Botiquín',unidad:'unidad',precio:0,costo:4.95,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'MED-045',nombre:'Gargadin x56 Pastillas Miel-Limón',descripcion:'Pastillas para alivio de dolor de garganta. Caja x56 pastillas.',categoria:'Medicamentos',unidad:'caja',precio:0,costo:69.00,stock:0,stockMin:1,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-046',nombre:'Venda Elástica 6" × 5 yardas',descripcion:'Venda elástica 6 pulgadas (15cm) × 5 yardas. Uso clínico.',categoria:'Insumos Botiquín',unidad:'rollo',precio:0,costo:20.85,stock:0,stockMin:5,proveedor:'OHS Supply',activo:true,tipoProducto:'venta'},
+  {id:genId(),codigo:'MED-047',nombre:'Diclofenaco Sódico 100mg GelCaps Blis x10',descripcion:'Antiinflamatorio no esteroide. Blister x10 cápsulas gel.',categoria:'Medicamentos',unidad:'blister',precio:0,costo:6.25,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-048',nombre:'Sucralfato Suspensión 1g/5ml 200ml',descripcion:'Protector gástrico en suspensión. Frasco 200ml.',categoria:'Medicamentos',unidad:'frasco',precio:0,costo:30.90,stock:0,stockMin:1,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-049',nombre:'Sulfadiazina de Plata 1% Crema 40g',descripcion:'Crema antibacteriana para quemaduras. Tubo 40g.',categoria:'Medicamentos',unidad:'tubo',precio:0,costo:21.95,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Tópica'},
+  {id:genId(),codigo:'MED-050',nombre:'Simeticona 40mg Tabletas Masticables',descripcion:'Antiflatulento. Dispensador x30 tabletas masticables.',categoria:'Medicamentos',unidad:'blister',precio:0,costo:12.95,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-051',nombre:'Loratadina 10mg Tabletas',descripcion:'Antihistamínico de 2da generación. Dispensador x100 tabletas.',categoria:'Medicamentos',unidad:'blister',precio:0,costo:23.50,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-052',nombre:'Tusigen Jarabe 120ml',descripcion:'Expectorante/antitusivo jarabe. Frasco 120ml.',categoria:'Medicamentos',unidad:'frasco',precio:0,costo:39.75,stock:0,stockMin:1,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-053',nombre:'Albendazol 200mg Tabletas Masticables',descripcion:'Antiparasitario oral. Dispensador x2 tabletas.',categoria:'Medicamentos',unidad:'blister',precio:0,costo:1.70,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-054',nombre:'Dexketoprofeno + Neurotropas GelCaps Blis x4',descripcion:'Analgésico antiinflamatorio + complejo vitamínico. Blister x4 cápsulas.',categoria:'Medicamentos',unidad:'blister',precio:0,costo:14.60,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:genId(),codigo:'MED-055',nombre:'Ketorolaco Ampolla Inyectable 60mg/2ml',descripcion:'Analgésico antiinflamatorio inyectable. Ampolla 60mg/2ml.',categoria:'Medicamentos',unidad:'unidad',precio:0,costo:7.75,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Intramuscular'},
+  {id:genId(),codigo:'MED-056',nombre:'Ibuprofeno + Metocarbamol 300+250mg x30',descripcion:'Analgésico + relajante muscular combinado. Dispensador x30 tabletas.',categoria:'Medicamentos',unidad:'blister',precio:0,costo:34.75,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+];
+
+function ejecutar() {
+  log('═══════════════════════════════════════════');
+  log('  OHS Training GT — Actualización de Inventario');
+  log('═══════════════════════════════════════════\n');
+
+  let productos = [];
+  try {
+    const raw = localStorage.getItem('ohs_productos');
+    productos = raw ? JSON.parse(raw) : [];
+    log(`✅ Inventario cargado: ${productos.length} productos\n`);
+  } catch(e) {
+    log('❌ Error leyendo localStorage: ' + e.message);
+    return;
+  }
+
+  let actualizados = 0;
+  let noEncontrados = [];
+
+  // 1. Actualizar precios de venta
+  log('── PRECIOS DE VENTA (Cotización N°20260410428) ──');
+  for (const [id, precio] of Object.entries(PRECIOS_COT)) {
+    const idx = productos.findIndex(p => p.id === id);
+    if (idx >= 0) {
+      const anterior = productos[idx].precio;
+      productos[idx] = {...productos[idx], precio};
+      log(`  ✅ ${productos[idx].nombre}: Q${anterior} → Q${precio}`);
+      actualizados++;
+    } else {
+      noEncontrados.push(id);
+    }
+  }
+
+  // 2. Actualizar costos
+  log('\n── COSTOS DE COMPRA (Facturas de Proveedores) ──');
+  for (const [id, costo] of Object.entries(COSTOS_PROV)) {
+    const idx = productos.findIndex(p => p.id === id);
+    if (idx >= 0) {
+      const anterior = productos[idx].costo;
+      productos[idx] = {...productos[idx], costo};
+      log(`  ✅ ${productos[idx].nombre}: Q${anterior} → Q${costo} (costo)`);
+      actualizados++;
+    }
+  }
+
+  // 3. Agregar productos nuevos (solo si no existen por nombre)
+  log('\n── PRODUCTOS NUEVOS ──');
+  let agregados = 0;
+  for (const nuevo of NUEVOS_PRODUCTOS) {
+    const yaExiste = productos.some(p =>
+      p.nombre.toLowerCase().replace(/\s+/g,'') === nuevo.nombre.toLowerCase().replace(/\s+/g,'')
+    );
+    if (!yaExiste) {
+      productos.push(nuevo);
+      log(`  🆕 Creado: ${nuevo.nombre} (${nuevo.codigo})`);
+      agregados++;
+    } else {
+      log(`  ⚠️  Ya existe: ${nuevo.nombre} — omitido`);
+    }
+  }
+
+  // 4. Guardar
+  try {
+    localStorage.setItem('ohs_productos', JSON.stringify(productos));
+    log('\n═══════════════════════════════════════════');
+    log(`✅ COMPLETADO`);
+    log(`   • ${actualizados} campos actualizados (precio/costo)`);
+    log(`   • ${agregados} productos nuevos creados`);
+    log(`   • Total productos en inventario: ${productos.length}`);
+    log('═══════════════════════════════════════════');
+    log('\n👉 Recarga el ERP para ver los cambios.');
+  } catch(e) {
+    log('❌ Error guardando: ' + e.message);
+  }
+}
+</script>
+</body>
+</html>
