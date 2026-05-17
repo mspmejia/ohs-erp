@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<title>Limpiar Inventario — OHS ERP</title>
+<style>
+  body{font-family:sans-serif;background:#f5f6fa;padding:30px;max-width:900px;margin:auto;}
+  h1{color:#1a1a2e;font-size:22px;}
+  .card{background:#fff;border-radius:10px;border:1px solid #e2e8f0;padding:20px;margin:16px 0;}
+  .btn{display:inline-block;padding:10px 20px;border-radius:7px;font-size:14px;font-weight:700;cursor:pointer;border:none;margin:6px 4px;}
+  .btn-primary{background:#FF8C00;color:#fff;}
+  .btn-danger{background:#e53e3e;color:#fff;}
+  .btn-gray{background:#e2e8f0;color:#333;}
+  pre{background:#f0f4f8;padding:14px;border-radius:7px;font-size:12px;overflow:auto;max-height:400px;white-space:pre-wrap;}
+  .ok{color:#008000;font-weight:700;}
+  .warn{color:#e53e3e;font-weight:700;}
+  .info{color:#2b6cb0;}
+  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px;}
+  th,td{padding:6px 10px;border:1px solid #e2e8f0;text-align:left;}
+  th{background:#f0f4f8;font-weight:700;}
+  tr.eliminar{background:#fff5f5;}
+  tr.conservar{background:#f0fff4;}
+  .badge-del{background:#fed7d7;color:#c53030;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;}
+  .badge-ok{background:#c6f6d5;color:#276749;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;}
+  .badge-warn{background:#fefcbf;color:#744210;padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700;}
+  .section-title{font-weight:700;color:#1a1a2e;margin:16px 0 6px;font-size:14px;}
+</style>
+</head>
+<body>
+<h1>🧹 Limpieza de Inventario — OHS ERP</h1>
+<p style="color:#555;font-size:13px;">Detecta duplicados por <strong>nombre + unidad (presentación)</strong>. Conserva el producto con mayor precio de venta y elimina el resto. También corrige códigos inválidos y elimina duplicados por ID.</p>
+<p style="color:#e53e3e;font-size:12px;margin-top:6px;">⚠️ Abre en el <strong>mismo navegador y perfil</strong> donde usas el ERP (local o GitHub Pages).</p>
+
+<div class="card" id="estadoCard">
+  <h3>Estado actual</h3>
+  <div id="estadoTexto">Analizando...</div>
+</div>
+
+<div class="card" id="previstaCard" style="display:none">
+  <h3>Vista previa de cambios</h3>
+  <div id="previstaTexto"></div>
+</div>
+
+<div style="margin:10px 0;">
+  <button class="btn btn-gray" onclick="analizar()">🔍 Re-analizar</button>
+  <button class="btn btn-danger" onclick="backup()" id="btnBackup" style="display:none">💾 Descargar backup</button>
+  <button class="btn btn-primary" onclick="limpiar()" id="btnLimpiar" style="display:none">✅ Aplicar limpieza</button>
+</div>
+
+<div class="card" id="logCard" style="display:none">
+  <h3>Resultado</h3>
+  <pre id="logTexto"></pre>
+</div>
+
+<script>
+const CATEGORIA_PREFIX = {
+  'Cursos':'CUR','Botiquines':'BOT','Equipo Médico':'EQP',
+  'Medicamentos':'MED','Insumos Botiquín':'INS','Materia Prima':'MP','Empaque':'EMP'
+};
+
+function normNombre(n) {
+  return (n||'').trim().toLowerCase().replace(/\s+/g,' ');
+}
+
+function codigoValido(codigo) {
+  return /^[A-Z]+-\d+$/.test(codigo || '');
+}
+
+function getNextCode(categoria, productos) {
+  const prefix = CATEGORIA_PREFIX[categoria] || 'PROD';
+  const existing = productos.filter(p => p.codigo && p.codigo.match(new RegExp('^'+prefix+'-\\d+')));
+  const nums = existing.map(p => { const m=p.codigo.match(/(\d+)$/); return m?parseInt(m[1]):0; });
+  const next = nums.length > 0 ? Math.max(...nums)+1 : 1;
+  return `${prefix}-${String(next).padStart(3,'0')}`;
+}
+
+function cargarProductos() {
+  try {
+    const raw = localStorage.getItem('ohs_productos');
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch(e) { return null; }
+}
+
+let analisis = null;
+
+function analizar() {
+  const productos = cargarProductos();
+  const estadoEl = document.getElementById('estadoTexto');
+
+  if (!productos) {
+    estadoEl.innerHTML = '<span class="warn">⚠️ No se encontró inventario (ohs_productos vacío).<br>Asegúrate de abrir esta página en el mismo navegador donde usas el ERP.</span>';
+    return;
+  }
+
+  estadoEl.innerHTML = `<span class="ok">✅ ${productos.length} productos encontrados en localStorage.</span>`;
+
+  // 1. Duplicados por ID (mantener primero)
+  const vistoIds = new Map();
+  const eliminarPorId = [];
+  productos.forEach((p, idx) => {
+    if (vistoIds.has(p.id)) {
+      eliminarPorId.push({idx, p});
+    } else {
+      vistoIds.set(p.id, idx);
+    }
+  });
+
+  // 2. Duplicados por nombre+unidad — conservar el de mayor precio
+  // Trabajar sobre los que quedan tras filtrar por ID
+  const sinDupId = productos.filter((p,i) => !eliminarPorId.some(d=>d.idx===i));
+  const grupos = {};
+  sinDupId.forEach(p => {
+    const key = normNombre(p.nombre) + '|||' + (p.unidad||'').trim().toLowerCase();
+    if (!grupos[key]) grupos[key] = [];
+    grupos[key].push(p);
+  });
+  const eliminarPorNombre = [];
+  Object.values(grupos).forEach(items => {
+    if (items.length < 2) return;
+    // Conservar el de mayor precio; en empate, conservar el que tiene ID más corto (IDs fijos son cortos, ej m043)
+    items.sort((a,b) => {
+      if (b.precio !== a.precio) return b.precio - a.precio;
+      return (a.id||'').length - (b.id||'').length;
+    });
+    // items[0] = conservar; resto = eliminar
+    items.slice(1).forEach(p => eliminarPorNombre.push(p));
+  });
+
+  // 3. Códigos inválidos (en los que quedan)
+  const idsEliminar = new Set([
+    ...eliminarPorId.map(d=>d.p.id),
+    ...eliminarPorNombre.map(p=>p.id)
+  ]);
+  const quedan = productos.filter(p => !idsEliminar.has(p.id));
+  const codigosInvalidos = quedan.filter(p => !codigoValido(p.codigo));
+
+  analisis = { productos, eliminarPorId, eliminarPorNombre, codigosInvalidos };
+
+  // Render preview
+  const previstaCard = document.getElementById('previstaCard');
+  const previstaTexto = document.getElementById('previstaTexto');
+  previstaCard.style.display = 'block';
+  let html = '';
+
+  // --- Duplicados por ID ---
+  if (eliminarPorId.length > 0) {
+    html += `<div class="section-title">🔴 Duplicados por ID (${eliminarPorId.length})</div>`;
+    html += '<table><tr><th>ID</th><th>Nombre</th><th>Acción</th></tr>';
+    eliminarPorId.forEach(d => {
+      html += `<tr class="eliminar"><td>${d.p.id}</td><td>${d.p.nombre||''}</td><td><span class="badge-del">ELIMINAR</span></td></tr>`;
+    });
+    html += '</table>';
+  } else {
+    html += '<p><span class="ok">✅ Sin duplicados por ID</span></p>';
+  }
+
+  // --- Duplicados por nombre+unidad ---
+  const gruposConDup = Object.values(grupos).filter(items => items.length > 1);
+  if (gruposConDup.length > 0) {
+    html += `<div class="section-title" style="margin-top:14px;">🟡 Duplicados por nombre + presentación (${gruposConDup.length} grupos)</div>`;
+    gruposConDup.forEach(items => {
+      items.sort((a,b) => {
+        if (b.precio !== a.precio) return b.precio - a.precio;
+        return (a.id||'').length - (b.id||'').length;
+      });
+      html += `<p style="margin:10px 0 4px;font-size:12px;color:#555;"><strong>${items[0].nombre}</strong> — unidad: <em>${items[0].unidad||'?'}</em></p>`;
+      html += '<table><tr><th>ID</th><th>Código</th><th>Precio venta</th><th>Costo</th><th>Stock</th><th>Acción</th></tr>';
+      items.forEach((p, i) => {
+        const clase = i===0 ? 'conservar' : 'eliminar';
+        const badge = i===0 ? '<span class="badge-ok">✅ CONSERVAR</span>' : '<span class="badge-del">❌ ELIMINAR</span>';
+        html += `<tr class="${clase}"><td>${p.id}</td><td>${p.codigo||'(sin código)'}</td><td>Q${p.precio}</td><td>Q${p.costo}</td><td>${p.stock}</td><td>${badge}</td></tr>`;
+      });
+      html += '</table>';
+    });
+  } else {
+    html += '<p style="margin-top:8px"><span class="ok">✅ Sin duplicados por nombre+presentación</span></p>';
+  }
+
+  // --- Códigos inválidos ---
+  if (codigosInvalidos.length > 0) {
+    html += `<div class="section-title" style="margin-top:14px;">🔴 Códigos inválidos (${codigosInvalidos.length})</div>`;
+    html += '<table><tr><th>ID</th><th>Nombre</th><th>Código actual</th><th>Código nuevo</th></tr>';
+    const quedan2 = [...quedan];
+    codigosInvalidos.forEach(p => {
+      const idx = quedan2.findIndex(x=>x.id===p.id);
+      const nuevo = getNextCode(p.categoria||'Medicamentos', quedan2.slice(0,idx));
+      quedan2[idx] = {...p, codigo: nuevo};
+      html += `<tr class="eliminar"><td>${p.id}</td><td>${p.nombre||''}</td><td><strong>${p.codigo||'(vacío)'}</strong></td><td class="ok">${nuevo}</td></tr>`;
+    });
+    html += '</table>';
+  } else {
+    html += '<p style="margin-top:8px"><span class="ok">✅ Todos los códigos son válidos</span></p>';
+  }
+
+  previstaTexto.innerHTML = html;
+
+  const total = eliminarPorId.length + eliminarPorNombre.length + codigosInvalidos.length;
+  document.getElementById('btnLimpiar').style.display = total > 0 ? 'inline-block' : 'none';
+  document.getElementById('btnBackup').style.display = total > 0 ? 'inline-block' : 'none';
+
+  if (total === 0) {
+    previstaTexto.innerHTML += '<p style="margin-top:12px"><strong class="ok">✅ El inventario está limpio. No hay cambios necesarios.</strong></p>';
+  }
+}
+
+function backup() {
+  const productos = cargarProductos();
+  if (!productos) return alert('No hay datos que respaldar.');
+  const blob = new Blob([JSON.stringify(productos, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `backup_inventario_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function limpiar() {
+  if (!analisis) { alert('Analiza primero.'); return; }
+  if (!confirm('¿Aplicar limpieza? Descarga el backup antes si lo necesitas.')) return;
+
+  const logEl = document.getElementById('logTexto');
+  document.getElementById('logCard').style.display = 'block';
+  const log = [];
+
+  let productos = [...analisis.productos];
+
+  // 1. Eliminar duplicados por ID
+  const idsElimId = new Set(analisis.eliminarPorId.map(d=>d.p.id));
+  const sinDupId = [];
+  productos.forEach(p => {
+    if (idsElimId.has(p.id)) {
+      log.push(`❌ Eliminado (ID dup): ${p.nombre} (${p.id})`);
+    } else {
+      sinDupId.push(p);
+    }
+  });
+  productos = sinDupId;
+
+  // 2. Eliminar duplicados por nombre+unidad (conservar mayor precio)
+  const idsElimNom = new Set(analisis.eliminarPorNombre.map(p=>p.id));
+  const sinDupNom = [];
+  productos.forEach(p => {
+    if (idsElimNom.has(p.id)) {
+      log.push(`❌ Eliminado (dup presentación): ${p.nombre} — precio Q${p.precio} (ID: ${p.id})`);
+    } else {
+      sinDupNom.push(p);
+    }
+  });
+  productos = sinDupNom;
+
+  // 3. Corregir códigos inválidos
+  productos.forEach((p, idx) => {
+    if (!codigoValido(p.codigo)) {
+      const viejo = p.codigo || '(vacío)';
+      const nuevo = getNextCode(p.categoria || 'Medicamentos', productos.slice(0, idx));
+      productos[idx] = {...p, codigo: nuevo};
+      log.push(`🔧 Código corregido: "${viejo}" → "${nuevo}" (${p.nombre})`);
+    }
+  });
+
+  // Guardar
+  try {
+    localStorage.setItem('ohs_productos', JSON.stringify(productos));
+    log.push('');
+    log.push(`✅ COMPLETADO — ${productos.length} productos guardados.`);
+    log.push(`   Duplicados por ID eliminados:           ${analisis.eliminarPorId.length}`);
+    log.push(`   Duplicados por nombre+unidad eliminados: ${analisis.eliminarPorNombre.length}`);
+    log.push(`   Códigos corregidos:                     ${analisis.codigosInvalidos.length}`);
+    log.push('');
+    log.push('👉 Recarga el ERP para ver los cambios.');
+    logEl.textContent = log.join('\n');
+    document.getElementById('btnLimpiar').style.display = 'none';
+    setTimeout(() => analizar(), 600);
+  } catch(e) {
+    log.push(`❌ ERROR al guardar: ${e.message}`);
+    logEl.textContent = log.join('\n');
+  }
+}
+
+window.onload = () => analizar();
+</script>
+</body>
+</html>
