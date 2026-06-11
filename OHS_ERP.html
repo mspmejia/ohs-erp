@@ -137,17 +137,35 @@
       .main{margin-left:60px;}
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <div id="root"></div>
 
 <script type="text/babel">
-const { useState, useEffect, useReducer, useRef, useMemo } = React;
+const { useState, useEffect, useReducer, useRef, useMemo, useCallback } = React;
 const AuthContext = React.createContext({canEdit:true, user:null, logout:()=>{}});
 
 /* ═══════════════════════════════════════════════════════════
    INITIAL DATA
 ═══════════════════════════════════════════════════════════ */
+const INITIAL_COTIZACIONES = [
+  {
+      id:'cot-precios-2026-06-11',
+      numero:'COT-20260611-001',
+      fecha:'2026-06-11',
+      validez:'30 días',
+      estado:'pendiente',
+      cliente:{nombre:'',empresa:'Lista de Precios Botiquín',nit:'',email:'',telefono:'',direccion:''},
+      items:[{productoId:'m059',nombre:'Albendazol Suspensión Frasco',cantidad:1,precio:175.0,unidad:'frasco',subtotal:175.0},{productoId:'m060',nombre:'Blascan 20mg Comprimidos Blister x10',cantidad:1,precio:10.0,unidad:'blister',subtotal:10.0},{productoId:'m036',nombre:'Bromuro de Otilonio 40mg Tabletas',cantidad:1,precio:5.0,unidad:'blister',subtotal:5.0},{productoId:'m053',nombre:'Buscapina Tabletas 10mg Blister',cantidad:1,precio:10.0,unidad:'blister',subtotal:10.0},{productoId:'m058',nombre:'Captopril Tab 25mg Disp x50',cantidad:1,precio:10.0,unidad:'blister',subtotal:10.0},{productoId:'m061',nombre:'Clotrimazol Spray 1% Frasco',cantidad:1,precio:2.0,unidad:'frasco',subtotal:2.0},{productoId:'m019',nombre:'Complejo B 10ml frasco',cantidad:1,precio:3.0,unidad:'frasco',subtotal:3.0},{productoId:'m062',nombre:'Diclofenaco Tabletas 50mg Blister x10',cantidad:1,precio:4.0,unidad:'blister',subtotal:4.0},{productoId:'m057',nombre:'Dolgenal Ampolla Iny 60mg/2ml',cantidad:1,precio:5.0,unidad:'ampolla',subtotal:5.0},{productoId:'m035',nombre:'Espasmo Dolofor 125mg/10mg Tabletas',cantidad:1,precio:6.0,unidad:'blister',subtotal:6.0},{productoId:'m040',nombre:'Filinar G Jarabe',cantidad:1,precio:2.0,unidad:'frasco',subtotal:2.0},{productoId:'m021',nombre:'Frío Rub Aerosol',cantidad:1,precio:1.0,unidad:'unidad',subtotal:1.0},{productoId:'i002',nombre:'Guantes Látex M — Caja x100',cantidad:1,precio:1.0,unidad:'caja',subtotal:1.0},{productoId:'m063',nombre:'Hidrasec 100mg Comprimidos Blister',cantidad:1,precio:9.0,unidad:'blister',subtotal:9.0},{productoId:'i003',nombre:'Hoja para Bisturí — Caja x100',cantidad:1,precio:1.0,unidad:'caja',subtotal:1.0},{productoId:'m064',nombre:'Ketorolaco Ampolla 30mg',cantidad:1,precio:8.0,unidad:'ampolla',subtotal:8.0},{productoId:'m065',nombre:'Levopront Jarabe 120ml',cantidad:1,precio:1.0,unidad:'frasco',subtotal:1.0},{productoId:'m038',nombre:'Menaxol Forte 600mg Efervescentes',cantidad:1,precio:3.0,unidad:'frasco',subtotal:3.0},{productoId:'m066',nombre:'Neurotropas Ampolla Inyectable',cantidad:1,precio:3.0,unidad:'ampolla',subtotal:3.0},{productoId:'m011',nombre:'Ondansetron 4mg tabletas',cantidad:1,precio:12.0,unidad:'caja',subtotal:12.0},{productoId:'m022',nombre:'Septidex Spray',cantidad:1,precio:18.0,unidad:'frasco',subtotal:18.0},{productoId:'m045',nombre:'Sucralfato Suspensión 1g/5ml 200ml',cantidad:1,precio:5.0,unidad:'frasco',subtotal:5.0},{productoId:'i004',nombre:'Sutura Nylon 2-0',cantidad:1,precio:3.0,unidad:'unidad',subtotal:3.0},{productoId:'i005',nombre:'Sutura Nylon 5-0',cantidad:1,precio:3.0,unidad:'unidad',subtotal:3.0}],
+      notas:'Lista de precios de referencia para botiquín. Precios unitarios de venta al público.',
+      iva:false,
+      total:300.0,
+      ivaAmt:0,
+      baseAmt:300.0
+    }
+];
+
 const INITIAL_PRODUCTOS = [
   // ── CURSOS ────────────────────────────────────────────────
   {id:'c001',codigo:'CUR-001',nombre:'Primeros Auxilios + Manejo de Botiquín Empresarial',descripcion:'Curso teórico-práctico de 6 horas. Incluye presentación digital, práctica guiada, evaluación y certificado. Mínimo 15 personas.',categoria:'Cursos',unidad:'persona',precio:230,costo:80,stock:9999,stockMin:0,proveedor:'OHS Academy',activo:true},
@@ -179,7 +197,7 @@ const INITIAL_PRODUCTOS = [
   {id:'m008',codigo:'MED-008',nombre:'Cetirizina 10mg tabletas',descripcion:'Antihistamínico. Presentación: blister x10.',categoria:'Medicamentos',unidad:'blister',precio:12,costo:6,stock:100,stockMin:25,proveedor:'Farmacéutica GT',activo:true},
   {id:'m009',codigo:'MED-009',nombre:'Lansoprazol 30mg tabletas',descripcion:'Inhibidor de bomba de protones. Presentación: blister x10.',categoria:'Medicamentos',unidad:'blister',precio:10,costo:5,stock:80,stockMin:20,proveedor:'Farmacéutica GT',activo:true},
   {id:'m010',codigo:'MED-010',nombre:'Clorfeniramina 4mg tabletas',descripcion:'Antihistamínico. Presentación: blister x12.',categoria:'Medicamentos',unidad:'blister',precio:1.5,costo:0.7,stock:120,stockMin:30,proveedor:'Farmacéutica GT',activo:true},
-  {id:'m011',codigo:'MED-011',nombre:'Ondansetron 4mg tabletas',descripcion:'Antiemético. Presentación: blister x12.',categoria:'Medicamentos',unidad:'blister',precio:2,costo:1,stock:100,stockMin:25,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m011',codigo:'MED-011',nombre:'Ondansetron 4mg tabletas',descripcion:'Antiemético. Presentación: blister x12.',categoria:'Medicamentos',unidad:'blister',precio:12.0,costo:1,stock:100,stockMin:25,proveedor:'Farmacéutica GT',activo:true},
   {id:'m012',codigo:'MED-012',nombre:'Metocarbamol 500mg tabletas',descripcion:'Relajante muscular. Presentación: blister x12.',categoria:'Medicamentos',unidad:'blister',precio:3,costo:1.5,stock:80,stockMin:20,proveedor:'Farmacéutica GT',activo:true},
   {id:'m013',codigo:'MED-013',nombre:'Dexametasona 8mg/2ml ampolla',descripcion:'Corticoide inyectable. Presentación: ampolla.',categoria:'Medicamentos',unidad:'unidad',precio:6,costo:3,stock:60,stockMin:15,proveedor:'Farmacéutica GT',activo:true},
   {id:'m014',codigo:'MED-014',nombre:'Solución Salina 0.90% 250ml',descripcion:'Solución fisiológica isotónica. Presentación: frasco 250ml.',categoria:'Medicamentos',unidad:'frasco',precio:15,costo:8,stock:50,stockMin:15,proveedor:'Farmacéutica GT',activo:true},
@@ -187,18 +205,18 @@ const INITIAL_PRODUCTOS = [
   {id:'m016',codigo:'MED-016',nombre:'Agua Oxigenada 3% 500ml',descripcion:'Antiséptico. Presentación: frasco 500ml.',categoria:'Medicamentos',unidad:'frasco',precio:8,costo:4,stock:80,stockMin:20,proveedor:'Farmacéutica GT',activo:true},
   {id:'m017',codigo:'MED-017',nombre:'Suero Oral en Sobres',descripcion:'Sales de rehidratación oral. Presentación: sobre individual.',categoria:'Medicamentos',unidad:'sobre',precio:1,costo:0.4,stock:500,stockMin:100,proveedor:'Farmacéutica GT',activo:true},
   {id:'m018',codigo:'MED-018',nombre:'Alcohol Etílico 70% 255ml',descripcion:'Antiséptico de uso externo. Presentación: frasco 255ml.',categoria:'Medicamentos',unidad:'frasco',precio:8,costo:4,stock:100,stockMin:30,proveedor:'Farmacéutica GT',activo:true},
-  {id:'m019',codigo:'MED-019',nombre:'Complejo B 10ml frasco',descripcion:'Complejo vitamínico inyectable. Presentación: frasco 10ml.',categoria:'Medicamentos',unidad:'frasco',precio:12,costo:6,stock:50,stockMin:15,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m019',codigo:'MED-019',nombre:'Complejo B 10ml frasco',descripcion:'Complejo vitamínico inyectable. Presentación: frasco 10ml.',categoria:'Medicamentos',unidad:'frasco',precio:3.0,costo:10.7,stock:50,stockMin:15,proveedor:'Farmacéutica GT',activo:true},
   {id:'m020',codigo:'MED-020',nombre:'Hibitane 5% frasco',descripcion:'Clorhexidina al 5%. Antiséptico concentrado. Presentación: frasco.',categoria:'Medicamentos',unidad:'frasco',precio:20,costo:10,stock:40,stockMin:10,proveedor:'Farmacéutica GT',activo:true},
-  {id:'m021',codigo:'MED-021',nombre:'Frío Rub Aerosol',descripcion:'Spray analgésico frío para lesiones musculares.',categoria:'Medicamentos',unidad:'unidad',precio:18,costo:9,stock:30,stockMin:10,proveedor:'Farmacéutica GT',activo:true},
-  {id:'m022',codigo:'MED-022',nombre:'Septidex Spray',descripcion:'Antiséptico en spray de uso externo.',categoria:'Medicamentos',unidad:'unidad',precio:12,costo:6,stock:40,stockMin:10,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m021',codigo:'MED-021',nombre:'Frío Rub Aerosol',descripcion:'Spray analgésico frío para lesiones musculares.',categoria:'Medicamentos',unidad:'unidad',precio:1.0,costo:32.95,stock:30,stockMin:10,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m022',codigo:'MED-022',nombre:'Septidex Spray',descripcion:'Antiséptico en spray de uso externo.',categoria:'Medicamentos',unidad:'unidad',precio:18.0,costo:6,stock:40,stockMin:10,proveedor:'Farmacéutica GT',activo:true},
   {id:'m023',codigo:'MED-023',nombre:'Viro-Grip Día sobres',descripcion:'Antigripal. Presentación: sobre.',categoria:'Medicamentos',unidad:'sobre',precio:4,costo:2,stock:100,stockMin:30,proveedor:'Farmacéutica GT',activo:true},
   {id:'m024',codigo:'MED-024',nombre:'Lágrimas Humectantes 0.50% frasco',descripcion:'Lubricante ocular. Presentación: frasco gotero.',categoria:'Medicamentos',unidad:'frasco',precio:25,costo:14,stock:30,stockMin:10,proveedor:'Farmacéutica GT',activo:true},
   // ── INSUMOS BOTIQUÍN ───────────────────────────────────────
   {id:'i001',codigo:'INS-001',nombre:'Gasa 4"x4" estéril',descripcion:'Gasa tejida estéril para curaciones. Presentación: unidad.',categoria:'Insumos Botiquín',unidad:'unidad',precio:0.5,costo:0.2,stock:2000,stockMin:500,proveedor:'OHS Supply',activo:true},
-  {id:'i002',codigo:'INS-002',nombre:'Rollo Venda de Gasa 2"',descripcion:'Venda de gasa enrollada estéril 2" x 4.1 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:3,costo:1.5,stock:300,stockMin:80,proveedor:'OHS Supply',activo:true},
-  {id:'i003',codigo:'INS-003',nombre:'Rollo Venda de Gasa 4"',descripcion:'Venda de gasa enrollada estéril 4" x 4.1 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:4,costo:2,stock:300,stockMin:80,proveedor:'OHS Supply',activo:true},
-  {id:'i004',codigo:'INS-004',nombre:'Venda Elástica 2"',descripcion:'Venda elástica 2" x 4.5 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:9.5,costo:4.5,stock:200,stockMin:50,proveedor:'OHS Supply',activo:true},
-  {id:'i005',codigo:'INS-005',nombre:'Venda Elástica 4"',descripcion:'Venda elástica 4" x 4.5 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:13.5,costo:7,stock:200,stockMin:50,proveedor:'OHS Supply',activo:true},
+  {id:'i002',codigo:'INS-002',nombre:'Rollo Venda de Gasa 2"',descripcion:'Venda de gasa enrollada estéril 2" x 4.1 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:1.0,costo:1.5,stock:300,stockMin:80,proveedor:'OHS Supply',activo:true},
+  {id:'i003',codigo:'INS-003',nombre:'Rollo Venda de Gasa 4"',descripcion:'Venda de gasa enrollada estéril 4" x 4.1 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:1.0,costo:2,stock:300,stockMin:80,proveedor:'OHS Supply',activo:true},
+  {id:'i004',codigo:'INS-004',nombre:'Venda Elástica 2"',descripcion:'Venda elástica 2" x 4.5 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:3.0,costo:4.5,stock:200,stockMin:50,proveedor:'OHS Supply',activo:true},
+  {id:'i005',codigo:'INS-005',nombre:'Venda Elástica 4"',descripcion:'Venda elástica 4" x 4.5 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:3.0,costo:7,stock:200,stockMin:50,proveedor:'OHS Supply',activo:true},
   {id:'i006',codigo:'INS-006',nombre:'Curitas 1"x3" — Caja x100',descripcion:'Curitas adhesivas estériles. Caja de 100 unidades.',categoria:'Insumos Botiquín',unidad:'caja',precio:15,costo:7,stock:80,stockMin:20,proveedor:'OHS Supply',activo:true},
   {id:'i007',codigo:'INS-007',nombre:'Esparadrapo Impermeable 1"',descripcion:'Esparadrapo de tela impermeable 1" x 2.5 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:5,costo:2.5,stock:150,stockMin:40,proveedor:'OHS Supply',activo:true},
   {id:'i008',codigo:'INS-008',nombre:'Esparadrapo Impermeable 1/2"',descripcion:'Esparadrapo de tela impermeable 1/2" x 2.5 yd.',categoria:'Insumos Botiquín',unidad:'unidad',precio:3.5,costo:1.8,stock:150,stockMin:40,proveedor:'OHS Supply',activo:true},
@@ -229,22 +247,22 @@ const INITIAL_PRODUCTOS = [
   {id:'m032',codigo:'MED-032',nombre:'Solución Salina 0.90% Frasco 500ml',descripcion:'Solución isotónica para uso intravenoso. Frasco 500ml.',categoria:'Medicamentos',unidad:'frasco',precio:18,costo:10,stock:8,stockMin:4,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Intravenosa'},
   {id:'m033',codigo:'MED-033',nombre:'Loperamida 2mg Tabletas',descripcion:'Antidiarreico. Vía oral. Presentación: blister x6.',categoria:'Medicamentos',unidad:'blister',precio:2,costo:0.9,stock:6,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m034',codigo:'MED-034',nombre:'Nauseol 50mg Tabletas',descripcion:'Dimenhidrinato. Antiemético. Vía oral. Presentación: blister x6.',categoria:'Medicamentos',unidad:'blister',precio:3,costo:1.5,stock:6,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m035',codigo:'MED-035',nombre:'Espasmo Dolofor 125mg/10mg Tabletas',descripcion:'Espasmolítico/analgésico combinado. Vía oral. Presentación: blister x6.',categoria:'Medicamentos',unidad:'blister',precio:3,costo:1.5,stock:6,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m036',codigo:'MED-036',nombre:'Bromuro de Otilonio 40mg Tabletas',descripcion:'Espasmolítico intestinal. Vía oral. Presentación: blister x5.',categoria:'Medicamentos',unidad:'blister',precio:4,costo:2,stock:5,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m035',codigo:'MED-035',nombre:'Espasmo Dolofor 125mg/10mg Tabletas',descripcion:'Espasmolítico/analgésico combinado. Vía oral. Presentación: blister x6.',categoria:'Medicamentos',unidad:'blister',precio:6.0,costo:1.5,stock:6,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m036',codigo:'MED-036',nombre:'Bromuro de Otilonio 40mg Tabletas',descripcion:'Espasmolítico intestinal. Vía oral. Presentación: blister x5.',categoria:'Medicamentos',unidad:'blister',precio:5.0,costo:82.85,stock:5,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m037',codigo:'MED-037',nombre:'Pepto Bismol Tabletas Masticables',descripcion:'Bismuto subsalicilato. Antiácido/antidiarreico. Presentación: caja.',categoria:'Medicamentos',unidad:'caja',precio:10,costo:5,stock:3,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m038',codigo:'MED-038',nombre:'Menaxol Forte 600mg Efervescentes',descripcion:'Ácido mefenámico efervescente. Frasco 10 tabletas.',categoria:'Medicamentos',unidad:'frasco',precio:15,costo:8,stock:4,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m038',codigo:'MED-038',nombre:'Menaxol Forte 600mg Efervescentes',descripcion:'Ácido mefenámico efervescente. Frasco 10 tabletas.',categoria:'Medicamentos',unidad:'frasco',precio:3.0,costo:8,stock:4,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m039',codigo:'MED-039',nombre:'Aci Tip Jarabe',descripcion:'Antiácido en jarabe. Vía oral.',categoria:'Medicamentos',unidad:'frasco',precio:12,costo:6,stock:3,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m040',codigo:'MED-040',nombre:'Filinar G Jarabe',descripcion:'Expectorante/mucolítico jarabe. Vía oral.',categoria:'Medicamentos',unidad:'frasco',precio:12,costo:6,stock:3,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m040',codigo:'MED-040',nombre:'Filinar G Jarabe',descripcion:'Expectorante/mucolítico jarabe. Vía oral.',categoria:'Medicamentos',unidad:'frasco',precio:2.0,costo:139.75,stock:3,stockMin:2,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m041',codigo:'MED-041',nombre:'Suero de Rehidratación Oral Ancalmo — Caja x54',descripcion:'Sales de rehidratación oral en polvo. Caja con 54 sobres.',categoria:'Medicamentos',unidad:'caja',precio:25,costo:14,stock:1,stockMin:1,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m042',codigo:'MED-042',nombre:'Vitaminado Granulados',descripcion:'Suplemento vitamínico en granulado. Para reconstitución oral.',categoria:'Medicamentos',unidad:'sobre',precio:4,costo:2,stock:0,stockMin:10,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m043',codigo:'MED-043',nombre:'Diclofenaco Sódico Gelcaps 100mg',descripcion:'Antiinflamatorio/analgésico AINE. Presentación: blister x10. Proveedor: CONAMEP.',categoria:'Medicamentos',unidad:'blister',precio:12.50,costo:6.25,stock:0,stockMin:10,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m043',codigo:'MED-043',nombre:'Diclofenaco Sódico Gelcaps 100mg',descripcion:'Antiinflamatorio/analgésico AINE. Presentación: blister x10. Proveedor: CONAMEP.',categoria:'Medicamentos',unidad:'blister',precio:12.50,costo:4.8,stock:0,stockMin:10,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m044',codigo:'MED-044',nombre:'Ibuprofeno + Metocarbamol 300+250mg tabletas',descripcion:'Antiinflamatorio + relajante muscular. Presentación: dispenser x30. SELECT.',categoria:'Medicamentos',unidad:'unidad',precio:69.50,costo:34.75,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m045',codigo:'MED-045',nombre:'Sucralfato Suspensión 1g/5ml 200ml',descripcion:'Gastroprotector en suspensión. Frasco 200ml. LUKAHM.',categoria:'Medicamentos',unidad:'frasco',precio:61.80,costo:30.90,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m045',codigo:'MED-045',nombre:'Sucralfato Suspensión 1g/5ml 200ml',descripcion:'Gastroprotector en suspensión. Frasco 200ml. LUKAHM.',categoria:'Medicamentos',unidad:'frasco',precio:5.0,costo:30.8,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m046',codigo:'MED-046',nombre:'Sulfadiazina de Plata 1% Crema 40g',descripcion:'Antibiótico tópico para quemaduras y heridas. Presentación: 40g. PHARMEDIC ECOMED.',categoria:'Medicamentos',unidad:'tubo',precio:43.90,costo:21.95,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Tópica'},
   {id:'m047',codigo:'MED-047',nombre:'Simeticona 40mg tabletas masticables',descripcion:'Antiflatulento. Presentación: dispenser x30. SELECT.',categoria:'Medicamentos',unidad:'unidad',precio:25.90,costo:12.95,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m048',codigo:'MED-048',nombre:'Loratadina 10mg tabletas',descripcion:'Antihistamínico de segunda generación. Presentación: dispenser x100. SELECT.',categoria:'Medicamentos',unidad:'unidad',precio:47.00,costo:23.50,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m049',codigo:'MED-049',nombre:'Tusigen Jarabe 120ml',descripcion:'Expectorante/antitusivo. Frasco 120ml.',categoria:'Medicamentos',unidad:'frasco',precio:79.50,costo:39.75,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
-  {id:'m050',codigo:'MED-050',nombre:'Albendazol 200mg tabletas masticables',descripcion:'Antiparasitario. Presentación: dispenser x2. SELECT.',categoria:'Medicamentos',unidad:'unidad',precio:3.40,costo:1.70,stock:0,stockMin:10,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
+  {id:'m050',codigo:'MED-050',nombre:'Albendazol 200mg tabletas masticables',descripcion:'Antiparasitario. Presentación: dispenser x2. SELECT.',categoria:'Medicamentos',unidad:'unidad',precio:3.40,costo:2.0,stock:0,stockMin:10,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m051',codigo:'MED-051',nombre:'Dexketoprofeno + Neurotropas Gelcaps',descripcion:'Analgésico + complejo vitamínico B. Presentación: blister x4. FORAL.',categoria:'Medicamentos',unidad:'blister',precio:29.20,costo:14.60,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Oral'},
   {id:'m052',codigo:'MED-052',nombre:'Ketorolaco AMP INY 60mg/2ml',descripcion:'Analgésico antiinflamatorio inyectable. Ampolla 60mg/2ml. BONKET BONIN.',categoria:'Medicamentos',unidad:'unidad',precio:15.50,costo:7.75,stock:0,stockMin:5,proveedor:'Farmacéutica GT',activo:true,tipoProducto:'venta',administracion:'Intramuscular'},
   // ── INSUMOS CLÍNICOS ADICIONALES ──────────────────────────
@@ -268,7 +286,29 @@ const INITIAL_PRODUCTOS = [
   // ── PRODUCTOS FABRICADOS ───────────────────────────────────
   {id:'fab001',codigo:'FAB-001',nombre:'Gasa Petrolada — Paquete x10',descripcion:'10 gasas impregnadas con vaselina medicinal. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'paquete',precio:45,costo:0,stock:0,stockMin:10,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},
   {id:'fab002',codigo:'FAB-002',nombre:'Venda Triangular — Paquete x1',descripcion:'Venda triangular de polipropileno para cabestrillo. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'unidad',precio:15,costo:0,stock:0,stockMin:10,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},
-  {id:'fab003',codigo:'FAB-003',nombre:'Férula Rígida 24" x 4.25"',descripcion:'Férula rígida PVC con acolchado de foammy. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'unidad',precio:45,costo:0,stock:0,stockMin:5,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},
+  {id:'fab003',codigo:'FAB-003',nombre:'Férula Rígida 24" x 4.25"',descripcion:'Férula rígida PVC con acolchado de foammy. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'unidad',precio:45,costo:0,stock:0,stockMin:5,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},,
+  // ── NUEVOS (importados desde factura) ──────────
+  {id:'m053',codigo:'MED-053',nombre:'Buscapina Compositum N Tableta 10+500mg Disp x20',descripcion:'Antiespasmódico/analgésico. Presentación: blister x20.',categoria:'Medicamentos',unidad:'blister',precio:10.0,costo:80.8,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m054',codigo:'MED-054',nombre:'Clotrimazol Crema Vaginal 2% 20g',descripcion:'Antifúngico tópico vaginal. Presentación: tubo 20g.',categoria:'Medicamentos',unidad:'unidad',precio:13.7,costo:10.15,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m055',codigo:'MED-055',nombre:'Clotrimazol Crema 1% 20g',descripcion:'Antifúngico tópico. Presentación: tubo 20g.',categoria:'Medicamentos',unidad:'unidad',precio:8.78,costo:6.5,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'i001',codigo:'INS-001',nombre:'Guante Latex M Nipro x100',descripcion:'Guantes de látex talla M, caja x100 unidades.',categoria:'Insumos Médicos',unidad:'caja',precio:62.1,costo:46.0,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true},
+  {id:'m056',codigo:'MED-056',nombre:'Neurotropas 25000 Kit Inyectable',descripcion:'Complejo vitamínico neurológico inyectable. Kit completo.',categoria:'Medicamentos',unidad:'kit',precio:14.78,costo:10.95,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m057',codigo:'MED-057',nombre:'Dolgenal Ampolla Iny 60mg/2ml',descripcion:'Analgésico inyectable. Presentación: ampolla 2ml.',categoria:'Medicamentos',unidad:'ampolla',precio:5.0,costo:40.95,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m058',codigo:'MED-058',nombre:'Captopril Tab 25mg Disp x50',descripcion:'Antihipertensivo. Presentación: blister x50 tabletas.',categoria:'Medicamentos',unidad:'blister',precio:10.0,costo:228.35,stock:0,stockMin:1,proveedor:'Farmacéutica GT',activo:true},
+
+  // ── INSUMOS Y MEDICAMENTOS ADICIONALES ────────────────
+  {id:'m059',codigo:'MED-059',nombre:'Albendazol Suspensión Frasco',descripcion:'Albendazol suspensión oral en frasco. Antiparasitario.',categoria:'Medicamentos',unidad:'frasco',precio:175.0,costo:2.7,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m060',codigo:'MED-060',nombre:'Blascan 20mg Comprimidos Blister x10',descripcion:'Blascan 20mg comprimidos. Blister x10.',categoria:'Medicamentos',unidad:'blister',precio:10.0,costo:0.0,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m061',codigo:'MED-061',nombre:'Clotrimazol Spray 1% Frasco',descripcion:'Clotrimazol antifúngico tópico en spray 1%. Frasco.',categoria:'Medicamentos',unidad:'frasco',precio:2.0,costo:0.0,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m062',codigo:'MED-062',nombre:'Diclofenaco Tabletas 50mg Blister x10',descripcion:'Antiinflamatorio/analgésico diclofenaco sódico 50mg. Blister x10.',categoria:'Medicamentos',unidad:'blister',precio:4.0,costo:6.48,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true},
+  {id:'i002',codigo:'INS-002',nombre:'Guantes Látex M — Caja x100',descripcion:'Guantes desechables de látex talla M. Caja x100 unidades.',categoria:'Insumos Médicos',unidad:'caja',precio:46.0,costo:62.1,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true},
+  {id:'m063',codigo:'MED-063',nombre:'Hidrasec 100mg Comprimidos Blister',descripcion:'Racecadotrilo 100mg antidiarreico. Blister.',categoria:'Medicamentos',unidad:'blister',precio:9.0,costo:0.0,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'i003',codigo:'INS-003',nombre:'Hoja para Bisturí — Caja x100',descripcion:'Hojas de bisturí estériles. Caja x100 unidades.',categoria:'Insumos Médicos',unidad:'caja',precio:0.0,costo:0.0,stock:0,stockMin:1,proveedor:'Proveedor Médico',activo:true},
+  {id:'m064',codigo:'MED-064',nombre:'Ketorolaco Ampolla 30mg',descripcion:'Ketorolaco trometamol analgésico inyectable 30mg/ml. Ampolla.',categoria:'Medicamentos',unidad:'ampolla',precio:8.0,costo:0.0,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m065',codigo:'MED-065',nombre:'Levopront Jarabe 120ml',descripcion:'Levodropropizina antitusivo jarabe. Frasco 120ml.',categoria:'Medicamentos',unidad:'frasco',precio:1.0,costo:0.0,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
+  {id:'m066',codigo:'MED-066',nombre:'Neurotropas Ampolla Inyectable',descripcion:'Complejo neurotropo vitamínico B1+B6+B12 inyectable. Ampolla.',categoria:'Medicamentos',unidad:'ampolla',precio:3.0,costo:14.78,stock:0,stockMin:3,proveedor:'Farmacéutica GT',activo:true},
+  {id:'i004',codigo:'INS-004',nombre:'Sutura Nylon 2-0',descripcion:'Sutura monofilamento de nylon calibre 2-0. Uso quirúrgico.',categoria:'Insumos Médicos',unidad:'unidad',precio:0.0,costo:0.0,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true},
+  {id:'i005',codigo:'INS-005',nombre:'Sutura Nylon 5-0',descripcion:'Sutura monofilamento de nylon calibre 5-0. Uso quirúrgico/sutura fina.',categoria:'Insumos Médicos',unidad:'unidad',precio:0.0,costo:0.0,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true}
 ];
 
 const CATEGORIAS = ['Cursos','Botiquines','Equipo Médico','Medicamentos','Insumos Botiquín','Materia Prima','Empaque'];
@@ -339,13 +379,67 @@ const genId = () => Date.now().toString(36)+Math.random().toString(36).slice(2);
 const genQuoteNum = () => { const d=new Date(); return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}${String(Math.floor(Math.random()*999)).padStart(3,'0')}`; };
 
 /* ═══════════════════════════════════════════════════════════
-   STORAGE
+   STORAGE — Supabase (cloud) + localStorage (caché offline)
 ═══════════════════════════════════════════════════════════ */
+const SUPABASE_URL  = 'https://onblvtxsnzbdwdwqisxt.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+const DB_TABLES = {
+  cotizaciones:'cotizaciones', productos:'productos', clientes:'clientes',
+  transacciones:'transacciones', ordenes:'ordenes', proveedores:'proveedores',
+  asientos:'asientos', recetas:'recetas', ordenes_produccion:'ordenes_produccion',
+  presupuestos:'presupuestos', proyectos:'proyectos',
+  pagosClientes:'pagos_clientes', pagosProveedores:'pagos_proveedores',
+  config_empresa:'config_empresa', unidades:'unidades',
+};
+const JSONB_FIELDS = ['items','materiales','tareas','cotizacionIds','partidas','objetivos_especificos'];
 const load = (k,def) => { try{ const v=localStorage.getItem('ohs_'+k); return v?JSON.parse(v):def; }catch{ return def; } };
 const save = (k,v) => { try{ localStorage.setItem('ohs_'+k,JSON.stringify(v)); }catch(e){
   console.error('OHS ERP — Error al guardar "'+k+'":', e);
   if(e && e.name==='QuotaExceededError') alert('⚠️ Espacio de almacenamiento lleno. Exporta un backup desde Configuración y luego limpia los datos para continuar.');
 } };
+const dbLoad = async (k) => {
+  const table = DB_TABLES[k]; if(!table) return null;
+  try {
+    if(k==='config_empresa'){
+      const {data,error}=await sb.from(table).select('*').eq('id',1).single();
+      if(error) return null;
+      const {id,updated_at,...cfg}=data||{}; return Object.keys(cfg).length?cfg:null;
+    }
+    const {data,error}=await sb.from(table).select('*').order('created_at',{ascending:false});
+    if(error){console.warn('dbLoad',k,error);return null;}
+    return (data||[]).map(row=>{
+      const {created_at,updated_at,...rest}=row;
+      JSONB_FIELDS.forEach(f=>{if(typeof rest[f]==='string')try{rest[f]=JSON.parse(rest[f]);}catch{}});
+      return rest;
+    });
+  }catch(e){console.warn('dbLoad exception',k,e);return null;}
+};
+const dbUpsert = async (k,record) => {
+  const table=DB_TABLES[k]; if(!table)return;
+  try{
+    const row={...record};
+    JSONB_FIELDS.forEach(f=>{if(row[f]!==undefined&&typeof row[f]!=='string')row[f]=JSON.stringify(row[f]);});
+    const {error}=await sb.from(table).upsert(row,{onConflict:'id'});
+    if(error)console.warn('dbUpsert',k,error);
+  }catch(e){console.warn('dbUpsert exception',k,e);}
+};
+const dbDelete = async (k,id) => {
+  const table=DB_TABLES[k]; if(!table)return;
+  try{const {error}=await sb.from(table).delete().eq('id',id);if(error)console.warn('dbDelete',k,error);}
+  catch(e){console.warn('dbDelete exception',k,e);}
+};
+const dbSaveConfig = async (cfg) => {
+  try{const {error}=await sb.from(DB_TABLES.config_empresa).upsert({id:1,...cfg},{onConflict:'id'});if(error)console.warn('dbSaveConfig',error);}
+  catch(e){console.warn('dbSaveConfig exception',e);}
+};
+const dbSaveList = async (k,arr) => {
+  const table=DB_TABLES[k]; if(!table)return;
+  try{
+    await sb.from(table).delete().neq('id','__never__');
+    if(arr&&arr.length){const rows=arr.map((item,i)=>({id:item.id||String(i+1),...item}));const {error}=await sb.from(table).insert(rows);if(error)console.warn('dbSaveList',k,error);}
+  }catch(e){console.warn('dbSaveList exception',k,e);}
+};
 
 /* ═══════════════════════════════════════════════════════════
    ICONS (inline SVG)
@@ -3454,21 +3548,56 @@ const reducer = (state,action) => {
     }
     default: return state;
   }
-  // Persist
-  save('cotizaciones',next.cotizaciones);
-  save('productos',next.productos);
-  save('clientes',next.clientes);
-  save('transacciones',next.transacciones);
-  save('ordenes',next.ordenes);
-  save('proveedores',next.proveedores);
-  save('asientos',next.asientos);
-  save('recetas',next.recetas);
-  save('ordenes_produccion',next.ordenes_produccion);
-  save('presupuestos',next.presupuestos);
-  save('proyectos',next.proyectos);
-  save('pagosClientes',next.pagosClientes);
-  save('pagosProveedores',next.pagosProveedores);
+  // Persist — localStorage inmediato + Supabase async
+  const _KEYS=['cotizaciones','productos','clientes','transacciones','ordenes','proveedores','asientos','recetas','ordenes_produccion','presupuestos','proyectos','pagosClientes','pagosProveedores'];
+  _KEYS.forEach(k=>save(k,next[k]));
   if(next.config_empresa!==undefined) save('config_empresa',next.config_empresa);
+  (async()=>{try{switch(action.type){
+    case 'ADD_COT': case 'UPDATE_COT': await dbUpsert('cotizaciones',action.payload); break;
+    case 'DEL_COT': await dbDelete('cotizaciones',action.payload); break;
+    case 'ADD_PROD': case 'UPDATE_PROD': await dbUpsert('productos',action.payload); break;
+    case 'DEL_PROD': await dbDelete('productos',action.payload); break;
+    case 'ADD_CLIENTE': case 'UPDATE_CLIENTE': await dbUpsert('clientes',action.payload); break;
+    case 'DEL_CLIENTE': await dbDelete('clientes',action.payload); break;
+    case 'ADD_TRANS': case 'UPDATE_TRANS': await dbUpsert('transacciones',action.payload); break;
+    case 'DEL_TRANS': await dbDelete('transacciones',action.payload); break;
+    case 'ADD_ASIENTO': await dbUpsert('asientos',action.payload); break;
+    case 'DEL_ASIENTO': await dbDelete('asientos',action.payload); break;
+    case 'ADD_ORDEN': await dbUpsert('ordenes',action.payload); break;
+    case 'DEL_ORDEN': await dbDelete('ordenes',action.payload); break;
+    case 'ADD_FACTURA_COMPRA':
+      await dbUpsert('ordenes',action.payload);
+      if(next.productos) await Promise.all(next.productos.map(p=>dbUpsert('productos',p)));
+      break;
+    case 'ADD_PROVEEDOR': case 'UPDATE_PROVEEDOR': await dbUpsert('proveedores',action.payload); break;
+    case 'DEL_PROVEEDOR': await dbDelete('proveedores',action.payload); break;
+    case 'ADD_PAGO_CLI': await dbUpsert('pagosClientes',action.payload); break;
+    case 'DEL_PAGO_CLI': await dbDelete('pagosClientes',action.payload); break;
+    case 'ADD_PAGO_PROV': await dbUpsert('pagosProveedores',action.payload); break;
+    case 'DEL_PAGO_PROV': await dbDelete('pagosProveedores',action.payload); break;
+    case 'ADD_RECETA': case 'UPDATE_RECETA': await dbUpsert('recetas',action.payload); break;
+    case 'DEL_RECETA': await dbDelete('recetas',action.payload); break;
+    case 'EJECUTAR_PRODUCCION':
+      if(next.ordenes_produccion?.[0]) await dbUpsert('ordenes_produccion',next.ordenes_produccion[0]);
+      if(next.transacciones?.[0]) await dbUpsert('transacciones',next.transacciones[0]);
+      if(next.asientos?.[0]) await dbUpsert('asientos',next.asientos[0]);
+      if(next.productos) await Promise.all(next.productos.map(p=>dbUpsert('productos',p)));
+      break;
+    case 'ADD_PRESUPUESTO': case 'UPDATE_PRESUPUESTO': await dbUpsert('presupuestos',action.payload); break;
+    case 'DEL_PRESUPUESTO': await dbDelete('presupuestos',action.payload); break;
+    case 'ADD_PROYECTO': case 'UPDATE_PROYECTO': await dbUpsert('proyectos',action.payload); break;
+    case 'DEL_PROYECTO': await dbDelete('proyectos',action.payload); break;
+    case 'SET_UNIDADES': await dbSaveList('unidades',action.payload); break;
+    case 'SET_CONFIG_EMPRESA': await dbSaveConfig(action.payload); break;
+    case 'IMPORT_DATA':{
+      const imp=action.payload;
+      await Promise.all([
+        ..._KEYS.filter(k=>imp[k]?.length).map(k=>Promise.all(imp[k].map(r=>dbUpsert(k,r)))),
+        imp.config_empresa?dbSaveConfig(imp.config_empresa):Promise.resolve(),
+        imp.unidades?dbSaveList('unidades',imp.unidades):Promise.resolve(),
+      ]);break;}
+    default:break;
+  }}catch(e){console.warn('Supabase sync error:',e);}})();
   return next;
 };
 
@@ -4287,7 +4416,7 @@ const App = () => {
   };
   const initialState = {
     productos: mergeProductos(),
-    cotizaciones: load('cotizaciones', []),
+    cotizaciones: load('cotizaciones', INITIAL_COTIZACIONES),
     clientes: load('clientes', []),
     transacciones: load('transacciones', []),
     ordenes: load('ordenes', []),
@@ -4303,12 +4432,53 @@ const App = () => {
   };
   const [state,dispatch] = useReducer(reducer,initialState);
   const [mod,setMod] = useState('dashboard');
+  const [dbReady,setDbReady] = useState(false);
+  const [dbError,setDbError] = useState(false);
+  useEffect(()=>{
+    const fetchAll=async()=>{
+      try{
+        const keys=['cotizaciones','productos','clientes','transacciones','ordenes','proveedores','asientos','recetas','ordenes_produccion','presupuestos','proyectos','pagosClientes','pagosProveedores','unidades'];
+        const results=await Promise.all(keys.map(k=>dbLoad(k)));
+        const cfg=await dbLoad('config_empresa');
+        const payload={};
+        keys.forEach((k,i)=>{if(results[i]!==null)payload[k]=results[i];});
+        if(cfg!==null)payload.config_empresa=cfg;
+        if(payload.productos){
+          const normN=n=>(n||'').trim().toLowerCase().replace(/\s+/g,' ');
+          const ids=new Set(payload.productos.map(p=>p.id));
+          const noms=new Set(payload.productos.map(p=>normN(p.nombre)));
+          const nuevos=INITIAL_PRODUCTOS.filter(p=>!ids.has(p.id)&&!noms.has(normN(p.nombre)));
+          if(nuevos.length)payload.productos=[...payload.productos,...nuevos];
+        }
+        if(Object.keys(payload).length>0)dispatch({type:'IMPORT_DATA',payload});
+        setDbReady(true);
+      }catch(e){console.warn('Supabase load failed, using localStorage:',e);setDbError(true);setDbReady(true);}
+    };
+    fetchAll();
+  },[]);
+  useEffect(()=>{
+    if(!dbReady)return;
+    const channels=[];
+    const reloadTable=async(k)=>{const data=await dbLoad(k);if(data!==null){dispatch({type:'IMPORT_DATA',payload:{[k]:data}});save(k,data);}};
+    ['cotizaciones','clientes','ordenes','productos','transacciones','proveedores','presupuestos','proyectos'].forEach(k=>{
+      const ch=sb.channel('ohs_rt_'+k).on('postgres_changes',{event:'*',schema:'public',table:DB_TABLES[k]},()=>reloadTable(k)).subscribe();
+      channels.push(ch);
+    });
+    return()=>channels.forEach(ch=>sb.removeChannel(ch));
+  },[dbReady]);
   const [currentUser, setCurrentUser] = useState(null);
 
   const canEdit = currentUser?.role === 'admin';
   const logout = () => setCurrentUser(null);
 
   if (!currentUser) return <LoginScreen onLogin={setCurrentUser}/>;
+  if(!dbReady) return (
+    <div style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:16,background:'#f8f9fa'}}>
+      <div style={{width:48,height:48,border:'4px solid #e9ecef',borderTop:'4px solid #FF8C00',borderRadius:'50%',animation:'spin 0.8s linear infinite'}}/>
+      <p style={{color:'#666',fontFamily:'Montserrat,sans-serif',fontSize:14}}>{dbError?'Sin conexión — cargando caché local...':'Conectando con base de datos...'}</p>
+      <style>{'@keyframes spin{to{transform:rotate(360deg)}}'}</style>
+    </div>
+  );
 
   const modTitles = {dashboard:'Dashboard',reportes:'Reportes y Análisis',presupuestos:'Presupuestos',proyectos:'Gestión de Proyectos',cotizaciones:'Cotizaciones',clientes:'Clientes — CRM',inventario:'Inventario y Catálogo',finanzas:'Finanzas y Contabilidad',produccion:'Producción — Recetas y BOM',compras:'Compras — Proveedores y Facturas',ventas:'Ventas — Facturas y Cobros',contabilidad:'Contabilidad — Plan de Cuentas y Estados Financieros',admin:'Configuración del Sistema'};
   const sections = ['principal','comercial','operaciones','admin'];
