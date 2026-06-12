@@ -4436,38 +4436,94 @@ const App = () => {
   const [dbError,setDbError] = useState(false);
   useEffect(()=>{
     const fetchAll=async()=>{
+      // PASO 1: Mostrar localStorage INMEDIATAMENTE (sin esperar Supabase)
+      // Así el usuario ve sus datos al instante aunque Supabase tarde
+      const localKeys=['cotizaciones','clientes','transacciones','ordenes','proveedores',
+        'asientos','recetas','ordenes_produccion','presupuestos','proyectos',
+        'pagosClientes','pagosProveedores'];
+      const localPayload={};
+      localKeys.forEach(k=>{
+        const v=load(k,null);
+        if(v && v.length>0) localPayload[k]=v;
+      });
+      const localCfg=load('config_empresa',null);
+      if(localCfg) localPayload.config_empresa=localCfg;
+      // Productos: localStorage primero
+      const localProductos=load('productos',null);
+      if(localProductos && localProductos.length>0) localPayload.productos=localProductos;
+      else localPayload.productos=INITIAL_PRODUCTOS;
+
+      if(Object.keys(localPayload).length>0){
+        dispatch({type:'IMPORT_DATA',payload:localPayload});
+      }
+      // Mostrar UI inmediatamente con datos locales
+      setDbReady(true);
+
+      // PASO 2: Cargar Supabase en background y hacer merge
       try{
-        const keys=['cotizaciones','productos','clientes','transacciones','ordenes','proveedores','asientos','recetas','ordenes_produccion','presupuestos','proyectos','pagosClientes','pagosProveedores','unidades'];
+        const keys=['cotizaciones','productos','clientes','transacciones','ordenes','proveedores',
+          'asientos','recetas','ordenes_produccion','presupuestos','proyectos',
+          'pagosClientes','pagosProveedores','unidades'];
         const results=await Promise.all(keys.map(k=>dbLoad(k)));
         const cfg=await dbLoad('config_empresa');
-        const payload={};
-        keys.forEach((k,i)=>{if(results[i]!==null)payload[k]=results[i];});
-        if(cfg!==null)payload.config_empresa=cfg;
+        const dbPayload={};
+        keys.forEach((k,i)=>{if(results[i]!==null && results[i].length>0)dbPayload[k]=results[i];});
+        if(cfg!==null)dbPayload.config_empresa=cfg;
 
-        // ── Productos: solo insertar los del HTML si Supabase está VACÍO (primer arranque)
-        // Una vez que hay productos en Supabase, NUNCA se tocan desde el HTML
-        const dbProductos = payload.productos || [];
+        // Productos: Supabase es fuente de verdad, pero solo si tiene datos
+        const dbProductos = dbPayload.productos || [];
         if(dbProductos.length === 0){
-          // Primera vez: sembrar desde INITIAL_PRODUCTOS y guardar en Supabase
-          payload.productos = INITIAL_PRODUCTOS;
-          console.log('OHS ERP: primer arranque, sembrando', INITIAL_PRODUCTOS.length, 'productos en Supabase...');
+          // Supabase vacío: sembrar con los del HTML
+          dbPayload.productos = INITIAL_PRODUCTOS;
           Promise.all(INITIAL_PRODUCTOS.map(p=>dbUpsert('productos',p)));
         } else {
-          // Supabase ya tiene productos → ignorar INITIAL_PRODUCTOS completamente
-          // Solo agregar productos del HTML que tengan IDs completamente nuevos (para deploys con nuevos productos)
+          // Agregar solo IDs nuevos que no estén en Supabase
           const dbIds = new Set(dbProductos.map(p=>p.id));
           const soloNuevos = INITIAL_PRODUCTOS.filter(p=>!dbIds.has(p.id));
-          if(soloNuevos.length > 0){
-            console.log('OHS ERP: nuevos productos detectados en deploy:', soloNuevos.map(p=>p.id));
-            payload.productos = [...dbProductos, ...soloNuevos];
+          if(soloNuevos.length>0){
+            dbPayload.productos=[...dbProductos,...soloNuevos];
             Promise.all(soloNuevos.map(p=>dbUpsert('productos',p)));
           }
-          // Precios y datos de productos existentes: SIEMPRE desde Supabase, nunca del HTML
         }
 
-        if(Object.keys(payload).length>0)dispatch({type:'IMPORT_DATA',payload});
-        setDbReady(true);
-      }catch(e){console.warn('Supabase load failed, using localStorage:',e);setDbError(true);setDbReady(true);}
+        // Merge: Supabase gana sobre localStorage para colecciones que tiene datos
+        // localStorage gana para colecciones que Supabase no tiene aún
+        const mergedPayload={};
+        keys.forEach((k,i)=>{
+          const dbData = dbPayload[k];
+          const localData = localPayload[k];
+          if(dbData && dbData.length>0){
+            // Supabase tiene datos: usar Supabase
+            // Pero agregar registros locales que Supabase no conoce aún (creados offline)
+            if(localData && localData.length>0){
+              const dbIds = new Set(dbData.map(r=>r.id));
+              const soloLocal = localData.filter(r=>!dbIds.has(r.id));
+              if(soloLocal.length>0){
+                mergedPayload[k]=[...dbData,...soloLocal];
+                // Subir registros locales a Supabase
+                Promise.all(soloLocal.map(r=>dbUpsert(k,r)));
+              } else {
+                mergedPayload[k]=dbData;
+              }
+            } else {
+              mergedPayload[k]=dbData;
+            }
+          } else if(localData && localData.length>0){
+            // Supabase vacío pero hay datos locales: usar local y subir a Supabase
+            mergedPayload[k]=localData;
+            Promise.all(localData.map(r=>dbUpsert(k,r)));
+          }
+        });
+        if(dbPayload.config_empresa) mergedPayload.config_empresa=dbPayload.config_empresa;
+
+        if(Object.keys(mergedPayload).length>0){
+          dispatch({type:'IMPORT_DATA',payload:mergedPayload});
+        }
+        setDbError(false);
+      }catch(e){
+        console.warn('Supabase sync failed, running on localStorage only:',e);
+        setDbError(true);
+      }
     };
     fetchAll();
   },[]);
