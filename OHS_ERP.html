@@ -3589,13 +3589,10 @@ const reducer = (state,action) => {
     case 'DEL_PROYECTO': await dbDelete('proyectos',action.payload); break;
     case 'SET_UNIDADES': await dbSaveList('unidades',action.payload); break;
     case 'SET_CONFIG_EMPRESA': await dbSaveConfig(action.payload); break;
-    case 'IMPORT_DATA':{
-      const imp=action.payload;
-      await Promise.all([
-        ..._KEYS.filter(k=>imp[k]?.length).map(k=>Promise.all(imp[k].map(r=>dbUpsert(k,r)))),
-        imp.config_empresa?dbSaveConfig(imp.config_empresa):Promise.resolve(),
-        imp.unidades?dbSaveList('unidades',imp.unidades):Promise.resolve(),
-      ]);break;}
+    case 'IMPORT_DATA':
+      // IMPORT_DATA es solo para cargar datos en memoria — NO hacer upsert
+      // (evita loop infinito: fetch→dispatch→upsert→fetch→...)
+      break;
     default:break;
   }}catch(e){console.warn('Supabase sync error:',e);}})();
   return next;
@@ -4475,7 +4472,17 @@ const App = () => {
         if(dbProductos.length === 0){
           // Supabase vacío: sembrar con los del HTML
           dbPayload.productos = INITIAL_PRODUCTOS;
-          Promise.all(INITIAL_PRODUCTOS.map(p=>dbUpsert('productos',p)));
+          // Sembrar productos solo una vez, en batch con delay
+          setTimeout(()=>{
+            const batch = INITIAL_PRODUCTOS;
+            const uploadBatch = async () => {
+              for(let i=0; i<batch.length; i+=10){
+                await Promise.all(batch.slice(i,i+10).map(p=>dbUpsert('productos',p)));
+                await new Promise(r=>setTimeout(r,200));
+              }
+            };
+            uploadBatch().catch(e=>console.warn('Seed productos error:',e));
+          }, 1000);
         } else {
           // Agregar solo IDs nuevos que no estén en Supabase
           const dbIds = new Set(dbProductos.map(p=>p.id));
@@ -4501,7 +4508,8 @@ const App = () => {
               if(soloLocal.length>0){
                 mergedPayload[k]=[...dbData,...soloLocal];
                 // Subir registros locales a Supabase
-                Promise.all(soloLocal.map(r=>dbUpsert(k,r)));
+                // Upload offline records to Supabase (solo los que no tiene)
+              setTimeout(()=>Promise.all(soloLocal.map(r=>dbUpsert(k,r))),500);
               } else {
                 mergedPayload[k]=dbData;
               }
@@ -4511,7 +4519,7 @@ const App = () => {
           } else if(localData && localData.length>0){
             // Supabase vacío pero hay datos locales: usar local y subir a Supabase
             mergedPayload[k]=localData;
-            Promise.all(localData.map(r=>dbUpsert(k,r)));
+            setTimeout(()=>Promise.all(localData.map(r=>dbUpsert(k,r))),500);
           }
         });
         if(dbPayload.config_empresa) mergedPayload.config_empresa=dbPayload.config_empresa;
