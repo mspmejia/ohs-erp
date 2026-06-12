@@ -4443,13 +4443,28 @@ const App = () => {
         const payload={};
         keys.forEach((k,i)=>{if(results[i]!==null)payload[k]=results[i];});
         if(cfg!==null)payload.config_empresa=cfg;
-        if(payload.productos){
-          const normN=n=>(n||'').trim().toLowerCase().replace(/\s+/g,' ');
-          const ids=new Set(payload.productos.map(p=>p.id));
-          const noms=new Set(payload.productos.map(p=>normN(p.nombre)));
-          const nuevos=INITIAL_PRODUCTOS.filter(p=>!ids.has(p.id)&&!noms.has(normN(p.nombre)));
-          if(nuevos.length)payload.productos=[...payload.productos,...nuevos];
+
+        // ── Productos: solo insertar los del HTML si Supabase está VACÍO (primer arranque)
+        // Una vez que hay productos en Supabase, NUNCA se tocan desde el HTML
+        const dbProductos = payload.productos || [];
+        if(dbProductos.length === 0){
+          // Primera vez: sembrar desde INITIAL_PRODUCTOS y guardar en Supabase
+          payload.productos = INITIAL_PRODUCTOS;
+          console.log('OHS ERP: primer arranque, sembrando', INITIAL_PRODUCTOS.length, 'productos en Supabase...');
+          Promise.all(INITIAL_PRODUCTOS.map(p=>dbUpsert('productos',p)));
+        } else {
+          // Supabase ya tiene productos → ignorar INITIAL_PRODUCTOS completamente
+          // Solo agregar productos del HTML que tengan IDs completamente nuevos (para deploys con nuevos productos)
+          const dbIds = new Set(dbProductos.map(p=>p.id));
+          const soloNuevos = INITIAL_PRODUCTOS.filter(p=>!dbIds.has(p.id));
+          if(soloNuevos.length > 0){
+            console.log('OHS ERP: nuevos productos detectados en deploy:', soloNuevos.map(p=>p.id));
+            payload.productos = [...dbProductos, ...soloNuevos];
+            Promise.all(soloNuevos.map(p=>dbUpsert('productos',p)));
+          }
+          // Precios y datos de productos existentes: SIEMPRE desde Supabase, nunca del HTML
         }
+
         if(Object.keys(payload).length>0)dispatch({type:'IMPORT_DATA',payload});
         setDbReady(true);
       }catch(e){console.warn('Supabase load failed, using localStorage:',e);setDbError(true);setDbReady(true);}
