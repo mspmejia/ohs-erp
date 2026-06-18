@@ -141,13 +141,80 @@
 <body>
 <div id="root"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
-  // Initialize Supabase client in plain JS (outside Babel)
-  window._sb = supabase.createClient(
-    'https://onblvtxsnzbdwdwqisxt.supabase.co',
-    'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr'
-  );
+// ── Minimal Supabase REST client (no CDN, no imports) ──────
+(function() {
+  const URL  = 'https://onblvtxsnzbdwdwqisxt.supabase.co';
+  const KEY  = 'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr';
+  const hdrs = { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json' };
+
+  const rest = async (method, table, body, params) => {
+    let url = URL + '/rest/v1/' + table;
+    if (params) url += '?' + new URLSearchParams(params);
+    const opts = { method, headers: { ...hdrs, 'Prefer': method==='POST'?'resolution=merge-duplicates':'' } };
+    if (body) opts.body = JSON.stringify(body);
+    const r = await fetch(url, opts);
+    if (!r.ok) { const e = await r.text(); throw new Error(e); }
+    return method === 'DELETE' ? null : (r.status === 204 ? null : r.json());
+  };
+
+  const channels = {};
+  let ws = null;
+  let wsReady = false;
+  let wsQueue = [];
+  const getWS = () => {
+    if (ws) return;
+    const wsUrl = URL.replace('https','wss') + '/realtime/v1/websocket?apikey=' + KEY + '&vsn=1.0.0';
+    ws = new WebSocket(wsUrl);
+    ws.onopen = () => { wsReady = true; wsQueue.forEach(m => ws.send(m)); wsQueue = []; };
+    ws.onmessage = (e) => {
+      try {
+        const msg = JSON.parse(e.data);
+        if (msg.event === 'postgres_changes' && msg.payload) {
+          const tbl = msg.payload.table;
+          Object.values(channels).forEach(ch => { if (ch.table === tbl) ch.cb(); });
+        }
+      } catch(err) {}
+    };
+  };
+
+  window._sb = {
+    from: (table) => ({
+      select: (cols) => ({
+        order: (col, opts) => ({
+          then: (res, rej) => rest('GET', table, null, { select: cols||'*', order: col+(opts&&opts.ascending?'.asc':'.desc') }).then(res).catch(rej)
+        }),
+        eq: (col, val) => ({
+          single: () => rest('GET', table, null, { select: cols||'*', [col]: 'eq.'+val, limit: 1 })
+            .then(rows => rows&&rows[0] ? rows[0] : null)
+        }),
+        then: (res, rej) => rest('GET', table, null, { select: cols||'*' }).then(res).catch(rej)
+      }),
+      upsert: (row, opts) => ({
+        then: (res, rej) => rest('POST', table + '?on_conflict=' + (opts&&opts.onConflict||'id'), Array.isArray(row)?row:[row]).then(res).catch(rej)
+      }),
+      insert: (rows) => ({
+        then: (res, rej) => rest('POST', table, Array.isArray(rows)?rows:[rows]).then(res).catch(rej)
+      }),
+      delete: () => ({
+        eq: (col, val) => ({
+          then: (res, rej) => rest('DELETE', table, null, { [col]: 'eq.'+val }).then(res).catch(rej)
+        }),
+        neq: (col, val) => ({
+          then: (res, rej) => rest('DELETE', table, null, { [col]: 'neq.'+val }).then(res).catch(rej)
+        })
+      })
+    }),
+    channel: (name) => {
+      const ch = { name, table: null, cb: null };
+      channels[name] = ch;
+      return {
+        on: (event, filter, callback) => { ch.table = filter.table; ch.cb = callback; getWS(); return { subscribe: () => ({ unsubscribe: () => delete channels[name] }) }; }
+      };
+    },
+    removeChannel: (ch) => { if (ch && ch.name) delete channels[ch.name]; }
+  };
+})();
 </script>
 
 <script type="text/babel">
