@@ -137,10 +137,18 @@
       .main{margin-left:60px;}
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-</head>
+  </head>
 <body>
 <div id="root"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  // Initialize Supabase client in plain JS (outside Babel)
+  window._sb = supabase.createClient(
+    'https://onblvtxsnzbdwdwqisxt.supabase.co',
+    'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr'
+  );
+</script>
 
 <script type="text/babel">
 const { useState, useEffect, useReducer, useRef, useMemo, useCallback } = React;
@@ -381,9 +389,8 @@ const genQuoteNum = () => { const d=new Date(); return `${d.getFullYear()}${Stri
 /* ═══════════════════════════════════════════════════════════
    STORAGE — Supabase (cloud) + localStorage (caché offline)
 ═══════════════════════════════════════════════════════════ */
-const SUPABASE_URL  = 'https://onblvtxsnzbdwdwqisxt.supabase.co';
-const SUPABASE_ANON = 'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+// Supabase client loaded via plain script below (window._sb)
+const sb = window._sb;
 const DB_TABLES = {
   cotizaciones:'cotizaciones', productos:'productos', clientes:'clientes',
   transacciones:'transacciones', ordenes:'ordenes', proveedores:'proveedores',
