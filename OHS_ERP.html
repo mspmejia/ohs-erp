@@ -4527,102 +4527,92 @@ const App = () => {
   const [dbError,setDbError] = useState(false);
   useEffect(()=>{
     const fetchAll=async()=>{
-      // PASO 1: Mostrar localStorage INMEDIATAMENTE (sin esperar Supabase)
-      // Así el usuario ve sus datos al instante aunque Supabase tarde
-      const localKeys=['cotizaciones','clientes','transacciones','ordenes','proveedores',
+      const COLL = ['cotizaciones','clientes','transacciones','ordenes','proveedores',
         'asientos','recetas','ordenes_produccion','presupuestos','proyectos',
         'pagosClientes','pagosProveedores'];
+
+      // ── PASO 1: Mostrar localStorage inmediatamente ──────────────
       const localPayload={};
-      localKeys.forEach(k=>{
+      COLL.forEach(k=>{
         const v=load(k,null);
-        if(v && v.length>0) localPayload[k]=v;
+        if(v&&v.length>0) localPayload[k]=v.filter(Boolean);
       });
+      const localProds=load('productos',null);
+      localPayload.productos = localProds&&localProds.length>0
+        ? localProds.filter(Boolean)
+        : INITIAL_PRODUCTOS.filter(Boolean);
       const localCfg=load('config_empresa',null);
       if(localCfg) localPayload.config_empresa=localCfg;
-      // Productos: localStorage primero
-      const localProductos=load('productos',null);
-      if(localProductos && localProductos.length>0) localPayload.productos=localProductos;
-      else localPayload.productos=INITIAL_PRODUCTOS;
-
-      if(Object.keys(localPayload).length>0){
+      if(Object.keys(localPayload).length>0)
         dispatch({type:'IMPORT_DATA',payload:localPayload});
-      }
-      // Mostrar UI inmediatamente con datos locales
       setDbReady(true);
 
-      // PASO 2: Cargar Supabase en background y hacer merge
+      // ── PASO 2: Cargar Supabase y hacer merge inteligente ────────
       try{
-        const keys=['cotizaciones','productos','clientes','transacciones','ordenes','proveedores',
-          'asientos','recetas','ordenes_produccion','presupuestos','proyectos',
-          'pagosClientes','pagosProveedores','unidades'];
-        const results=await Promise.all(keys.map(k=>dbLoad(k)));
-        const cfg=await dbLoad('config_empresa');
-        const dbPayload={};
-        keys.forEach((k,i)=>{if(results[i]!==null && results[i].length>0)dbPayload[k]=results[i];});
-        if(cfg!==null)dbPayload.config_empresa=cfg;
+        const dbResults = await Promise.all(COLL.map(k=>dbLoad(k)));
+        const dbCfg = await dbLoad('config_empresa');
+        const dbProds = await dbLoad('productos');
 
-        // Productos: Supabase es fuente de verdad, pero solo si tiene datos
-        const dbProductos = dbPayload.productos || [];
-        if(dbProductos.length === 0){
-          // Supabase vacío: sembrar con los del HTML
-          dbPayload.productos = INITIAL_PRODUCTOS;
-          // Sembrar productos en Supabase (batch de 20, con delay entre batches)
-          setTimeout(async ()=>{
-            const batch = INITIAL_PRODUCTOS.filter(Boolean);
+        const merged={};
+
+        // Para cada colección: unir Supabase + localStorage sin duplicados
+        // Supabase gana en caso de conflicto (tiene el registro más actualizado)
+        COLL.forEach((k,i)=>{
+          const dbData  = (dbResults[i]||[]).filter(Boolean);
+          const locData = (localPayload[k]||[]).filter(Boolean);
+          if(dbData.length===0 && locData.length===0){ merged[k]=[]; return; }
+          if(dbData.length===0){
+            // Supabase vacío → subir datos locales
+            merged[k]=locData;
+            setTimeout(()=>Promise.all(locData.map(r=>dbUpsert(k,r))),500);
+            return;
+          }
+          // Supabase tiene datos → es fuente de verdad
+          // Agregar solo registros locales que Supabase no conoce (creados offline)
+          const dbIds=new Set(dbData.map(r=>r.id));
+          const soloLocal=locData.filter(r=>r&&r.id&&!dbIds.has(r.id));
+          merged[k]=[...dbData,...soloLocal];
+          // Subir registros offline a Supabase
+          if(soloLocal.length>0)
+            setTimeout(()=>Promise.all(soloLocal.map(r=>dbUpsert(k,r))),500);
+        });
+
+        // Productos: mismo merge pero con seed desde INITIAL_PRODUCTOS
+        const dbProdClean=(dbProds||[]).filter(Boolean);
+        if(dbProdClean.length===0){
+          merged.productos=INITIAL_PRODUCTOS.filter(Boolean);
+          setTimeout(async()=>{
+            const batch=INITIAL_PRODUCTOS.filter(Boolean);
             for(let i=0;i<batch.length;i+=20){
-              try{
-                await sb.from('productos').upsert(batch.slice(i,i+20),{onConflict:'id'});
-              }catch(e){ console.warn('Seed batch error:',e); }
+              try{ await sb.from('productos').upsert(batch.slice(i,i+20),{onConflict:'id'}); }catch(e){}
               await new Promise(r=>setTimeout(r,300));
             }
-          }, 2000);
+          },2000);
         } else {
-          // Agregar solo IDs nuevos que no estén en Supabase
-          const dbIds = new Set(dbProductos.map(p=>p.id));
-          const soloNuevos = INITIAL_PRODUCTOS.filter(p=>!dbIds.has(p.id));
-          if(soloNuevos.length>0){
-            dbPayload.productos=[...dbProductos,...soloNuevos];
-            Promise.all(soloNuevos.map(p=>dbUpsert('productos',p)));
+          const dbProdIds=new Set(dbProdClean.map(p=>p.id));
+          const localProdClean=(localPayload.productos||[]).filter(Boolean);
+          const soloLocalProds=localProdClean.filter(p=>p&&p.id&&!dbProdIds.has(p.id));
+          // Nuevos en INITIAL que Supabase no tiene (nuevos deploys)
+          const newInInitial=INITIAL_PRODUCTOS.filter(Boolean).filter(p=>!dbProdIds.has(p.id));
+          merged.productos=[...dbProdClean,...soloLocalProds,...newInInitial];
+          if(soloLocalProds.length>0||newInInitial.length>0){
+            const toUpload=[...soloLocalProds,...newInInitial];
+            setTimeout(()=>Promise.all(toUpload.map(p=>dbUpsert('productos',p))),500);
           }
         }
 
-        // Merge: Supabase gana sobre localStorage para colecciones que tiene datos
-        // localStorage gana para colecciones que Supabase no tiene aún
-        const mergedPayload={};
-        keys.forEach((k,i)=>{
-          const dbData = dbPayload[k];
-          const localData = localPayload[k];
-          if(dbData && dbData.length>0){
-            // Supabase tiene datos: usar Supabase
-            // Pero agregar registros locales que Supabase no conoce aún (creados offline)
-            if(localData && localData.length>0){
-              const dbIds = new Set(dbData.map(r=>r.id));
-              const soloLocal = localData.filter(r=>!dbIds.has(r.id));
-              if(soloLocal.length>0){
-                mergedPayload[k]=[...dbData,...soloLocal];
-                // Subir registros locales a Supabase
-                // Upload offline records to Supabase (solo los que no tiene)
-              setTimeout(()=>Promise.all(soloLocal.map(r=>dbUpsert(k,r))),500);
-              } else {
-                mergedPayload[k]=dbData;
-              }
-            } else {
-              mergedPayload[k]=dbData;
-            }
-          } else if(localData && localData.length>0){
-            // Supabase vacío pero hay datos locales: usar local y subir a Supabase
-            mergedPayload[k]=localData;
-            setTimeout(()=>Promise.all(localData.map(r=>dbUpsert(k,r))),500);
-          }
+        if(dbCfg) merged.config_empresa=dbCfg;
+
+        // Actualizar estado y localStorage con datos merged
+        dispatch({type:'IMPORT_DATA',payload:merged});
+        // Guardar merged en localStorage como caché
+        Object.keys(merged).forEach(k=>{
+          if(Array.isArray(merged[k])) save(k,merged[k]);
+          else if(k==='config_empresa') save(k,merged[k]);
         });
-        if(dbPayload.config_empresa) mergedPayload.config_empresa=dbPayload.config_empresa;
-
-        if(Object.keys(mergedPayload).length>0){
-          dispatch({type:'IMPORT_DATA',payload:mergedPayload});
-        }
         setDbError(false);
       }catch(e){
-        console.warn('Supabase sync failed, running on localStorage only:',e);
+        console.warn('Supabase sync failed, running offline:',e);
         setDbError(true);
       }
     };
