@@ -3532,9 +3532,17 @@ const reducer = (state,action) => {
     case 'DEL_PAGO_PROV':   next={...state,pagosProveedores:(state.pagosProveedores||[]).filter(p=>p.id!==action.payload)}; break;
     case 'SET_UNIDADES':        next={...state,unidades:action.payload}; break;
     case 'SET_CONFIG_EMPRESA':  next={...state,config_empresa:action.payload}; break;
-    case 'IMPORT_DATA':
-      next={...state,...action.payload};
+    case 'IMPORT_DATA': {
+      const _p = action.payload;
+      const _clean = {};
+      ['cotizaciones','productos','clientes','transacciones','ordenes','proveedores',
+       'asientos','recetas','ordenes_produccion','presupuestos','proyectos',
+       'pagosClientes','pagosProveedores'].forEach(k=>{
+        if(Array.isArray(_p[k])) _clean[k] = _p[k].filter(Boolean);
+      });
+      next = {...state, ..._p, ..._clean};
       break;
+    }
 
     case 'DEL_ASIENTO': next={...state,asientos:(state.asientos||[]).filter(a=>a.id!==action.payload)}; break;
     // VENTA: ADD_ORDEN tipo=venta genera asiento contable
