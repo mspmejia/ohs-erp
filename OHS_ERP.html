@@ -141,82 +141,6 @@
 <body>
 <div id="root"></div>
 
-<script type="text/javascript">
-// ── Minimal Supabase REST client (no CDN, no imports) ──────
-(function() {
-  const URL  = 'https://onblvtxsnzbdwdwqisxt.supabase.co';
-  const KEY  = 'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr';
-  const hdrs = { 'apikey': KEY, 'Authorization': 'Bearer ' + KEY, 'Content-Type': 'application/json' };
-
-  const rest = async (method, table, body, params) => {
-    let url = URL + '/rest/v1/' + table;
-    if (params) url += '?' + new URLSearchParams(params);
-    const opts = { method, headers: { ...hdrs, 'Prefer': method==='POST'?'resolution=merge-duplicates':'' } };
-    if (body) opts.body = JSON.stringify(body);
-    const r = await fetch(url, opts);
-    if (!r.ok) { const e = await r.text(); throw new Error(e); }
-    return method === 'DELETE' ? null : (r.status === 204 ? null : r.json());
-  };
-
-  const channels = {};
-  let ws = null;
-  let wsReady = false;
-  let wsQueue = [];
-  const getWS = () => {
-    if (ws) return;
-    const wsUrl = URL.replace('https','wss') + '/realtime/v1/websocket?apikey=' + KEY + '&vsn=1.0.0';
-    ws = new WebSocket(wsUrl);
-    ws.onopen = () => { wsReady = true; wsQueue.forEach(m => ws.send(m)); wsQueue = []; };
-    ws.onmessage = (e) => {
-      try {
-        const msg = JSON.parse(e.data);
-        if (msg.event === 'postgres_changes' && msg.payload) {
-          const tbl = msg.payload.table;
-          Object.values(channels).forEach(ch => { if (ch.table === tbl) ch.cb(); });
-        }
-      } catch(err) {}
-    };
-  };
-
-  window._sb = {
-    from: (table) => ({
-      select: (cols) => ({
-        order: (col, opts) => ({
-          then: (res, rej) => rest('GET', table, null, { select: cols||'*', order: col+(opts&&opts.ascending?'.asc':'.desc') }).then(res).catch(rej)
-        }),
-        eq: (col, val) => ({
-          single: () => rest('GET', table, null, { select: cols||'*', [col]: 'eq.'+val, limit: 1 })
-            .then(rows => rows&&rows[0] ? rows[0] : null)
-        }),
-        then: (res, rej) => rest('GET', table, null, { select: cols||'*' }).then(res).catch(rej)
-      }),
-      upsert: (row, opts) => ({
-        then: (res, rej) => rest('POST', table + '?on_conflict=' + (opts&&opts.onConflict||'id'), Array.isArray(row)?row:[row]).then(res).catch(rej)
-      }),
-      insert: (rows) => ({
-        then: (res, rej) => rest('POST', table, Array.isArray(rows)?rows:[rows]).then(res).catch(rej)
-      }),
-      delete: () => ({
-        eq: (col, val) => ({
-          then: (res, rej) => rest('DELETE', table, null, { [col]: 'eq.'+val }).then(res).catch(rej)
-        }),
-        neq: (col, val) => ({
-          then: (res, rej) => rest('DELETE', table, null, { [col]: 'neq.'+val }).then(res).catch(rej)
-        })
-      })
-    }),
-    channel: (name) => {
-      const ch = { name, table: null, cb: null };
-      channels[name] = ch;
-      return {
-        on: (event, filter, callback) => { ch.table = filter.table; ch.cb = callback; getWS(); return { subscribe: () => ({ unsubscribe: () => delete channels[name] }) }; }
-      };
-    },
-    removeChannel: (ch) => { if (ch && ch.name) delete channels[ch.name]; }
-  };
-})();
-</script>
-
 <script type="text/babel">
 const { useState, useEffect, useReducer, useRef, useMemo, useCallback } = React;
 const AuthContext = React.createContext({canEdit:true, user:null, logout:()=>{}});
@@ -456,8 +380,59 @@ const genQuoteNum = () => { const d=new Date(); return `${d.getFullYear()}${Stri
 /* ═══════════════════════════════════════════════════════════
    STORAGE — Supabase (cloud) + localStorage (caché offline)
 ═══════════════════════════════════════════════════════════ */
-// Supabase client loaded via plain script below (window._sb)
-const sb = window._sb;
+/* ── Supabase REST client ──────────────────────────────── */
+const SUPABASE_URL = 'https://onblvtxsnzbdwdwqisxt.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_WFOrcN0znlDjmwsq6bunIw_evqyUISr';
+const _sbHdrs = () => ({'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'});
+const _sbFetch = async (method, table, body, params) => {
+  let url = SUPABASE_URL+'/rest/v1/'+table;
+  if(params){ const p=new URLSearchParams(); Object.entries(params).forEach(([k,v])=>p.append(k,v)); url+='?'+p; }
+  const opts = {method, headers:{..._sbHdrs(), Prefer: method==='POST'?'resolution=merge-duplicates':''}};
+  if(body) opts.body = JSON.stringify(body);
+  const r = await fetch(url, opts);
+  if(!r.ok){ const e=await r.text(); throw new Error(e); }
+  return r.status===204 ? null : (method==='DELETE'?null:r.json());
+};
+const _sbChannels = {};
+let _sbWS = null;
+const _sbGetWS = () => {
+  if(_sbWS) return;
+  const wsUrl = SUPABASE_URL.replace('https','wss')+'/realtime/v1/websocket?apikey='+SUPABASE_KEY+'&vsn=1.0.0';
+  _sbWS = new WebSocket(wsUrl);
+  _sbWS.onopen = () => { Object.values(_sbChannels).forEach(ch=>{ if(ch.ready) ch.ready(); }); };
+  _sbWS.onmessage = (e) => {
+    try{ const msg=JSON.parse(e.data); if(msg.event==='postgres_changes'&&msg.payload){ const tbl=msg.payload.table; Object.values(_sbChannels).forEach(ch=>{if(ch.table===tbl)ch.cb();}); } }catch(err){}
+  };
+};
+const sb = {
+  from: (table) => ({
+    select: (cols) => ({
+      order: (col, opts) => ({
+        then: (res,rej) => _sbFetch('GET',table,null,{select:cols||'*',order:col+(opts&&opts.ascending?'.asc':'.desc')}).then(res).catch(rej)
+      }),
+      eq: (col,val) => ({
+        single: () => _sbFetch('GET',table,null,{select:cols||'*',[col]:'eq.'+val,limit:1}).then(rows=>rows&&rows[0]?rows[0]:null)
+      }),
+      then: (res,rej) => _sbFetch('GET',table,null,{select:cols||'*'}).then(res).catch(rej)
+    }),
+    upsert: (row,opts) => ({
+      then: (res,rej) => _sbFetch('POST',table+'?on_conflict='+(opts&&opts.onConflict||'id'),Array.isArray(row)?row:[row]).then(res).catch(rej)
+    }),
+    insert: (rows) => ({
+      then: (res,rej) => _sbFetch('POST',table,Array.isArray(rows)?rows:[rows]).then(res).catch(rej)
+    }),
+    delete: () => ({
+      eq: (col,val) => ({ then: (res,rej) => _sbFetch('DELETE',table,null,{[col]:'eq.'+val}).then(res).catch(rej) }),
+      neq: (col,val) => ({ then: (res,rej) => _sbFetch('DELETE',table,null,{[col]:'neq.'+val}).then(res).catch(rej) })
+    })
+  }),
+  channel: (name) => {
+    const ch = {name,table:null,cb:null};
+    _sbChannels[name] = ch;
+    return { on: (ev,filter,callback) => { ch.table=filter.table; ch.cb=callback; _sbGetWS(); return {subscribe:()=>({unsubscribe:()=>delete _sbChannels[name]})}; } };
+  },
+  removeChannel: (ch) => { if(ch&&ch.name) delete _sbChannels[ch.name]; }
+};
 const DB_TABLES = {
   cotizaciones:'cotizaciones', productos:'productos', clientes:'clientes',
   transacciones:'transacciones', ordenes:'ordenes', proveedores:'proveedores',
