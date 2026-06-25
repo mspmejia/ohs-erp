@@ -394,7 +394,10 @@ const _sbFetch = async (method, table, body, params) => {
   if(!r.ok){ 
     const e=await r.text(); 
     console.warn('Supabase',method,table,'error:',r.status,e.substring(0,200));
-    return null; // Non-fatal: return null instead of throwing
+    // Para GET: lanzar error para que dbLoad lo maneje
+    // Para POST/DELETE: retornar null (no-fatal)
+    if(method==='GET') throw new Error('HTTP '+r.status+': '+e.substring(0,100));
+    return null;
   }
   return r.status===204 ? null : (method==='DELETE'?null:r.json());
 };
@@ -461,7 +464,7 @@ const dbLoad = async (k) => {
       const {id,updated_at,...cfg}=data||{}; return Object.keys(cfg).length?cfg:null;
     }
     const {data,error}=await sb.from(table).select('*').order('created_at',{ascending:false});
-    if(error){console.warn('dbLoad',k,error);return null;}
+    if(error || data===null || data===undefined){console.warn('dbLoad',k,error||'null data');return null;}
     return (data||[]).map(row=>{
       const {created_at,updated_at,...rest}=row;
       JSONB_FIELDS.forEach(f=>{if(typeof rest[f]==='string')try{rest[f]=JSON.parse(rest[f]);}catch{}});
