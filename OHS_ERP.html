@@ -286,7 +286,7 @@ const INITIAL_PRODUCTOS = [
   // ── PRODUCTOS FABRICADOS ───────────────────────────────────
   {id:'fab001',codigo:'FAB-001',nombre:'Gasa Petrolada — Paquete x10',descripcion:'10 gasas impregnadas con vaselina medicinal. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'paquete',precio:45,costo:0,stock:0,stockMin:10,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},
   {id:'fab002',codigo:'FAB-002',nombre:'Venda Triangular — Paquete x1',descripcion:'Venda triangular de polipropileno para cabestrillo. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'unidad',precio:15,costo:0,stock:0,stockMin:10,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},
-  {id:'fab003',codigo:'FAB-003',nombre:'Férula Rígida 24" x 4.25"',descripcion:'Férula rígida PVC con acolchado de foammy. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'unidad',precio:45,costo:0,stock:0,stockMin:5,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},,
+  {id:'fab003',codigo:'FAB-003',nombre:'Férula Rígida 24" x 4.25"',descripcion:'Férula rígida PVC con acolchado de foammy. Fabricación propia OHS.',categoria:'Insumos Botiquín',unidad:'unidad',precio:45,costo:0,stock:0,stockMin:5,proveedor:'Producción Propia',activo:true,tipoProducto:'fabricado'},
   // ── NUEVOS (importados desde factura) ──────────
   {id:'m053',codigo:'MED-053',nombre:'Buscapina Compositum N Tableta 10+500mg Disp x20',descripcion:'Antiespasmódico/analgésico. Presentación: blister x20.',categoria:'Medicamentos',unidad:'blister',precio:95.0,costo:80.8,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
   {id:'m054',codigo:'MED-054',nombre:'Clotrimazol Crema Vaginal 2% 20g',descripcion:'Antifúngico tópico vaginal. Presentación: tubo 20g.',categoria:'Medicamentos',unidad:'unidad',precio:50.4,costo:25.2,stock:0,stockMin:2,proveedor:'Farmacéutica GT',activo:true},
@@ -4452,14 +4452,14 @@ const App = () => {
   const normNombre = (n) => (n||'').trim().toLowerCase().replace(/\s+/g,' ');
   const mergeProductos = () => {
     const saved = load('productos', null);
-    if (!saved || saved.length === 0) return INITIAL_PRODUCTOS;
-    const savedIds = new Set(saved.map(p=>p.id));
-    const savedNombres = new Set(saved.map(p=>normNombre(p.nombre)));
-    // No agregar si ya existe por ID ni por nombre (evita duplicados al actualizar)
-    const nuevos = INITIAL_PRODUCTOS.filter(p=>
+    if (!saved || saved.length === 0) return INITIAL_PRODUCTOS.filter(Boolean);
+    const cleanSaved = saved.filter(p=>p && p.id);
+    const savedIds = new Set(cleanSaved.map(p=>p.id));
+    const savedNombres = new Set(cleanSaved.map(p=>normNombre(p.nombre)));
+    const nuevos = INITIAL_PRODUCTOS.filter(Boolean).filter(p=>
       !savedIds.has(p.id) && !savedNombres.has(normNombre(p.nombre))
     );
-    return nuevos.length > 0 ? [...saved, ...nuevos] : saved;
+    return nuevos.length > 0 ? [...cleanSaved, ...nuevos] : cleanSaved;
   };
   const initialState = {
     productos: mergeProductos(),
