@@ -469,10 +469,32 @@ const dbLoad = async (k) => {
     });
   }catch(e){console.warn('dbLoad exception',k,e);return null;}
 };
+// Columnas válidas por tabla (evita 400 por columnas desconocidas en PostgREST)
+const VALID_COLS = {
+  productos: ['id','codigo','nombre','descripcion','categoria','unidad','precio','costo','stock','stockMin','proveedor','activo'],
+  cotizaciones: ['id','numero','fecha','validez','estado','cliente','items','notas','iva','total','ivaAmt','baseAmt'],
+  clientes: ['id','nombre','empresa','nit','email','telefono','direccion','tipo','notas'],
+  transacciones: ['id','fecha','tipo','categoria','descripcion','monto','referencia'],
+  ordenes: ['id','tipo','fecha','estado','clienteNombre','clienteNit','numeroFactura','cotizacionRef','proveedorId','proveedorNombre','iva','items','total','ivaAmt','baseAmt','notas'],
+  proveedores: ['id','nombre','nit','contacto','telefono','email','direccion','notas'],
+  asientos: ['id','fecha','descripcion','modulo','referencia','partidas'],
+  recetas: ['id','nombre','descripcion','productoFinalId','materiales'],
+  ordenes_produccion: ['id','fecha','recetaId','recetaNombre','productoFinalId','cantidad','costoTotal','costoUnitario','notas','materiales'],
+  presupuestos: ['id','periodo','categoria','descripcion','tipo','monto'],
+  proyectos: ['id','nombre','descripcion','cliente','fechaInicio','fechaFin','presupuesto','estado','tareas','cotizacionIds'],
+  pagos_clientes: ['id','fecha','ordenId','monto','metodo','referencia','notas'],
+  pagos_proveedores: ['id','fecha','proveedorId','monto','metodo','referencia','notas'],
+  config_empresa: ['id','nombre','nit','direccion','telefono','email','web','moneda','regimen'],
+  unidades: ['id','nombre','abreviatura','tipo'],
+};
 const dbUpsert = async (k,record) => {
   const table=DB_TABLES[k]; if(!table)return;
   try{
-    const row={...record};
+    let row={...record};
+    // Filtrar solo columnas válidas para esta tabla
+    const valid = VALID_COLS[table];
+    if(valid) row = Object.fromEntries(Object.entries(row).filter(([key])=>valid.includes(key)));
+    // Serializar campos JSONB
     JSONB_FIELDS.forEach(f=>{if(row[f]!==undefined&&typeof row[f]!=='string')row[f]=JSON.stringify(row[f]);});
     const {error}=await sb.from(table).upsert(row,{onConflict:'id'});
     if(error)console.warn('dbUpsert',k,error);
