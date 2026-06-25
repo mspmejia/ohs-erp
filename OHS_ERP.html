@@ -388,10 +388,14 @@ const _sbHdrs = () => ({'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE
 const _sbFetch = async (method, table, body, params) => {
   let url = SUPABASE_URL+'/rest/v1/'+table;
   if(params){ const p=new URLSearchParams(); Object.entries(params).forEach(([k,v])=>p.append(k,v)); url+='?'+p; }
-  const opts = {method, headers:{..._sbHdrs(), Prefer: method==='POST'?'resolution=merge-duplicates':''}};
+  const opts = {method, headers:{..._sbHdrs(), Prefer: method==='POST'?'resolution=merge-duplicates,return=minimal':''}};
   if(body) opts.body = JSON.stringify(body);
   const r = await fetch(url, opts);
-  if(!r.ok){ const e=await r.text(); throw new Error(e); }
+  if(!r.ok){ 
+    const e=await r.text(); 
+    console.warn('Supabase',method,table,'error:',r.status,e.substring(0,200));
+    return null; // Non-fatal: return null instead of throwing
+  }
   return r.status===204 ? null : (method==='DELETE'?null:r.json());
 };
 const _sbChannels = {};
@@ -4522,17 +4526,16 @@ const App = () => {
         if(dbProductos.length === 0){
           // Supabase vacío: sembrar con los del HTML
           dbPayload.productos = INITIAL_PRODUCTOS;
-          // Sembrar productos solo una vez, en batch con delay
-          setTimeout(()=>{
-            const batch = INITIAL_PRODUCTOS;
-            const uploadBatch = async () => {
-              for(let i=0; i<batch.length; i+=10){
-                await Promise.all(batch.slice(i,i+10).map(p=>dbUpsert('productos',p)));
-                await new Promise(r=>setTimeout(r,200));
-              }
-            };
-            uploadBatch().catch(e=>console.warn('Seed productos error:',e));
-          }, 1000);
+          // Sembrar productos en Supabase (batch de 20, con delay entre batches)
+          setTimeout(async ()=>{
+            const batch = INITIAL_PRODUCTOS.filter(Boolean);
+            for(let i=0;i<batch.length;i+=20){
+              try{
+                await sb.from('productos').upsert(batch.slice(i,i+20),{onConflict:'id'});
+              }catch(e){ console.warn('Seed batch error:',e); }
+              await new Promise(r=>setTimeout(r,300));
+            }
+          }, 2000);
         } else {
           // Agregar solo IDs nuevos que no estén en Supabase
           const dbIds = new Set(dbProductos.map(p=>p.id));
