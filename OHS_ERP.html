@@ -901,9 +901,28 @@ const QuotePrint = ({q, onClose}) => {
 
   const handlePDF = () => {
     const w = window.open('', '_blank', 'width=900,height=700');
-    if(!w){ alert('Permite ventanas emergentes para generar el PDF.'); return; }
+    if(!w){ alert('Permite ventanas emergentes para generar PDF.'); return; }
     w.document.write(buildQuoteHTML(q));
     w.document.close();
+    // Trigger print after content loads (browser will show Save as PDF option)
+    w.addEventListener('load', ()=>{ w.focus(); w.print(); });
+    setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 800);
+  };
+  const handleDownloadPDF = () => {
+    // Create a blob URL with the HTML and trigger download as PDF via print
+    const html = buildQuoteHTML(q);
+    const blob = new Blob([html], {type:'text/html'});
+    const url  = URL.createObjectURL(blob);
+    const w = window.open(url, '_blank', 'width=900,height=700');
+    if(!w){ alert('Permite ventanas emergentes para exportar PDF.'); URL.revokeObjectURL(url); return; }
+    w.onload = () => {
+      // Set document title to cotizacion number so PDF saves with that name
+      w.document.title = 'OHS-' + q.numero;
+      w.focus();
+      w.print();
+      setTimeout(()=>URL.revokeObjectURL(url), 5000);
+    };
+    setTimeout(()=>{ try{ w.document.title='OHS-'+q.numero; w.focus(); w.print(); }catch(e){} URL.revokeObjectURL(url); }, 1000);
   };
 
   return (
@@ -911,9 +930,14 @@ const QuotePrint = ({q, onClose}) => {
       footer={
         <div style={{display:'flex',gap:8,width:'100%'}}>
           <button className="btn btn-secondary" onClick={onClose}>Cerrar</button>
-          <button className="btn btn-primary" onClick={handlePDF} style={{marginLeft:'auto'}}>
-            <Icon name="print"/>Exportar PDF / Imprimir
-          </button>
+          <div style={{display:'flex',gap:8,marginLeft:'auto'}}>
+            <button className="btn btn-outline" onClick={handlePDF}>
+              <Icon name="print"/>Imprimir
+            </button>
+            <button className="btn btn-primary" onClick={handleDownloadPDF} style={{background:'#E53E3E'}}>
+              <Icon name="download"/>Exportar PDF ({q.numero})
+            </button>
+          </div>
         </div>
       }>
       {/* Vista previa dentro del modal */}
@@ -1061,7 +1085,15 @@ const Cotizaciones = ({state,dispatch}) => {
                   <td><span className={`status-badge status-${c.estado}`}>{c.estado}</span></td>
                   <td>
                     <div style={{display:'flex',gap:4}}>
-                      <button className="btn btn-sm btn-secondary" onClick={()=>setViewing(c)} title="Ver PDF"><Icon name="eye" size={12}/></button>
+                      <button className="btn btn-sm btn-secondary" onClick={()=>setViewing(c)} title="Ver cotización"><Icon name="eye" size={12}/></button>
+                      <button className="btn btn-sm" style={{background:'#E53E3E',color:'#fff',padding:'3px 7px',borderRadius:5,border:'none',cursor:'pointer'}} title={"PDF: "+c.numero} onClick={()=>{
+                        const w=window.open('','_blank','width=900,height=700');
+                        if(!w){alert('Permite ventanas emergentes');return;}
+                        w.document.write(buildQuoteHTML(c));
+                        w.document.close();
+                        w.onload=()=>{w.document.title='OHS-'+c.numero;w.focus();w.print();};
+                        setTimeout(()=>{try{w.document.title='OHS-'+c.numero;w.focus();w.print();}catch(e){}},800);
+                      }}><Icon name="download" size={12}/></button>
                       {canEdit&&<button className="btn btn-sm btn-outline" onClick={()=>{setEditing(c);setShowForm(true);}} title="Editar"><Icon name="edit" size={12}/></button>}
                       {canEdit&&<button className="btn btn-sm" style={{background:'#008000',color:'#fff',padding:'3px 7px',borderRadius:5,border:'none',cursor:'pointer',fontSize:11,fontWeight:600}} onClick={()=>convertirAVenta(c)} title="Convertir a Factura de Venta">💰 Venta</button>}
                       {canEdit&&<button className="btn btn-sm btn-danger" onClick={()=>setConfirmDel(c.id)} title="Eliminar"><Icon name="trash" size={12}/></button>}
