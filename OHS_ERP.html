@@ -4553,23 +4553,7 @@ const App = () => {
         'asientos','recetas','ordenes_produccion','presupuestos','proyectos',
         'pagosClientes','pagosProveedores'];
 
-      // ── PASO 1: Mostrar localStorage inmediatamente ──────────────
-      const localPayload={};
-      COLL.forEach(k=>{
-        const v=load(k,null);
-        if(v&&v.length>0) localPayload[k]=v.filter(Boolean);
-      });
-      const localProds=load('productos',null);
-      localPayload.productos = localProds&&localProds.length>0
-        ? localProds.filter(Boolean)
-        : INITIAL_PRODUCTOS.filter(Boolean);
-      const localCfg=load('config_empresa',null);
-      if(localCfg) localPayload.config_empresa=localCfg;
-      if(Object.keys(localPayload).length>0)
-        dispatch({type:'IMPORT_DATA',payload:localPayload});
-      setDbReady(true);
-
-      // ── PASO 2: Cargar Supabase y hacer merge inteligente ────────
+      // ── Cargar Supabase primero. Si falla → localStorage ─────────
       try{
         const dbResults = await Promise.all(COLL.map(k=>dbLoad(k)));
         const dbCfg = await dbLoad('config_empresa');
@@ -4625,17 +4609,33 @@ const App = () => {
 
         if(dbCfg) merged.config_empresa=dbCfg;
 
-        // Actualizar estado y localStorage con datos merged
+        // Actualizar estado con datos de Supabase
         dispatch({type:'IMPORT_DATA',payload:merged});
-        // Guardar merged en localStorage como caché
+        // Guardar en localStorage como caché offline
         Object.keys(merged).forEach(k=>{
           if(Array.isArray(merged[k])) save(k,merged[k]);
           else if(k==='config_empresa') save(k,merged[k]);
         });
         setDbError(false);
+        setDbReady(true);
       }catch(e){
-        console.warn('Supabase sync failed, running offline:',e);
+        console.warn('Supabase failed, loading from localStorage:',e);
         setDbError(true);
+        // Fallback: cargar desde localStorage
+        const localPayload={};
+        COLL.forEach(k=>{
+          const v=load(k,null);
+          if(v&&v.length>0) localPayload[k]=v.filter(Boolean);
+        });
+        const localProds=load('productos',null);
+        localPayload.productos = localProds&&localProds.length>0
+          ? localProds.filter(Boolean)
+          : INITIAL_PRODUCTOS.filter(Boolean);
+        const localCfg=load('config_empresa',null);
+        if(localCfg) localPayload.config_empresa=localCfg;
+        if(Object.keys(localPayload).length>0)
+          dispatch({type:'IMPORT_DATA',payload:localPayload});
+        setDbReady(true);
       }
     };
     fetchAll();
