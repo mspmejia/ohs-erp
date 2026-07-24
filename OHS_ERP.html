@@ -311,7 +311,10 @@ const INITIAL_PRODUCTOS = [
   {id:'i105',codigo:'INS-105',nombre:'Sutura Nylon 5-0',descripcion:'Sutura monofilamento de nylon calibre 5-0. Uso quirúrgico/sutura fina.',categoria:'Insumos Médicos',unidad:'unidad',precio:0.0,costo:0.0,stock:0,stockMin:2,proveedor:'Proveedor Médico',activo:true}
 ];
 
-const CATEGORIAS = ['Cursos','Botiquines','Equipo Médico','Medicamentos','Insumos Botiquín','Materia Prima','Empaque'];
+const CATEGORIAS_DEFAULT = ['Cursos','Botiquines','Equipo Médico','Medicamentos','Insumos Botiquín','Insumos Médicos','Materia Prima','Empaque','Extintores','Rótulos y Señalización'];
+const loadCategorias = () => { try{ const c=JSON.parse(localStorage.getItem('ohs_categorias')||'null'); return c&&c.length?c:CATEGORIAS_DEFAULT; }catch{return CATEGORIAS_DEFAULT;} };
+const saveCategorias = (cats) => { localStorage.setItem('ohs_categorias', JSON.stringify(cats)); };
+const CATEGORIAS = loadCategorias();
 
 const TIPOS_PRODUCTO = [
   {value:'venta',     label:'Venta directa',        color:'#d1fae5',text:'#059669'},
@@ -785,7 +788,7 @@ const QuoteForm = ({productos,cotizacion,onSave,onClose}) => {
             <div className="search-bar" style={{flex:1,minWidth:120}}><Icon name="search"/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Buscar..."/></div>
             <select className="form-control" style={{flex:1,minWidth:120}} value={catFilter} onChange={e=>setCatFilter(e.target.value)}>
               <option value="">Todas</option>
-              {CATEGORIAS.map(c=><option key={c}>{c}</option>)}
+              {loadCategorias().map(c=><option key={c}>{c}</option>)}
             </select>
           </div>
           <div style={{maxHeight:420,overflowY:'auto',border:'1px solid var(--border)',borderRadius:7}}>
@@ -1184,7 +1187,7 @@ const ProductForm = ({prod, productos, onSave, onClose}) => {
         <div className="form-group">
           <label className="form-label">Categoría <span style={{color:'var(--orange)'}}>*</span></label>
           <select className="form-control" value={p.categoria} onChange={e=>handleCategoriaChange(e.target.value)}>
-            {CATEGORIAS.map(c=><option key={c}>{c}</option>)}
+            {loadCategorias().map(c=><option key={c}>{c}</option>)}
           </select>
         </div>
         <div className="form-group">
@@ -1329,7 +1332,7 @@ const Inventario = ({state,dispatch}) => {
           <div className="search-bar"><Icon name="search"/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Buscar producto..."/></div>
           <select className="form-control" style={{width:165}} value={catF} onChange={e=>setCatF(e.target.value)}>
             <option value="">Todas las categorías</option>
-            {CATEGORIAS.map(c=><option key={c}>{c}</option>)}
+            {loadCategorias().map(c=><option key={c}>{c}</option>)}
           </select>
           <select className="form-control" style={{width:175}} value={tipoF} onChange={e=>setTipoF(e.target.value)}>
             <option value="">Todos los tipos</option>
@@ -4235,6 +4238,9 @@ const Proyectos = ({state, dispatch}) => {
 const AdminConfig = ({state, dispatch}) => {
   const [tab, setTab] = useState('usuarios');
   const {user: currentUser} = React.useContext(AuthContext);
+  const [cats, setCatsState] = useState(()=>loadCategorias());
+  const [newCat, setNewCat] = useState('');
+  const saveCats = (updated) => { setCatsState(updated); saveCategorias(updated); };
 
   // ── Usuarios ──
   const [usuariosDB, setUsuariosDB] = useState(()=>JSON.parse(localStorage.getItem('ohs_usuarios_extra')||'[]'));
@@ -4330,7 +4336,7 @@ const AdminConfig = ({state, dispatch}) => {
   return (
     <div>
       <div style={{display:'flex',gap:2,borderBottom:'2px solid #e8e8e8',marginBottom:20,flexWrap:'wrap'}}>
-        {[{id:'usuarios',l:'👥 Usuarios'},{id:'unidades',l:'📐 Unidades de Medida'},{id:'empresa',l:'🏢 Datos de Empresa'},{id:'backup',l:'💾 Backup y Datos'}].map(t=>(
+        {[{id:'usuarios',l:'👥 Usuarios'},{id:'unidades',l:'📐 Unidades de Medida'},{id:'categorias',l:'🏷️ Categorías'},{id:'empresa',l:'🏢 Datos de Empresa'},{id:'backup',l:'💾 Backup y Datos'}].map(t=>(
           <button key={t.id} style={tabStyle(t.id)} onClick={()=>setTab(t.id)}>{t.l}</button>
         ))}
       </div>
@@ -4447,6 +4453,46 @@ const AdminConfig = ({state, dispatch}) => {
       )}
 
       {/* ── DATOS DE EMPRESA ── */}
+      {tab==='categorias'&&(
+        <div>
+          <h4 style={{marginBottom:12,fontSize:14,fontWeight:600,color:'#333'}}>Categorías de Productos</h4>
+          <p style={{fontSize:12,color:'#666',marginBottom:16}}>Administrá las categorías disponibles al crear o editar productos.</p>
+          <div style={{display:'flex',gap:8,marginBottom:16}}>
+            <input
+              className="form-control" style={{maxWidth:280}}
+              placeholder="Nueva categoría..."
+              value={newCat}
+              onChange={e=>setNewCat(e.target.value)}
+              onKeyDown={e=>{if(e.key==='Enter'&&newCat.trim()){const t=newCat.trim();if(!cats.includes(t)){saveCats([...cats,t]);}setNewCat('');}}}
+            />
+            <button className="btn btn-primary" onClick={()=>{const t=newCat.trim();if(t&&!cats.includes(t)){saveCats([...cats,t]);setNewCat('');}}}>
+              <Icon name="plus"/>Agregar
+            </button>
+          </div>
+          <table className="data-table" style={{fontSize:13}}>
+            <thead><tr><th style={{width:40}}>#</th><th>Categoría</th><th style={{width:120}}>Tipo</th><th style={{width:80}}>Acción</th></tr></thead>
+            <tbody>
+              {cats.map((cat,i)=>(
+                <tr key={i}>
+                  <td style={{color:'#999'}}>{i+1}</td>
+                  <td style={{fontWeight:500}}>{cat}</td>
+                  <td><span style={{fontSize:11,padding:'2px 8px',borderRadius:10,background:CATEGORIAS_DEFAULT.includes(cat)?'#e8f5e9':'#e3f2fd',color:CATEGORIAS_DEFAULT.includes(cat)?'#2e7d32':'#1565c0'}}>{CATEGORIAS_DEFAULT.includes(cat)?'Predeterminada':'Personalizada'}</span></td>
+                  <td>
+                    {!CATEGORIAS_DEFAULT.includes(cat)
+                      ? <button style={{background:'#fee2e2',color:'#dc2626',border:'none',padding:'3px 10px',borderRadius:4,cursor:'pointer',fontSize:12}}
+                          onClick={()=>{if(window.confirm(`¿Eliminar categoría "${cat}"?`))saveCats(cats.filter((_,j)=>j!==i));}}>
+                          Eliminar
+                        </button>
+                      : <span style={{fontSize:11,color:'#bbb'}}>—</span>
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p style={{fontSize:11,color:'#aaa',marginTop:10}}>Las categorías predeterminadas no se pueden eliminar.</p>
+        </div>
+      )}
       {tab==='empresa'&&(
         <div className="card" style={{padding:24,maxWidth:700}}>
           <h3 style={{fontSize:14,marginBottom:20,color:'#1a1a2e',fontFamily:'Montserrat,sans-serif'}}>🏢 Configuración de la Empresa</h3>
